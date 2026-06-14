@@ -167,34 +167,6 @@
     } catch(e) { mode = 'drift'; }
   }
 
-  var videoRequested = false;
-  function shouldLoadHeroVideo(){
-    var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    if (conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || ''))) return false;
-    return true;
-  }
-  function requestHeroVideo(){
-    if (videoRequested || !shouldLoadHeroVideo()) return;
-    var src = video.getAttribute('data-src');
-    if (!src) return;
-    videoRequested = true;
-    video.src = src;
-    video.load();
-    var playP = video.play();
-    if (playP && playP.catch) playP.catch(function(){});
-  }
-  function scheduleHeroVideo(){
-    var run = function(){
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(requestHeroVideo, { timeout: 2500 });
-      } else {
-        setTimeout(requestHeroVideo, 900);
-      }
-    };
-    if (document.readyState === 'complete') run();
-    else window.addEventListener('load', run, { once: true });
-  }
-
   if (!reducedMotion) {
     refreshCanvasColors();
     sizeCanvas();
@@ -202,12 +174,13 @@
     video.addEventListener('loadeddata', tryEnableVideo);
     video.addEventListener('error', function(){ mode = 'drift'; });
     if (video.readyState >= 2) tryEnableVideo();
-    scheduleHeroVideo();
+    var playP = video.play();
+    if (playP && playP.catch) playP.catch(function(){});
     /* pause the video when the hero leaves the viewport */
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function(entries){
         entries.forEach(function(en){
-          if (mode !== 'video' || !videoRequested) return;
+          if (mode !== 'video') return;
           if (en.isIntersecting) { var p = video.play(); if (p && p.catch) p.catch(function(){}); }
           else video.pause();
         });

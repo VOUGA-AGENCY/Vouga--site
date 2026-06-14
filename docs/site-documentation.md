@@ -85,8 +85,8 @@ Visual assets:
 
 Motion and effects:
 - The hero uses a hidden video and canvas sampling to create a dotted halftone field.
-- The hero video is lazy-loaded from `data-src` after page load/idle instead of being requested directly by the HTML.
-- The video is not loaded when `prefers-reduced-motion` is active or when the browser reports data-saver/2G conditions.
+- The hero video is requested immediately with `src`, `autoplay` and `preload="auto"` so the halftone canvas has video frames available from the first viewport.
+- The video/canvas effect is still disabled when `prefers-reduced-motion` is active.
 - If video sampling fails, the hero falls back to drifting dots.
 - The why section uses canvas-drawn guide lines around the Vouga mark.
 - Content reveals on scroll through IntersectionObserver.
@@ -196,7 +196,7 @@ Recommended next production files:
 ## Known Gaps
 
 To improve before final production launch:
-- Encode smaller production video variants; current MP4 is lazy-loaded but still large once requested.
+- Encode smaller production video variants; current MP4 is loaded immediately for stronger first-viewport visual impact.
 - Add a WebM version and fallback source list when a media pipeline such as `ffmpeg` is available.
 - Replace `mailto:` contact form with a reliable submission endpoint.
 - Review privacy/legal pages with legal counsel before final launch.
@@ -223,11 +223,9 @@ To improve before final production launch:
 
 ### 2026-06-14 - Hero video performance
 
-- Changed the hero video from eager HTML loading to lazy JavaScript loading.
-- Replaced `preload="auto"` and direct `src` with `preload="none"` and `data-src`.
-- Removed the hidden video `poster` attribute to avoid an unnecessary media-related request; `assets/img/poster.jpg` remains the social preview image.
-- Deferred the MP4 request until after page load/idle so the initial page can render using the lighter drifting-dots fallback.
-- Added save-data and 2G connection checks so the video is skipped on constrained connections.
+- Restored eager hero video loading after visual testing showed the lazy strategy could make the hero feel delayed or partially cut.
+- The video now uses direct `src`, `autoplay`, `preload="auto"` and `poster` again.
+- Kept the drifting-dots fallback for cases where playback or frame sampling fails.
 - Increased the video sampling cell size from 10px to 12px to reduce per-frame canvas work.
 - Documented that codec-level compression and a WebM variant remain a future media-pipeline task.
 
@@ -259,3 +257,4 @@ To improve before final production launch:
 - Reduced explanatory text so the value is carried by the interface and the output, not by copy.
 - Added dedicated demo CSS and JS for glass cards, source convergence, central packet motion and progressive output actions.
 - Corrected the navigation wordmark so "Agency", "Vouga" and the logo mark transition color together.
+- Adjusted the services-list demo action so the standard service arrow remains centered in the right action column, with the Demo button aligned underneath it.
