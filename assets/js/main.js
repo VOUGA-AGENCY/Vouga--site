@@ -123,8 +123,8 @@
       for (var i = 0; i < cols; i++) {
         var p = (j * cols + i) * 4;
         var lum = (0.2126 * data[p] + 0.7152 * data[p + 1] + 0.0722 * data[p + 2]) / 255;
-        /* light theme: ink dots where the video is dark; dark theme: pale dots where it is bright */
-        var intensity = dark ? lum : 1 - lum;
+        /* bright source areas produce dots; this inverts the former light-theme mapping */
+        var intensity = lum;
         if (intensity <= THRESH) continue;
         var a = (intensity - THRESH) / (1 - THRESH);
         var r = cw * 0.42 * (0.35 + 0.65 * a);

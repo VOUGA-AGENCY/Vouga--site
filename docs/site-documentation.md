@@ -87,6 +87,7 @@ Motion and effects:
 - The hero uses a hidden video and canvas sampling to create a dotted halftone field.
 - The hero video is requested immediately with `src`, `autoplay` and `preload="auto"` so the halftone canvas has video frames available from the first viewport.
 - The video/canvas effect is still disabled when `prefers-reduced-motion` is active.
+- In light mode, the hero halftone maps bright video areas to visible dots so the bridge/trees relationship reads inverted from the previous version. Dark mode keeps the same visual logic.
 - If video sampling fails, the hero falls back to drifting dots.
 - The why section uses canvas-drawn guide lines around the Vouga mark.
 - Content reveals on scroll through IntersectionObserver.
@@ -258,3 +259,4 @@ To improve before final production launch:
 - Added dedicated demo CSS and JS for glass cards, source convergence, central packet motion and progressive output actions.
 - Corrected the navigation wordmark so "Agency", "Vouga" and the logo mark transition color together.
 - Adjusted the services-list demo action so the standard service arrow remains centered in the right action column, with the Demo button aligned underneath it.
+- Inverted the light-mode hero halftone mapping so bright source areas create the visible dots; dark-mode behavior remains unchanged.
