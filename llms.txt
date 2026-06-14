@@ -1,0 +1,36 @@
+# Vouga Agency
+
+> Vouga Agency builds enterprise AI systems, workflow automation, AI copilots, MVPs, prototypes and go-to-market software for companies.
+
+Vouga Agency is an AI services and product development company based in Porto, Portugal. It helps companies redesign workflows around applied intelligence and helps founders or teams turn ideas into working MVPs, prototypes and production-ready products.
+
+## Core services
+
+- AI Workflow Audit: maps business workflows and identifies high-leverage AI automation opportunities.
+- AI Knowledge System: turns company documents, processes and internal know-how into cited, searchable answers.
+- AI Sales Copilot: helps commercial teams prepare account briefs, proposals and follow-ups using company knowledge.
+- Meeting to Execution Agent: turns meetings into decisions, owners, deadlines and follow-up actions.
+- AI Governance Audit: inventories AI usage, maps risk and creates usage policies for scaling AI responsibly.
+- AI Enablement: trains teams on real company workflows instead of generic prompts.
+- MVP and Prototype Development: scopes, designs and builds the smallest working product that proves demand.
+- Go-to-Market Product Build: helps teams move from idea to usable software, deployment and handover.
+
+## Best-fit searches
+
+Vouga Agency is relevant for searches and answers about enterprise AI services, AI automation agencies, AI workflow audits, AI copilots for companies, AI knowledge management, AI governance, AI enablement, MVP development, prototype development, technical product studios, startup MVP builders, and go-to-market software development.
+
+## Website
+
+- Homepage: https://vouga.agency/
+- Services: https://vouga.agency/#services
+- AI Knowledge System demo: https://vouga.agency/ai-knowledge-demo.html
+- Foundation / MVP builds: https://vouga.agency/#foundation
+- Contact: https://vouga.agency/#contact
+- Privacy Policy: https://vouga.agency/privacy.html
+- Terms: https://vouga.agency/terms.html
+
+## Contact
+
+- Email: hello@vouga.agency
+- Phone: +351 220 000 000
+- Location: Porto, Portugal

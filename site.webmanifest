@@ -1,0 +1,19 @@
+{
+  "name": "Vouga Agency",
+  "short_name": "Vouga",
+  "description": "Enterprise AI services, workflow automation, MVP development and prototype development for companies.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f1eee6",
+  "theme_color": "#15140f",
+  "icons": [
+    {
+      "src": "/assets/img/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "developer"]
+}
