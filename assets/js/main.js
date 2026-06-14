@@ -480,6 +480,9 @@
   document.querySelectorAll('[data-svc]').forEach(function(btn){
     btn.addEventListener('click', function(){ openService(parseInt(btn.getAttribute('data-svc'), 10)); });
   });
+  document.querySelectorAll('.svc-demo-flag').forEach(function(link){
+    link.addEventListener('click', function(e){ e.stopPropagation(); });
+  });
   ovBack.addEventListener('click', closeService);
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && !svcOverlay.hidden) closeService();

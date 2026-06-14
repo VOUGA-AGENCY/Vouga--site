@@ -35,11 +35,11 @@ The site is a single-page company website with anchored sections:
 - Why: explains the gap between AI curiosity and operational change.
 - Services: lists the agency's AI operating-system services.
 - Service detail overlay: expands each AI service with problem, deployment model and KPIs.
-- AI Knowledge System demo: a dedicated product-style page where a manager turns a stuck commercial decision into a cited decision packet with owner, risk, reply and tasks. It is accessible directly from the services list through a small floating demo action.
+- AI Knowledge System demo: a dedicated product-style page where a manager turns a stuck commercial decision into a cited decision packet with owner, risk, reply and tasks. It is linked from the hero "See it working" CTA.
 - Method: explains the engagement model: operating sprint, pilot build and operating partner.
 - Proof: presents example outcomes and measurable operational improvements.
-- About: describes the team philosophy and systems-thinking approach.
 - Foundation: introduces Vouga Foundation, the build arm for MVPs, prototypes and product handover.
+- About: describes the team philosophy and systems-thinking approach, positioned below Foundation.
 - Contact: email and lightweight contact form.
 - Privacy Policy: explains enquiry data, purposes, retention, rights and contact details.
 - Terms: basic website terms, confidentiality warning and no automatic engagement language.
@@ -81,6 +81,7 @@ Visual assets:
 - `assets/img/favicon.png`: 512x512 favicon derived from the official logo for browser tabs, bookmarks and Apple touch icons.
 - Navigation wordmark: the inline SVG logo inherits `currentColor`; in light mode the logo and "Agency" text render black.
 - Navigation color behavior: the symbol, "Vouga" and "Agency" all inherit the same `.logo` color and transition together when the theme changes.
+- Primary navigation links: services, foundation and contact.
 - `assets/video/vouga.mp4`: hero video sampled into a halftone canvas effect.
 
 Motion and effects:
@@ -249,14 +250,13 @@ To improve before final production launch:
 
 ### 2026-06-14 - AI Knowledge System demo
 
-- Added a floating demo button directly in the services list for the AI Knowledge System row.
 - Moved the demo out of the service overlay and into `ai-knowledge-demo.html`.
-- Removed the demo button from the service detail overlay; the demo is now linked only from the services list.
+- Removed the demo button from the service detail overlay. The demo is linked from the hero "See it working" CTA and as a small left-aligned flag under the AI Knowledge System service description.
 - Rebuilt the demo into a three-step management workflow: operational chaos, source convergence and a final decision packet.
 - Focused the story on a concrete manager pain: discount approval stuck across email, pricing rules, CRM and old proposals.
 - Added visual before/after metrics, cited evidence, owner/risk/deadline, draft reply and generated tasks.
 - Reduced explanatory text so the value is carried by the interface and the output, not by copy.
 - Added dedicated demo CSS and JS for glass cards, source convergence, central packet motion and progressive output actions.
 - Corrected the navigation wordmark so "Agency", "Vouga" and the logo mark transition color together.
-- Adjusted the services-list demo action so the standard service arrow remains centered in the right action column, with the Demo button aligned underneath it.
 - Inverted the light-mode hero halftone mapping so bright source areas create the visible dots; dark-mode behavior remains unchanged.
+- Simplified the navigation to services, foundation and contact; About remains on the page below Foundation.
