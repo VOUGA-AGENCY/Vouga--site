@@ -93,6 +93,9 @@ Motion and effects:
 - If video sampling fails, the hero falls back to drifting dots.
 - The why section uses canvas-drawn guide lines around the Vouga mark.
 - Content reveals on scroll through IntersectionObserver.
+- On mobile, the `why` section drops the decorative Vouga frame and becomes a clean editorial stack with a small animated accent line.
+- On mobile, `how we enter` becomes a vertical step timeline with a subtle gradient progress line and staggered step reveal.
+- On mobile, `how we think` becomes a numbered editorial manifesto with a compact system mark and staggered copy reveal.
 - Motion respects `prefers-reduced-motion`.
 - Theme preference is stored in `localStorage`.
 - The AI Knowledge System demo uses interaction state and motion to show a before/after management workflow: scattered sources visually converge into a packet, then produce citations, owner, draft reply and generated tasks. It is a front-end simulation only, designed to communicate deployment value without requiring a backend.
@@ -283,3 +286,4 @@ To improve before final production launch:
 - Updated the AI Knowledge System demo to Portuguese by default and made it respect the same persisted PT/EN preference.
 - Fixed the language toggle initialization so it no longer calls the `why` canvas redraw before the canvas elements are ready.
 - Reworked the language control into a minimalist segmented `PT/EN` button with the active language highlighted.
+- Refined the mobile-only design for `how we enter` and `how we think`: added a minimal step timeline, staggered motion, numbered thought blocks and a lighter mobile composition while leaving desktop unchanged.

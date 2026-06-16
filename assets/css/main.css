@@ -520,3 +520,83 @@ html:not([data-theme="dark"]) .icon-sun{display:none}
 @media (max-width:640px) and (prefers-reduced-motion:reduce){
   .why .anchor-line::before{transition:none;transform:scaleX(1)}
 }
+
+/* Method + About on phones: keep the desktop editorial layout intact, but make
+   these two sections feel more intentional and kinetic in a narrow viewport. */
+@media (max-width:640px){
+  #method .sec-head,#about .sec-head{margin-bottom:34px}
+
+  #method .steps{
+    position:relative;display:flex;flex-direction:column;gap:0;
+    border-top:none;padding-left:34px;overflow:hidden;
+  }
+  #method .steps::before{
+    content:'';position:absolute;left:8px;top:4px;bottom:10px;width:1px;
+    background:linear-gradient(to bottom,var(--grad-a),var(--grad-mid),transparent);
+    transform:scaleY(0);transform-origin:top;
+    transition:transform 1s cubic-bezier(.4,0,.2,1) .12s;
+  }
+  #method .steps.in::before{transform:scaleY(1)}
+  #method .step{
+    position:relative;border-bottom:none;padding:0 0 34px 0;
+    opacity:0;transform:translateY(18px);
+    transition:opacity .7s ease,transform .7s ease;
+  }
+  #method .step:last-child{padding-bottom:4px}
+  #method .step::before{
+    content:'';position:absolute;left:-31px;top:3px;width:15px;height:15px;
+    border:1px solid var(--text-faint);border-radius:999px;background:var(--bg);
+    box-shadow:0 0 0 6px var(--bg);
+    transition:border-color .45s ease,background-color .45s ease;
+  }
+  #method .steps.in .step{opacity:1;transform:none}
+  #method .steps.in .step:nth-child(2){transition-delay:.14s}
+  #method .steps.in .step:nth-child(3){transition-delay:.28s}
+  #method .steps.in .step::before{border-color:var(--accent)}
+  #method .step .label{margin-bottom:10px;color:var(--accent)}
+  #method .step h3{font-size:clamp(27px,8vw,36px);line-height:1.02;margin-bottom:12px}
+  #method .step p{max-width:none;font-size:15px;line-height:1.65;padding-bottom:0}
+
+  #about .about-grid{position:relative;display:block}
+  #about .content{max-width:none}
+  #about .content .body-text{
+    position:relative;margin-top:0;padding:18px 0 20px 42px;
+    border-top:1px solid var(--divider);font-size:15px;line-height:1.7;
+    opacity:0;transform:translateY(16px);
+    transition:opacity .7s ease,transform .7s ease;
+  }
+  #about .content .body-text::before{
+    position:absolute;left:0;top:21px;
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--text-faint);
+  }
+  #about .content .body-text:nth-of-type(1)::before{content:'01'}
+  #about .content .body-text:nth-of-type(2)::before{content:'02'}
+  #about .content.in .body-text{opacity:1;transform:none}
+  #about .content.in .body-text:nth-of-type(2){transition-delay:.14s}
+  #about .principle{
+    position:relative;margin-top:8px;border-left:none;padding:28px 0 0;
+    font-size:clamp(24px,7vw,32px);line-height:1.22;
+    opacity:0;transform:translateY(16px);
+    transition:opacity .75s ease,transform .75s ease;
+  }
+  #about .principle::before{
+    content:'';position:absolute;left:0;top:0;width:58px;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,var(--grad-a),var(--grad-mid),var(--grad-c));
+    transform:scaleX(0);transform-origin:left;
+    transition:transform .85s cubic-bezier(.4,0,.2,1) .18s;
+  }
+  #about .content.in .principle{opacity:1;transform:none;transition-delay:.26s}
+  #about .content.in .principle::before{transform:scaleX(1)}
+  #about .about-art{
+    max-width:170px;margin:34px 0 0 auto;opacity:.72;
+    transform:translateY(18px) scale(.96);
+    transition:opacity .8s ease,transform .8s ease;
+  }
+  #about .about-art.in{opacity:.72;transform:none}
+}
+@media (max-width:640px) and (prefers-reduced-motion:reduce){
+  #method .steps::before,#about .principle::before{transition:none;transform:scaleX(1) scaleY(1)}
+  #method .step,#about .content .body-text,#about .principle,#about .about-art{
+    opacity:1;transform:none;transition:none;
+  }
+}
