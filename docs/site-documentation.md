@@ -60,11 +60,11 @@ Principles:
 - Business-first copy.
 
 Colors:
-- Light background: `#edeae2`
-- Light surface: `#e7e2d8`
+- Light background: `#ded2bd`
+- Light surface: `#d4c6ae`
 - Primary text: `#1a1813`
-- Dim text: `#615e54`
-- Divider: `#dcd7ca`
+- Dim text: `#5f5749`
+- Divider: `#c8bba4`
 - Accent amber: `#c97800`
 - Dark background: `#15140f`
 - Dark surface: `#1d1b16`
@@ -138,6 +138,7 @@ Responsibilities:
 - `assets/video/`: video assets.
 - `docs/`: project documentation and iteration history.
 - `_headers`: production security and cache headers for hosts that support Netlify-style headers.
+- CSS and JS are referenced with a manual `?v=` query version because the site has no build step or hashed filenames.
 
 The site is static and does not currently require a build step, package manager or backend.
 
@@ -208,6 +209,7 @@ The site can be deployed as a static site to:
 
 Recommended next production files:
 - Real contact form endpoint.
+- If a build pipeline is added later, replace manual query versions with hashed filenames and restore long immutable caching for CSS/JS.
 
 ## Known Gaps
 
@@ -219,6 +221,7 @@ To improve before final production launch:
 - Replace `mailto:` contact form with a reliable submission endpoint.
 - Review privacy/legal pages with legal counsel before final launch.
 - Confirm production host applies `_headers` or port them to host-specific configuration.
+- Avoid `immutable` caching on un-hashed CSS/JS filenames; otherwise deployed HTML can load stale styles/scripts while local looks correct.
 - Add analytics only if privacy-conscious and legally documented.
 - Validate final domain and social preview image after deployment.
 
@@ -260,7 +263,7 @@ To improve before final production launch:
 
 ### 2026-06-14 - Light theme and legal page branding
 
-- Adjusted the light theme to a more muted dirty white: `#edeae2`, with surface `#e7e2d8`.
+- Adjusted the light theme to a warmer, slightly darker beige: `#ded2bd`, with surface `#d4c6ae`.
 - Changed the navigation "Agency" wordmark color to inherit the current theme text color instead of staying white.
 - Replaced the PNG logo in `privacy.html` and `terms.html` with the inline currentColor SVG mark, matching the main page light-mode branding.
 
@@ -287,3 +290,5 @@ To improve before final production launch:
 - Fixed the language toggle initialization so it no longer calls the `why` canvas redraw before the canvas elements are ready.
 - Reworked the language control into a minimalist segmented `PT/EN` button with the active language highlighted.
 - Refined the mobile-only design for `how we enter` and `how we think`: added a minimal step timeline, staggered motion, numbered thought blocks and a lighter mobile composition while leaving desktop unchanged.
+- Fixed deploy cache risk by versioning CSS/JS asset URLs with `?v=20260616-3` and changing `_headers` so CSS/JS use `max-age=0, must-revalidate` instead of one-year immutable cache.
+- Warmed and darkened the light theme from dirty white into a beige palette, including matching surface, divider and dim-text tokens.

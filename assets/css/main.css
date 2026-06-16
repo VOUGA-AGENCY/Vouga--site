@@ -1,7 +1,7 @@
 /* ============ tokens ============ */
 :root{
-  --bg:#edeae2; --surface:#e7e2d8; --text:#1a1813; --text-dim:#615e54;
-  --text-faint:#9d998c; --divider:#dcd7ca; --cta-bg:#1a1813; --cta-text:#f1eee6;
+  --bg:#ded2bd; --surface:#d4c6ae; --text:#1a1813; --text-dim:#5f5749;
+  --text-faint:#938673; --divider:#c8bba4; --cta-bg:#1a1813; --cta-text:#f1eee6;
   --accent:#c97800;
   --font-display:'Instrument Serif',Georgia,'Times New Roman',serif;
   --font-mono:ui-monospace,'SF Mono','JetBrains Mono',Menlo,Consolas,monospace;
