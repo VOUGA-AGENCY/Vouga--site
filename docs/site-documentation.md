@@ -1,6 +1,6 @@
 # Vouga Agency Site Documentation
 
-Last updated: 2026-06-14
+Last updated: 2026-06-16
 
 This document is the living reference for the Vouga Agency website. Every meaningful iteration on copy, design, SEO, performance, accessibility, deployment or technical structure should update this file.
 
@@ -31,14 +31,14 @@ Vouga does not sell generic AI tools. Vouga redesigns real company work around i
 
 The site is a single-page company website with anchored sections:
 
-- Hero: "AI, built around the business" introduces applied AI as business infrastructure.
+- Hero: "IA, construída à volta do negócio" introduces applied AI as business infrastructure, with Portuguese as the default language.
 - Why: explains the gap between AI curiosity and operational change.
 - Services: lists the agency's AI operating-system services.
 - Service detail overlay: expands each AI service with problem, deployment model and KPIs.
-- AI Knowledge System demo: a dedicated product-style page where a manager turns a stuck commercial decision into a cited decision packet with owner, risk, reply and tasks. It is linked from the hero "See it working" CTA.
+- AI Knowledge System demo: a dedicated product-style page where a manager turns a stuck commercial decision into a cited decision packet with owner, risk, reply and tasks. It is linked from the hero CTA and follows the same PT/EN language preference.
 - Method: explains the engagement model: operating sprint, pilot build and operating partner.
 - Proof: presents example outcomes and measurable operational improvements.
-- Foundation: introduces Vouga Foundation, the build arm for MVPs, prototypes and product handover.
+- Vouga Foundations: introduces the build arm for MVPs, prototypes and product handover.
 - About: describes the team philosophy and systems-thinking approach, positioned below Foundation.
 - Contact: email and lightweight contact form.
 - Privacy Policy: explains enquiry data, purposes, retention, rights and contact details.
@@ -81,7 +81,8 @@ Visual assets:
 - `assets/img/favicon.png`: 512x512 favicon derived from the official logo for browser tabs, bookmarks and Apple touch icons.
 - Navigation wordmark: the inline SVG logo inherits `currentColor`; in light mode the logo and "Agency" text render black.
 - Navigation color behavior: the symbol, "Vouga" and "Agency" all inherit the same `.logo` color and transition together when the theme changes.
-- Primary navigation links: services, foundation and contact.
+- Primary navigation labels: agency, foundations and contacto by default. They still anchor to `#services`, `#foundation` and `#contact`; the English toggle changes contacto to contact.
+- Language toggle: a compact segmented `PT/EN` control sits next to the theme switcher on the homepage and persists the selected language in `localStorage`; the AI Knowledge demo reads the same preference.
 - `assets/video/vouga.mp4`: hero video sampled into a halftone canvas effect.
 
 Motion and effects:
@@ -123,12 +124,13 @@ sitemap.xml
 ```
 
 Responsibilities:
-- `index.html`: page structure, semantic content, metadata, JSON-LD structured data and external asset references.
-- `ai-knowledge-demo.html`: dedicated AI Knowledge System demo page with product-style motion and glass interface.
+- `index.html`: page structure, Portuguese default semantic content, metadata, JSON-LD structured data and external asset references.
+- `ai-knowledge-demo.html`: dedicated bilingual AI Knowledge System demo page with product-style motion and glass interface.
 - `privacy.html`: privacy policy for enquiry and website data.
 - `terms.html`: basic website terms.
 - `assets/css/main.css`: visual system, responsive layout, themes and motion styling.
-- `assets/js/main.js`: theme switching, scroll progress, reveal animation, canvas effects, service overlay, ASCII footer mark and contact form behavior.
+- `assets/js/main.js`: theme switching, homepage language switching, scroll progress, reveal animation, canvas effects, translated service overlay, ASCII footer mark and contact form behavior.
+- `assets/js/knowledge-demo.js`: language switching and interaction states for the AI Knowledge System demo.
 - `assets/img/`: image assets and social preview assets.
 - `assets/video/`: video assets.
 - `docs/`: project documentation and iteration history.
@@ -139,6 +141,12 @@ The site is static and does not currently require a build step, package manager 
 ## SEO Strategy
 
 Primary SEO intent:
+- serviços de IA para empresas.
+- agência de IA para empresas.
+- automação empresarial com IA.
+- sistemas de conhecimento com IA.
+- desenvolvimento de MVPs.
+- desenvolvimento de protótipos.
 - AI services for companies.
 - Enterprise AI agency.
 - AI workflow automation.
@@ -152,6 +160,8 @@ Primary SEO intent:
 
 Implemented in this iteration:
 - Stronger `<title>` and meta description.
+- Portuguese default metadata, `lang="pt-PT"` and `og:locale="pt_PT"`.
+- Runtime English metadata swap when the visitor selects `EN`.
 - Search-oriented keywords meta tag.
 - Canonical URL: `https://vouga.agency/`.
 - Open Graph tags for LinkedIn, WhatsApp and social previews.
@@ -162,6 +172,7 @@ Implemented in this iteration:
 - `sitemap.xml` with homepage and primary anchored sections.
 - `llms.txt` to summarize the business, services and best-fit searches for LLM-oriented retrieval.
 - JSON-LD structured data using `Organization`, `WebSite`, `ProfessionalService` and `ItemList`.
+- Portuguese default JSON-LD service names and descriptions, while retaining English search terms in keywords for discoverability.
 
 Important assumption:
 The canonical domain is currently assumed to be `https://vouga.agency/`. If the production domain changes, update it in:
@@ -198,6 +209,8 @@ Recommended next production files:
 ## Known Gaps
 
 To improve before final production launch:
+- Consider dedicated `/en/` URLs with `hreflang` if English SEO becomes a primary acquisition channel; the current English version is a client-side toggle on the homepage.
+- Translate or duplicate legal pages for full site-wide bilingual parity if Privacy and Terms need the same EN/PT toggle.
 - Encode smaller production video variants; current MP4 is loaded immediately for stronger first-viewport visual impact.
 - Add a WebM version and fallback source list when a media pipeline such as `ffmpeg` is available.
 - Replace `mailto:` contact form with a reliable submission endpoint.
@@ -259,4 +272,14 @@ To improve before final production launch:
 - Added dedicated demo CSS and JS for glass cards, source convergence, central packet motion and progressive output actions.
 - Corrected the navigation wordmark so "Agency", "Vouga" and the logo mark transition color together.
 - Inverted the light-mode hero halftone mapping so bright source areas create the visible dots; dark-mode behavior remains unchanged.
-- Simplified the navigation to services, foundation and contact; About remains on the page below Foundation.
+- Simplified the navigation to agency, foundations and contact; About remains on the page below Vouga Foundations.
+
+### 2026-06-16
+
+- Split the hero subcopy into two deliberate lines so "We build it into the work that moves the business." always appears below the opening sentence.
+- Changed the homepage default language to Portuguese with `lang="pt-PT"`, Portuguese SEO/social metadata and Portuguese JSON-LD service names.
+- Added a compact `EN/PT` language toggle beside the theme switcher, persisted in `localStorage`.
+- Added frontend translations for the homepage, service list, dynamic service overlay, metadata and generated contact-form mailto body.
+- Updated the AI Knowledge System demo to Portuguese by default and made it respect the same persisted PT/EN preference.
+- Fixed the language toggle initialization so it no longer calls the `why` canvas redraw before the canvas elements are ready.
+- Reworked the language control into a minimalist segmented `PT/EN` button with the active language highlighted.
