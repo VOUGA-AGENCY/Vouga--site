@@ -53,13 +53,21 @@
       themeToggle: 'alternar modo claro e escuro',
       themeLabel: 'Modo claro / escuro',
       talkToUs: 'Contacte-nos',
-      heroTitle: '<span class="grad">IA</span>, desenhada à volta<br><em>do negócio</em>',
-      heroSub: 'Para a maioria das empresas, a IA fica na periferia.<br>Nós levamo-la para o centro do negócio.',
+      heroTitle: '<span class="hero-line"><span class="grad">Inteligência</span>, desenhada</span><br><span class="hero-line">à volta <em>do negócio</em></span>',
+      heroSub: 'Com visão sistémica, melhoramos o que já existe, construímos o que falta e formamos quem mantém tudo em movimento.',
+      heroDiagnose: 'Fazer o diagnóstico <span class="arrow">→</span>',
+      heroPillars: 'Ver os pilares',
+      navMethod: 'método',
+      pillarsKicker: 'os pilares · um sistema',
+      pillarIntelDesc: 'IA integrada no trabalho que já move o negócio.',
+      pillarFoundDesc: 'Da ideia ao sistema validado, construído só depois de perceber o risco.',
+      pillarAcademyDesc: 'Uma ponte de formação e talento para quem vai construir com inteligência.',
+      explore: 'explorar →',
       seeWorking: 'Descubra o seu sistema <span class="arrow">→</span>',
       whatWeBuild: 'O que construímos',
       whyLabel: 'porquê',
-      whyCopy: 'Entre a curiosidade pela IA e a mudança operacional há uma distância. É aí que a maioria das empresas encalha: pilotos que nunca saem do laboratório, ferramentas que ninguém abre, equipas curiosas sem método.',
-      anchorLine: 'Não vendemos ferramentas.<br>Redesenhamos o trabalho em torno da <span class="grad">inteligência</span>.',
+      whyCopy: 'Entre investigação, IA e mudança operacional, muitas empresas perdem momentum. Não por falta de potencial, mas porque o sistema não está preparado para validar, construir e transformar novas capacidades em operação.',
+      anchorLine: 'Validamos, construímos e redesenhamos trabalho em torno da <span class="grad">inteligência</span>.',
       servicesLabel: 'sistemas de operação',
       servicesTitle: 'O que construímos',
       servicesNum: '01 / agency',
@@ -96,6 +104,8 @@
       proofStat2: 'mais rápido da reunião à proposta enviada',
       proofStat3: 'poupadas por pessoa, por semana',
       proofStat4: 'das reuniões acabam com responsáveis e prazos',
+      proofBuildingTitle: 'Primeiros casos em construção.',
+      proofBuildingCopy: 'Estamos a fechar os primeiros projetos com clientes. Quando houver resultados reais e medidos, é aqui que aparecem, com nome e número. Sem dados inventados.',
       case1Sector: 'distribuição industrial · 120 pessoas',
       case1Metric: 'tempo de processamento de encomendas −58%',
       case2Sector: 'software b2b · 45 pessoas',
@@ -143,13 +153,21 @@
       themeToggle: 'toggle light and dark mode',
       themeLabel: 'Light / dark mode',
       talkToUs: 'Contact us',
-      heroTitle: '<span class="grad">AI</span>, built around<br><em>the business</em>',
-      heroSub: 'Most companies are testing AI at the edges.<br>We build it into the work that moves the business.',
+      heroTitle: '<span class="hero-line"><span class="grad">Intelligence</span>, built</span><br><span class="hero-line">around <em>the business</em></span>',
+      heroSub: 'We read your company as a system, then improve what exists, build what is missing, and train the people who keep it moving.',
+      heroDiagnose: 'Take the diagnosis <span class="arrow">→</span>',
+      heroPillars: 'See the pillars',
+      navMethod: 'method',
+      pillarsKicker: 'the pillars · one system',
+      pillarIntelDesc: 'AI built into the work that already moves the business.',
+      pillarFoundDesc: 'From idea to validated system, built only after the risk is understood.',
+      pillarAcademyDesc: 'A learning and talent bridge for the people who will build with intelligence.',
+      explore: 'explore →',
       seeWorking: 'Find your system <span class="arrow">→</span>',
       whatWeBuild: 'What we build',
       whyLabel: 'why',
-      whyCopy: 'Between AI curiosity and operational change, there is a gap. That is where most companies stall: pilots that never leave the lab, tools nobody opens, curious teams without a method.',
-      anchorLine: 'We do not sell tools.<br>We redesign work around <span class="grad">intelligence</span>.',
+      whyCopy: 'Between research, AI and operational change, many companies lose momentum. Not for lack of potential, but because the system is not prepared to validate, build and turn new capabilities into operation.',
+      anchorLine: 'Vouga validates, builds and redesigns work around <span class="grad">intelligence</span>.',
       servicesLabel: 'operating systems',
       servicesTitle: 'What we build',
       servicesNum: '01 / services',
@@ -186,6 +204,8 @@
       proofStat2: 'faster from meeting to proposal sent',
       proofStat3: 'saved per person, per week',
       proofStat4: 'of meetings end with owners and deadlines',
+      proofBuildingTitle: 'First cases in the making.',
+      proofBuildingCopy: 'We are closing our first client projects. Real, measured results will live here, with a name and a number. No invented data.',
       case1Sector: 'industrial distribution · 120 people',
       case1Metric: 'order processing time −58%',
       case2Sector: 'b2b software · 45 people',
@@ -463,10 +483,297 @@
     requestAnimationFrame(frame);
   })();
 
+  /* ===== pillars orbit: play-once scroll choreography (intro -> three -> pillar cards) ===== */
+  (function(){
+    var section = document.getElementById('pillars');
+    if (!section) return;
+    var scroller = section.querySelector('.pillars-scroll');
+    var orbit = document.getElementById('orbit');
+    var svg = document.getElementById('orbitSvg');
+    var path = document.getElementById('orbitPath');
+    var pulls = svg ? [].slice.call(svg.querySelectorAll('.orbit-pull')) : [];
+    var kicker = section.querySelector('.pillars-kicker');
+    var nodes = orbit ? [].slice.call(orbit.querySelectorAll('.orbit-node')) : [];
+    var blobs = orbit ? [].slice.call(orbit.querySelectorAll('.orbit-blob')) : [];
+    if (nodes.length < 3) return;
+
+    var ANG = [180, 60, 300];           /* ellipse angles (deg): intelligence, foundations, academy */
+    var enabled = false, running = false, done = false;
+    var dispP = 0, targetP = 0, W = 0, Hh = 0;
+
+    function size(){ W = orbit.clientWidth; Hh = orbit.clientHeight; if (svg) svg.setAttribute('viewBox', '0 0 ' + W + ' ' + Hh); }
+    function geom(){ return { cx: W * 0.5, cy: Hh * 0.5, rx: W * 0.34, ry: Hh * 0.40 }; }
+    function lerp(a, b, t){ return a + (b - a) * t; }
+    function seg(p, a, b){ return Math.min(Math.max((p - a) / (b - a), 0), 1); }
+    function easeIO(t){ return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+    function smoothstep(t){ return t * t * (3 - 2 * t); }
+    function angleDiff(a, b){ return Math.abs(((a - b + 540) % 360) - 180); }
+    /* continuous rotation: no holds, just a slow heavy glide through the three pillars */
+    function rot(p){
+      if (p < 0.06) return 0;
+      if (p < 0.88) return lerp(0, 240, easeIO(seg(p, 0.06, 0.88)));
+      return 240;
+    }
+    function ellipseD(g, bulge, angs){
+      var N = 64, d = '';
+      for (var i = 0; i <= N; i++){
+        var a = i / N * Math.PI * 2, deg = a * 180 / Math.PI, b = 0;
+        for (var k = 0; k < angs.length; k++){
+          var diff = ((deg - angs[k] + 540) % 360) - 180;
+          b += Math.exp(-(diff * diff) / (2 * 15 * 15)); /* gaussian pull near each title, follows rotation */
+        }
+        var rr = 1 + bulge * b * 0.13;
+        var x = g.cx + g.rx * rr * Math.cos(a);
+        var y = g.cy + g.ry * rr * Math.sin(a);
+        d += (i ? 'L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1);
+      }
+      return d + 'Z';
+    }
+    function ellipseArcD(g, bulge, centerDeg){
+      var span = 34, N = 12, d = '';
+      for (var i = 0; i <= N; i++){
+        var deg = centerDeg - span / 2 + span * (i / N);
+        var a = deg * Math.PI / 180, b = 0;
+        var diff = ((deg - centerDeg + 540) % 360) - 180;
+        b += Math.exp(-(diff * diff) / (2 * 15 * 15));
+        var rr = 1 + bulge * b * 0.13;
+        var x = g.cx + g.rx * rr * Math.cos(a);
+        var y = g.cy + g.ry * rr * Math.sin(a);
+        d += (i ? 'L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1);
+      }
+      return d;
+    }
+    function setNode(i, x, y, scale, opacity, blur){
+      var n = nodes[i];
+      n.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) translate(-50%,-50%) scale(' + scale.toFixed(3) + ')';
+      n.style.opacity = opacity.toFixed(3);
+      n.style.filter = blur > 0.15 ? 'blur(' + blur.toFixed(1) + 'px)' : 'none';
+    }
+
+    function render(p){
+      var g = geom();
+      var appear = easeIO(seg(p, 0.04, 0.20));   /* orbit + extra pillars fade in on first scroll */
+      var R = rot(p);
+
+      if (kicker) kicker.style.opacity = '1';
+
+      var angs = [ANG[0] + R, ANG[1] + R, ANG[2] + R];
+      if (svg){
+        svg.style.opacity = appear.toFixed(3);
+        path.setAttribute('d', ellipseD(g, 1, angs));
+        for (var q = 0; q < pulls.length; q++){
+          pulls[q].setAttribute('d', ellipseArcD(g, 1, angs[q]));
+          pulls[q].style.opacity = (appear * 0.55).toFixed(3);
+        }
+      }
+
+      for (var i = 0; i < 3; i++){
+        var a = angs[i] * Math.PI / 180;
+        var x = g.cx + g.rx * Math.cos(a), y = g.cy + g.ry * Math.sin(a);
+        var focus = smoothstep(Math.max(0, 1 - angleDiff(angs[i], 180) / 105));
+        var activeOrbit = focus > 0.52;
+        var sc = lerp(0.62, 1, focus);
+        var opOrbit = lerp(0.42 * appear, 1, focus);
+        var blur = i === 0 ? 0 : (1 - appear) * 12;
+        setNode(i, x, y, sc, opOrbit, blur);
+        nodes[i].classList.toggle('is-active', activeOrbit);
+        nodes[i].style.setProperty('--desc-open', focus.toFixed(3));
+        var bl = blobs[i];
+        if (bl){
+          bl.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) translate(-50%,-50%)';
+          bl.style.opacity = (appear * lerp(0.035, 0.11, focus)).toFixed(3);
+        }
+      }
+    }
+
+    function rawP(){
+      var total = scroller.offsetHeight - window.innerHeight;
+      if (total <= 0) return 0;
+      return Math.min(Math.max(-scroller.getBoundingClientRect().top / total, 0), 1);
+    }
+    function loop(){
+      if (!enabled){ running = false; return; }
+      targetP = Math.max(targetP, rawP());      /* forward only: never replays on scroll up */
+      dispP += (targetP - dispP) * 0.055;        /* slower, heavier easing */
+      var settled = Math.abs(targetP - dispP) < 0.0006;
+      if (settled) dispP = targetP;
+      render(dispP);
+      if (dispP >= 0.88){ finalizeCards(); return; }
+      if (settled){ running = false; return; }   /* idle until next scroll */
+      requestAnimationFrame(loop);
+    }
+    function kick(){ if (enabled && !running){ running = true; requestAnimationFrame(loop); } }
+    function finalizeCards(){
+      enabled = false; running = false; done = true;
+      dispP = 1; targetP = 1;
+      section.classList.remove('is-orbit');
+      section.classList.add('is-cards', 'is-blur-in');
+      window.removeEventListener('scroll', kick);
+      nodes.forEach(function(n){
+        n.classList.remove('is-active');
+        n.style.removeProperty('--desc-open');
+        n.style.transform = '';
+        n.style.opacity = '';
+        n.style.filter = '';
+      });
+      blobs.forEach(function(b){ b.style.opacity = '0'; });
+      if (svg) svg.style.opacity = '0';
+      pulls.forEach(function(p){ p.style.opacity = '0'; });
+      if (kicker) kicker.style.opacity = '';
+      keepCardsInView();
+      window.setTimeout(function(){ section.classList.remove('is-blur-in'); }, 1400);
+    }
+    function keepCardsInView(){
+      var previousBehavior = document.documentElement.style.scrollBehavior;
+      var targetTop = section.getBoundingClientRect().top + window.scrollY - 82;
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'auto' });
+      requestAnimationFrame(function(){
+        targetTop = section.getBoundingClientRect().top + window.scrollY - 82;
+        window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'auto' });
+        document.documentElement.style.scrollBehavior = previousBehavior;
+      });
+    }
+
+    function enable(){
+      if (enabled || done) return;
+      enabled = true;
+      section.classList.add('is-orbit');
+      size(); render(dispP);
+      window.addEventListener('scroll', kick, { passive: true });
+    }
+    function disable(){
+      if (!enabled) return;
+      enabled = false; running = false;
+      section.classList.remove('is-orbit', 'is-cards', 'is-blur-in');
+      window.removeEventListener('scroll', kick);
+      nodes.forEach(function(n){ n.style.removeProperty('--desc-open'); n.style.transform = ''; n.style.opacity = ''; n.style.filter = ''; });
+      blobs.forEach(function(b){ b.style.opacity = '0'; });
+      if (kicker) kicker.style.opacity = '';
+    }
+    function evaluate(){
+      if (!reducedMotion && window.innerWidth > 820) enable();
+      else disable();
+    }
+    evaluate();
+    window.addEventListener('resize', function(){ if (enabled){ size(); kick(); } evaluate(); });
+  })();
+
+  /* ===== pillar ASCII art: masked source images, gently mutating ===== */
+  (function(){
+    var targets = [].slice.call(document.querySelectorAll('[data-pillar-ascii]'));
+    if (!targets.length) return;
+
+    var charset = ' .,:;irsXA253hMHGS#9B&@';
+    var mutators = '%#$@&+=*';
+    var studies = targets.map(function(target){
+      return {
+        el: target,
+        img: new Image(),
+        src: target.getAttribute('data-src'),
+        mask: target.getAttribute('data-mask') || 'light',
+        cols: parseInt(target.getAttribute('data-cols'), 10) || 42,
+        trimBottom: parseFloat(target.getAttribute('data-trim-bottom')) || 0,
+        cells: [],
+        live: []
+      };
+    });
+
+    function luminance(r,g,b){ return 0.2126*r + 0.7152*g + 0.0722*b; }
+    function isLightBackground(r,g,b, cutoff, satCutoff){
+      var lum = luminance(r,g,b);
+      var max = Math.max(r,g,b), min = Math.min(r,g,b);
+      var sat = max ? (max - min) / max : 0;
+      return lum > cutoff && sat < satCutoff;
+    }
+    function isHandBackground(r,g,b){
+      var lum = luminance(r,g,b);
+      var max = Math.max(r,g,b), min = Math.min(r,g,b);
+      var sat = max ? (max - min) / max : 0;
+      var beigeLean = r >= b && g >= b && Math.abs(r - g) < 46;
+      var paper = lum > 118 && sat < .34 && beigeLean;
+      var palePaper = lum > 170 && sat < .44 && beigeLean;
+      return paper || palePaper;
+    }
+    function isMasked(study, r,g,b,a,x,y,w,h){
+      if (study.mask === 'paper') return isLightBackground(r,g,b, 205, .24);
+      if (study.mask === 'alpha') return a < 24;
+      if (study.mask === 'hand') {
+        var nx = x / w, ny = y / h;
+        if (nx < .25 && ny > .64) return true;
+        return isHandBackground(r,g,b);
+      }
+      return isLightBackground(r,g,b, 225, .18);
+    }
+    function asciiCellAspect(el){
+      var cs = getComputedStyle(el);
+      var fontSize = parseFloat(cs.fontSize) || 4;
+      var lineHeight = parseFloat(cs.lineHeight) || fontSize * 1.1;
+      var letterSpacing = parseFloat(cs.letterSpacing) || 0;
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      ctx.font = cs.font;
+      return (ctx.measureText('M').width + letterSpacing) / lineHeight;
+    }
+    function render(study){
+      study.el.textContent = study.cells.map(function(row){ return row.join(''); }).join('\n');
+    }
+    function build(study){
+      var cols = study.cols;
+      var ratio = study.img.naturalHeight / study.img.naturalWidth;
+      var rows = Math.max(1, Math.round(cols * ratio * asciiCellAspect(study.el)));
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d', { willReadFrequently:true });
+      canvas.width = cols;
+      canvas.height = rows;
+      ctx.drawImage(study.img, 0, 0, cols, rows);
+      var data = ctx.getImageData(0, 0, cols, rows).data;
+      var visibleRows = Math.max(1, Math.round(rows * (1 - study.trimBottom)));
+      study.cells = [];
+      study.live = [];
+      for (var y = 0; y < visibleRows; y++){
+        var row = [];
+        for (var x = 0; x < cols; x++){
+          var i = (y * cols + x) * 4;
+          var r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+          if (isMasked(study, r,g,b,a,x,y,cols,rows)){
+            row.push(' ');
+            continue;
+          }
+          var contrast = study.mask === 'alpha' ? Math.max(a / 255, 1 - luminance(r,g,b) / 255) : Math.max(0, 245 - luminance(r,g,b)) / 245;
+          var shade = Math.max(0, Math.min(charset.length - 1, Math.round(contrast * (charset.length - 1))));
+          row.push(charset[shade]);
+          study.live.push([y,x,shade]);
+        }
+        study.cells.push(row);
+      }
+      render(study);
+    }
+    function tick(study){
+      if (document.hidden || !study.live.length) return;
+      var n = Math.max(5, Math.floor(study.live.length * .03));
+      for (var i = 0; i < n; i++){
+        var cell = study.live[Math.floor(Math.random() * study.live.length)];
+        var jitter = Math.floor(Math.random() * 5) - 2;
+        var shade = Math.max(0, Math.min(charset.length - 1, cell[2] + jitter));
+        study.cells[cell[0]][cell[1]] = Math.random() < .15 ? mutators[Math.floor(Math.random() * mutators.length)] : charset[shade];
+      }
+      render(study);
+    }
+    studies.forEach(function(study){
+      study.img.onload = function(){ build(study); };
+      study.img.src = study.src;
+    });
+    if (!reducedMotion) {
+      window.setInterval(function(){ studies.forEach(tick); }, 140);
+    }
+  })();
+
   /* ===== hero canvas: video halftone, with drifting-dots fallback ===== */
   var canvas = document.getElementById('heroCanvas');
-  var ctx = canvas.getContext('2d');
   var video = document.getElementById('heroVideo');
+  if (canvas && video) {
+  var ctx = canvas.getContext('2d');
   var mode = 'drift'; // 'video' once a frame can be read safely
   var dots = [];
   var colFaint = '#9d998c', colDim = '#615e54', colAccent = '#c97800';
@@ -600,6 +907,7 @@
       }, { threshold: 0 }).observe(canvas.parentElement);
     }
     requestAnimationFrame(function(t){ t0 = t; requestAnimationFrame(frame); });
+  }
   }
 
   /* ============================================================

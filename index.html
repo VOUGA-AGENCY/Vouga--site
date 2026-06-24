@@ -116,7 +116,7 @@
 }
 </script>
 </head>
-<body>
+<body class="home">
 
 <div class="progress" id="progress" aria-hidden="true"></div>
 
@@ -129,8 +129,9 @@
     </a>
     <nav aria-label="navegação principal" data-i18n-aria="mainNav">
       <ul class="nav-links">
-        <li><a href="#services">agency</a></li>
-        <li><a href="#foundation">foundations</a></li>
+        <li><a href="intelligence.html">intelligence</a></li>
+        <li><a href="foundations.html">foundations</a></li>
+        <li><a href="academy.html">academy</a></li>
       </ul>
     </nav>
     <div class="nav-right">
@@ -150,8 +151,9 @@
   </div>
   <div class="mobile-menu" id="mobileMenu">
     <nav class="mobile-links" aria-label="navegação móvel">
-      <a href="#services">agency</a>
-      <a href="#foundation">foundations</a>
+      <a href="intelligence.html">intelligence</a>
+      <a href="foundations.html">foundations</a>
+      <a href="academy.html">academy</a>
     </nav>
     <div class="mobile-actions">
       <button class="mobile-theme" id="themeToggleMobile" type="button" aria-label="alternar modo claro e escuro" data-i18n-aria="themeToggle">
@@ -168,16 +170,17 @@
 
   <!-- hero -->
   <section class="hero">
-    <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
-    <video id="heroVideo" muted autoplay loop playsinline preload="auto" aria-hidden="true" style="display:none"
-      poster="assets/img/poster.jpg" src="assets/video/vouga.mp4"></video>
+    <picture class="hero-bg" aria-hidden="true">
+      <source srcset="assets/img/heroescuro.png" media="(prefers-color-scheme: dark)">
+      <img src="assets/img/heroclaro.png" alt="">
+    </picture>
     <div class="hero-inner wrap">
       <div class="hero-content">
-        <h1 class="h-hero reveal" data-i18n-html="heroTitle"><span class="grad">IA</span>, desenhada à volta<br><em>do negócio</em></h1>
-        <p class="hero-sub body-text reveal d1" data-i18n-html="heroSub">Para a maioria das empresas, a IA fica na periferia.<br>Nós levamo-la para o centro do negócio.</p>
+        <h1 class="h-hero reveal" data-i18n-html="heroTitle"><span class="hero-line"><span class="grad">Intelligence</span>, built</span><br><span class="hero-line">around <em>the business</em></span></h1>
+        <p class="hero-sub body-text reveal d1" data-i18n-html="heroSub">We read your company as a system, then improve what exists, build what is missing, and train the people who keep it moving.</p>
         <div class="hero-ctas reveal d2">
-          <a class="btn btn-primary" href="diagnostico.html" data-i18n-html="seeWorking">Descubra o seu sistema <span class="arrow">→</span></a>
-          <a class="btn btn-ghost" href="#services" data-i18n="whatWeBuild">O que construímos</a>
+          <a class="btn btn-primary" href="diagnostico.html" data-i18n-html="heroDiagnose">Take the diagnosis <span class="arrow">→</span></a>
+          <a class="btn btn-ghost" href="#pillars" data-i18n="heroPillars">See the pillars</a>
         </div>
       </div>
     </div>
@@ -188,13 +191,53 @@
     <canvas class="why-canvas" id="whyCanvas" aria-hidden="true"></canvas>
     <div class="wrap why-grid">
       <span class="label why-label reveal" data-i18n="whyLabel">porquê</span>
-      <p class="why-p reveal" data-i18n="whyCopy">Entre a curiosidade pela IA e a mudança operacional há uma distância. É aí que a maioria das empresas encalha: pilotos que nunca saem do laboratório, ferramentas que ninguém abre, equipas curiosas sem método.</p>
+      <p class="why-p reveal" data-i18n="whyCopy">Entre investigação, IA e mudança operacional, muitas empresas perdem momentum. Não por falta de potencial, mas porque o sistema não está preparado para validar, construir e transformar novas capacidades em operação.</p>
       <div class="why-mark reveal" aria-hidden="true">
         <span class="why-box" id="whyBox">
           <span class="why-vouga">Vouga</span>
         </span>
       </div>
-      <p class="anchor-line reveal" data-i18n-html="anchorLine">Não vendemos ferramentas.<br>Redesenhamos o trabalho em torno da <span class="grad">inteligência</span>.</p>
+      <p class="anchor-line reveal" data-i18n-html="anchorLine">Validamos, construímos e redesenhamos trabalho em torno da <span class="grad">inteligência</span>.</p>
+    </div>
+  </section>
+
+  <!-- pillars (orbit) -->
+  <section class="pillars" id="pillars" aria-label="os pilares">
+    <div class="pillars-scroll" id="pillarsScroll">
+      <div class="pillars-stage">
+        <div class="wrap">
+          <span class="label pillars-kicker" data-i18n="pillarsKicker">os pilares · um sistema</span>
+          <div class="orbit" id="orbit">
+            <svg class="orbit-svg" id="orbitSvg" aria-hidden="true">
+              <path id="orbitPath" fill="none"></path>
+              <path class="orbit-pull" data-i="0" fill="none"></path>
+              <path class="orbit-pull" data-i="1" fill="none"></path>
+              <path class="orbit-pull" data-i="2" fill="none"></path>
+            </svg>
+            <span class="orbit-blob" data-i="0" aria-hidden="true"></span>
+            <span class="orbit-blob" data-i="1" aria-hidden="true"></span>
+            <span class="orbit-blob" data-i="2" aria-hidden="true"></span>
+            <article class="orbit-node" data-pillar="intelligence" data-i="0">
+              <pre class="pillar-ascii-art intelligence-ascii-art" data-pillar-ascii data-src="assets/img/hand.png" data-mask="hand" data-cols="48" aria-hidden="true"></pre>
+              <h3 class="orbit-name"><a href="intelligence.html">Vouga <span class="grad">Intelligence</span></a></h3>
+              <p class="orbit-desc" data-i18n="pillarIntelDesc">IA integrada no trabalho que já move o negócio.</p>
+              <a class="orbit-explore" href="intelligence.html" data-i18n="explore">explorar →</a>
+            </article>
+            <article class="orbit-node" data-pillar="foundations" data-i="1">
+              <pre class="pillar-ascii-art foundation-ascii-art" data-pillar-ascii data-src="assets/img/found2.png" data-mask="light" data-cols="44" data-trim-bottom=".16" aria-hidden="true"></pre>
+              <h3 class="orbit-name"><a href="foundations.html">Vouga <span class="grad-v">Foundations</span></a></h3>
+              <p class="orbit-desc" data-i18n="pillarFoundDesc">Da ideia ao sistema validado, construído só depois de perceber o risco.</p>
+              <a class="orbit-explore" href="foundations.html" data-i18n="explore">explorar →</a>
+            </article>
+            <article class="orbit-node" data-pillar="academy" data-i="2">
+              <pre class="pillar-ascii-art academy-ascii-art" data-pillar-ascii data-src="assets/img/academy.png" data-mask="paper" data-cols="42" aria-hidden="true"></pre>
+              <h3 class="orbit-name"><a href="academy.html">Vouga <span class="grad-a">Academy</span></a></h3>
+              <p class="orbit-desc" data-i18n="pillarAcademyDesc">Uma ponte de formação e talento para quem vai construir com inteligência.</p>
+              <a class="orbit-explore" href="academy.html" data-i18n="explore">explorar →</a>
+            </article>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -294,24 +337,6 @@
       </div>
     </div>
   </section>
-
-  <!-- proof -->
-  <section class="sec wrap" id="proof">
-    <div class="sec-head reveal">
-      <div>
-        <span class="label" data-i18n="proofLabel">prova</span>
-        <h2 class="h2" data-i18n="proofTitle">Resultados</h2>
-      </div>
-      <span class="sec-num" data-i18n="proofNum">03 / prova</span>
-    </div>
-    <div class="proof-grid">
-      <div class="proof-item reveal"><div class="num" data-count="-83" data-suffix="%">0%</div><p class="lbl" data-i18n="proofStat1">tempo para encontrar uma resposta interna</p></div>
-      <div class="proof-item reveal d1"><div class="num" data-count="3.4" data-decimals="1" data-suffix="×">0×</div><p class="lbl" data-i18n="proofStat2">mais rápido da reunião à proposta enviada</p></div>
-      <div class="proof-item reveal d2"><div class="num" data-count="11" data-suffix=" h">0 h</div><p class="lbl" data-i18n="proofStat3">poupadas por pessoa, por semana</p></div>
-      <div class="proof-item reveal d3"><div class="num" data-count="92" data-suffix="%">0%</div><p class="lbl" data-i18n="proofStat4">das reuniões acabam com responsáveis e prazos</p></div>
-    </div>
-  </section>
-
 
   <!-- foundation -->
   <section class="sec wrap" id="foundation">
