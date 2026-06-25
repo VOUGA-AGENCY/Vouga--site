@@ -6,11 +6,8 @@
   var currentLang = 'pt';
 
   (function initTheme(){
-    var saved = null;
-    try { saved = localStorage.getItem('vouga-theme'); } catch(e) {}
-    if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
-    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
-    else root.setAttribute('data-theme', 'light');
+    root.setAttribute('data-theme', 'light');
+    try { localStorage.setItem('vouga-theme', 'light'); } catch(e) {}
 
     var btn = document.getElementById('themeToggle');
     if (!btn) return;
@@ -267,9 +264,8 @@
       sync(lang);
     }
 
-    var saved = null;
-    try { saved = localStorage.getItem('vouga-lang'); } catch(e) {}
-    apply(saved === 'en' ? 'en' : 'pt');
+    try { localStorage.setItem('vouga-lang', 'pt'); } catch(e) {}
+    apply('pt');
     if (langToggle) {
       langToggle.addEventListener('click', function(){
         var next = currentLang === 'pt' ? 'en' : 'pt';

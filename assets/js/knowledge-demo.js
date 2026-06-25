@@ -242,7 +242,6 @@
     });
   }
 
-  var savedLang = null;
-  try { savedLang = localStorage.getItem('vouga-lang'); } catch(e){}
-  applyLanguage(savedLang === 'en' ? 'en' : 'pt');
+  try { localStorage.setItem('vouga-lang', 'pt'); } catch(e){}
+  applyLanguage('pt');
 })();

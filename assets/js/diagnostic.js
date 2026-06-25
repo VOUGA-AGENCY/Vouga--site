@@ -8,11 +8,8 @@
 
   /* ===== theme (shares the vouga-theme key with the rest of the site) ===== */
   (function(){
-    var saved = null;
-    try { saved = localStorage.getItem('vouga-theme'); } catch(e){}
-    if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
-    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
-    else root.setAttribute('data-theme', 'light');
+    root.setAttribute('data-theme', 'light');
+    try { localStorage.setItem('vouga-theme', 'light'); } catch(e){}
     var btn = document.getElementById('themeToggle');
     if (btn) btn.addEventListener('click', function(){
       var n = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';

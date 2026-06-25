@@ -4,15 +4,8 @@
   /* ===== theme ===== */
   var root = document.documentElement;
   function applyTheme(t){ root.setAttribute('data-theme', t); }
-  var saved = null;
-  try { saved = localStorage.getItem('vouga-theme'); } catch(e){}
-  if (saved === 'dark' || saved === 'light') {
-    applyTheme(saved);
-  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    applyTheme('dark');
-  } else {
-    applyTheme('light');
-  }
+  applyTheme('light');
+  try { localStorage.setItem('vouga-theme', 'light'); } catch(e){}
   function toggleTheme(){
     var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     applyTheme(next);
@@ -53,7 +46,7 @@
       themeToggle: 'alternar modo claro e escuro',
       themeLabel: 'Modo claro / escuro',
       talkToUs: 'Contacte-nos',
-      heroTitle: '<span class="hero-line"><span class="grad">Inteligência</span>, desenhada</span><br><span class="hero-line">à volta <em>do negócio</em></span>',
+      heroTitle: '<span class="hero-line"><span class="grad">Inteligência</span>, desenhada</span><br><span class="hero-line">em torno <em>do negócio</em></span>',
       heroSub: 'Com visão sistémica, melhoramos o que já existe, construímos o que falta e formamos quem mantém tudo em movimento.',
       heroDiagnose: 'Fazer o diagnóstico <span class="arrow">→</span>',
       heroPillars: 'Ver os pilares',
@@ -344,9 +337,8 @@
     });
   }
 
-  var savedLang = null;
-  try { savedLang = localStorage.getItem('vouga-lang'); } catch(e){}
-  applyLanguage(savedLang === 'en' ? 'en' : 'pt');
+  try { localStorage.setItem('vouga-lang', 'pt'); } catch(e){}
+  applyLanguage('pt');
   lockI18nWidths();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(lockI18nWidths);
   window.addEventListener('load', lockI18nWidths);
