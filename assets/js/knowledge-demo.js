@@ -17,6 +17,12 @@
   var langToggle = document.getElementById('demoLangToggle');
   var state = 0;
   var currentLang = 'pt';
+  try {
+    var savedTheme = localStorage.getItem('vouga-theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') root.setAttribute('data-theme', savedTheme);
+    var savedLang = localStorage.getItem('vouga-lang');
+    if (savedLang === 'pt' || savedLang === 'en') currentLang = savedLang;
+  } catch(e){}
   var COPY = {
     pt: {
       pageTitle: 'Demo Sistema de Conhecimento com IA · Vouga Agency',
@@ -242,6 +248,5 @@
     });
   }
 
-  try { localStorage.setItem('vouga-lang', 'pt'); } catch(e){}
-  applyLanguage('pt');
+  applyLanguage(currentLang);
 })();

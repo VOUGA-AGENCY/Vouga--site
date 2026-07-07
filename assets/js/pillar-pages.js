@@ -4,10 +4,18 @@
   var root = document.documentElement;
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var currentLang = 'pt';
+  try {
+    var savedLang = localStorage.getItem('vouga-lang');
+    if (savedLang === 'pt' || savedLang === 'en') currentLang = savedLang;
+  } catch(e) {}
 
   (function initTheme(){
-    root.setAttribute('data-theme', 'light');
-    try { localStorage.setItem('vouga-theme', 'light'); } catch(e) {}
+    var theme = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    try {
+      var savedTheme = localStorage.getItem('vouga-theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') theme = savedTheme;
+    } catch(e) {}
+    root.setAttribute('data-theme', theme);
 
     var btn = document.getElementById('themeToggle');
     if (!btn) return;
@@ -264,8 +272,7 @@
       sync(lang);
     }
 
-    try { localStorage.setItem('vouga-lang', 'pt'); } catch(e) {}
-    apply('pt');
+    apply(currentLang);
     if (langToggle) {
       langToggle.addEventListener('click', function(){
         var next = currentLang === 'pt' ? 'en' : 'pt';
@@ -317,8 +324,25 @@
       ctx.font = cs.font;
       return (ctx.measureText('M').width + letterSpacing) / lineHeight;
     }
+    function escapeChar(char){
+      if (char === '&') return '&amp;';
+      if (char === '<') return '&lt;';
+      if (char === '>') return '&gt;';
+      return char;
+    }
     function render(study){
-      study.el.textContent = study.cells.map(function(row){ return row.join(''); }).join('\n');
+      if (!study.accentEnabled) {
+        study.el.textContent = study.cells.map(function(row){ return row.join(''); }).join('\n');
+        return;
+      }
+      var lines = study.cells.map(function(row,y){
+        return row.map(function(char,x){
+          var accent = study.accents[y + ':' + x];
+          var output = accent && accent.char ? accent.char : char;
+          return accent ? '<span class="ascii-accent">' + escapeChar(output) + '</span>' : escapeChar(output);
+        }).join('');
+      });
+      study.el.innerHTML = lines.join('\n');
     }
     function build(study){
       var cols = study.cols;
@@ -332,6 +356,7 @@
       var visibleRows = Math.max(1, Math.round(rows * (1 - study.trimBottom)));
       study.cells = [];
       study.live = [];
+      study.wordStarts = [];
       for (var y = 0; y < visibleRows; y++) {
         var row = [];
         for (var x = 0; x < cols; x++) {
@@ -348,16 +373,49 @@
         }
         study.cells.push(row);
       }
+      if (study.accentEnabled) {
+        for (var wy = 0; wy < study.cells.length; wy++) {
+          for (var wx = 0; wx <= cols - 5; wx++) {
+            var canWrite = true;
+            for (var wi = 0; wi < 5; wi++) {
+              if (study.cells[wy][wx + wi] === ' ') { canWrite = false; break; }
+            }
+            if (canWrite) study.wordStarts.push([wy,wx]);
+          }
+        }
+        study.nextWordAt = Date.now() + 1400 + Math.random() * 1800;
+      }
       render(study);
     }
     function tick(study){
       if (document.hidden || !study.live.length) return;
+      var now = Date.now();
       var n = Math.max(7, Math.floor(study.live.length * .028));
       for (var i = 0; i < n; i++) {
         var cell = study.live[Math.floor(Math.random() * study.live.length)];
         var jitter = Math.floor(Math.random() * 5) - 2;
         var shade = Math.max(0, Math.min(charset.length - 1, cell[2] + jitter));
         study.cells[cell[0]][cell[1]] = Math.random() < .12 ? mutators[Math.floor(Math.random() * mutators.length)] : charset[shade];
+      }
+      if (study.accentEnabled) {
+        Object.keys(study.accents).forEach(function(key){
+          if (study.accents[key].until <= now) delete study.accents[key];
+        });
+        if (Math.random() < .72) {
+          var sparks = 1 + Math.floor(Math.random() * 3);
+          for (var s = 0; s < sparks; s++) {
+            var spark = study.live[Math.floor(Math.random() * study.live.length)];
+            study.accents[spark[0] + ':' + spark[1]] = { until:now + 520 + Math.random() * 720 };
+          }
+        }
+        if (now >= study.nextWordAt && study.wordStarts.length) {
+          var start = study.wordStarts[Math.floor(Math.random() * study.wordStarts.length)];
+          var word = 'VOUGA';
+          for (var w = 0; w < word.length; w++) {
+            study.accents[start[0] + ':' + (start[1] + w)] = { char:word[w], until:now + 1050 };
+          }
+          study.nextWordAt = now + 2400 + Math.random() * 2600;
+        }
       }
       render(study);
     }
@@ -371,7 +429,11 @@
         trimBottom: parseFloat(el.getAttribute('data-trim-bottom') || '0') || 0,
         img: new Image(),
         cells: [],
-        live: []
+        live: [],
+        accentEnabled: el.hasAttribute('data-ascii-accent'),
+        accents: {},
+        wordStarts: [],
+        nextWordAt: 0
       };
       study.img.onload = function(){ build(study); };
       study.img.src = study.src;

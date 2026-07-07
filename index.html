@@ -37,8 +37,9 @@
 <link rel="alternate" type="text/plain" href="/llms.txt" title="Vouga Agency LLM summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/main.css?v=20260616-3">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="assets/js/site-preferences.js?v=20260707-1"></script>
+<link rel="stylesheet" href="assets/css/main.css?v=20260707-51">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -50,7 +51,7 @@
       "url": "https://vouga.agency/",
       "logo": "https://vouga.agency/assets/img/logo_vouga.png",
       "email": "hello@vouga.agency",
-      "telephone": "+351220000000",
+      "telephone": "+351936369610",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Rua de Santa Catarina 1234",
@@ -171,35 +172,67 @@
   <!-- hero -->
   <section class="hero">
     <picture class="hero-bg" aria-hidden="true">
-      <img src="assets/img/heroclaro.png" alt="">
+      <img src="assets/img/vouga_site_re_w.png" alt="">
     </picture>
     <div class="hero-inner wrap">
       <div class="hero-content">
         <h1 class="h-hero reveal" data-i18n-html="heroTitle"><span class="hero-line"><span class="grad">Inteligência</span>, desenhada</span><br><span class="hero-line">em torno <em>do negócio</em></span></h1>
-        <p class="hero-sub body-text reveal d1" data-i18n-html="heroSub">Com visão sistémica, melhoramos o que já existe, construímos o que falta e formamos quem mantém tudo em movimento.</p>
+        <p class="hero-sub body-text reveal d1">
+          <span class="hero-sub-desktop" data-i18n-html="heroSub">A maioria das empresas resolve o sintoma. Nós encontramos a <span class="grad">origem</span> e resolvemo-la com a ferramenta certa, da IA ao protótipo.</span>
+          <span class="hero-sub-mobile" data-i18n-html="heroSubMobile">Não tratamos sintomas.<br>Encontramos a <span class="grad">origem</span> e aplicamos<br>a ferramenta certa.</span>
+        </p>
         <div class="hero-ctas reveal d2">
-          <a class="btn btn-primary" href="diagnostico.html" data-i18n-html="heroDiagnose">Fazer o diagnóstico <span class="arrow">→</span></a>
+          <a class="btn btn-primary" href="diagnostico.html" data-i18n-html="heroDiagnose">Vê onde perdes dinheiro <span class="arrow">→</span></a>
           <a class="btn btn-ghost" href="#pillars" data-i18n="heroPillars">Ver os pilares</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- why -->
-  <section class="sec why">
-    <canvas class="why-canvas" id="whyCanvas" aria-hidden="true"></canvas>
-    <div class="wrap why-grid">
-      <span class="label why-label reveal" data-i18n="whyLabel">porquê</span>
-      <p class="why-p reveal" data-i18n="whyCopy">Entre investigação, IA e mudança operacional, muitas empresas perdem momentum. Não por falta de potencial, mas porque o sistema não está preparado para validar, construir e transformar novas capacidades em operação.</p>
-      <div class="why-mark reveal" aria-hidden="true">
-        <span class="why-box" id="whyBox">
-          <span class="why-vouga">Vouga</span>
-        </span>
+  <!-- why vouga -->
+  <section class="why-v2" aria-labelledby="whyVougaTitle">
+    <div class="wrap">
+      <header class="why-v2-head reveal">
+        <span class="why-v2-label" data-i18n="whyStoryLabel">why vouga</span>
+        <h2 id="whyVougaTitle" data-i18n-html="whyTitle"><span class="why-title-line">Olhamos para o todo.</span><span class="why-title-line">Executamos o que realmente importa.</span></h2>
+        <p data-i18n="whyCopy">A Vouga entra antes de a solução estar decidida. Lemos o negócio como um sistema, encontramos o problema que realmente bloqueia e assumimos o caminho até à entrega.</p>
+      </header>
+
+      <div class="why-v2-process reveal">
+        <article>
+          <h3 data-i18n="whySymptom">Diagnosticar</h3>
+          <p data-i18n="whySymptomCopy">Mapeamos como o trabalho acontece e onde se perde tempo, contexto ou capacidade de decisão.</p>
+        </article>
+        <article>
+          <h3 data-i18n="whyOrigin">Desenhar</h3>
+          <p data-i18n="whyOriginCopy">Definimos a intervenção certa para o problema real, seja um processo, um serviço ou uma solução digital.</p>
+        </article>
+        <article>
+          <h3 data-i18n="whySystem">Executar</h3>
+          <p data-i18n="whySystemCopy">Construímos, implementamos e melhoramos com a equipa até a solução funcionar no dia a dia.</p>
+        </article>
       </div>
-      <p class="anchor-line reveal" data-i18n-html="anchorLine">Validamos, construímos e redesenhamos trabalho em torno da <span class="grad">inteligência</span>.</p>
+
+      <div class="why-v2-principles reveal">
+        <article>
+          <h4 data-i18n="whyPrinciple1">Visão sistémica</h4>
+          <p data-i18n="whyPrinciple1Copy">Ligamos decisões, pessoas, processos e tecnologia.</p>
+        </article>
+        <article>
+          <h4 data-i18n="whyPrinciple2">Execução próxima</h4>
+          <p data-i18n="whyPrinciple2Copy">Trabalhamos com a equipa, não à margem dela.</p>
+        </article>
+        <article>
+          <h4 data-i18n="whyPrinciple3">Tecnologia com propósito</h4>
+          <p data-i18n="whyPrinciple3Copy">Escolhemos a ferramenta depois de perceber o problema.</p>
+        </article>
+        <article>
+          <h4 data-i18n="whyPrinciple4">Entrega que fica</h4>
+          <p data-i18n="whyPrinciple4Copy">Construímos capacidade que a empresa consegue usar e evoluir.</p>
+        </article>
+      </div>
     </div>
   </section>
-
   <!-- pillars (orbit) -->
   <section class="pillars" id="pillars" aria-label="os pilares">
     <div class="pillars-scroll" id="pillarsScroll">
@@ -207,6 +240,7 @@
         <div class="wrap">
           <span class="label pillars-kicker" data-i18n="pillarsKicker">os pilares · um sistema</span>
           <div class="orbit" id="orbit">
+            <span class="orbit-system" id="orbitSystem" aria-hidden="true">the system</span>
             <svg class="orbit-svg" id="orbitSvg" aria-hidden="true">
               <path id="orbitPath" fill="none"></path>
               <path class="orbit-pull" data-i="0" fill="none"></path>
@@ -225,13 +259,13 @@
             <article class="orbit-node" data-pillar="foundations" data-i="1">
               <pre class="pillar-ascii-art foundation-ascii-art" data-pillar-ascii data-src="assets/img/found2.png" data-mask="light" data-cols="44" data-trim-bottom=".16" aria-hidden="true"></pre>
               <h3 class="orbit-name"><a href="foundations.html">Vouga <span class="grad-v">Foundations</span></a></h3>
-              <p class="orbit-desc" data-i18n="pillarFoundDesc">Da ideia ao sistema validado, construído só depois de perceber o risco.</p>
+              <p class="orbit-desc" data-i18n="pillarFoundDesc">Da ideia ao sistema validado, sem construir no escuro.</p>
               <a class="orbit-explore" href="foundations.html" data-i18n="explore">explorar →</a>
             </article>
             <article class="orbit-node" data-pillar="academy" data-i="2">
               <pre class="pillar-ascii-art academy-ascii-art" data-pillar-ascii data-src="assets/img/academy.png" data-mask="paper" data-cols="42" aria-hidden="true"></pre>
               <h3 class="orbit-name"><a href="academy.html">Vouga <span class="grad-a">Academy</span></a></h3>
-              <p class="orbit-desc" data-i18n="pillarAcademyDesc">Uma ponte de formação e talento para quem vai construir com inteligência.</p>
+              <p class="orbit-desc" data-i18n="pillarAcademyDesc">Formamos quem vai construir com inteligência.</p>
               <a class="orbit-explore" href="academy.html" data-i18n="explore">explorar →</a>
             </article>
           </div>
@@ -309,34 +343,6 @@
     </div>
   </section>
 
-  <!-- method -->
-  <section class="sec wrap" id="method">
-    <div class="sec-head reveal">
-      <div>
-        <span class="label" data-i18n="methodLabel">o método</span>
-        <h2 class="h2" data-i18n="methodTitle">Como entramos</h2>
-      </div>
-      <span class="sec-num" data-i18n="methodNum">02 / método</span>
-    </div>
-    <div class="steps reveal">
-      <div class="step">
-        <span class="label" data-i18n="step1Label">passo 1 · 2 semanas</span>
-        <h3 class="h3" data-i18n="step1Title">Sprint Operacional</h3>
-        <p data-i18n="step1Copy">Duas semanas para perceber o workflow, encontrar os pontos de alavancagem e definir o que construir primeiro.</p>
-      </div>
-      <div class="step">
-        <span class="label" data-i18n="step2Label">passo 2 · 4 a 6 semanas</span>
-        <h3 class="h3" data-i18n="step2Title">Construção Piloto</h3>
-        <p data-i18n="step2Copy">Construímos o primeiro sistema funcional e colocamo-lo nas mãos da equipa.</p>
-      </div>
-      <div class="step">
-        <span class="label" data-i18n="step3Label">passo 3 · mensal</span>
-        <h3 class="h3" data-i18n="step3Title">Parceiro Operacional</h3>
-        <p data-i18n="step3Copy">Ficamos por perto, melhoramos o que está em produção e passamos de um workflow para o próximo.</p>
-      </div>
-    </div>
-  </section>
-
   <!-- foundation -->
   <section class="sec wrap" id="foundation">
     <div class="sec-head reveal">
@@ -349,7 +355,7 @@
     <div class="ventures-block reveal">
       <span class="label" data-i18n="foundationSubLabel">construções chave-na-mão</span>
       <h3 class="h3" style="margin-top:14px" data-i18n-html="foundationHeadline">Algumas ideias merecem mais do que conselhos. Precisam de ser <em>construídas</em>.</h3>
-      <p class="body-text ventures-lede" data-i18n="foundationCopy">Vouga Foundations é o nosso braço de construção, complementar ao trabalho de agência. Tu trazes a ideia; levamo-la do conceito a um produto funcional e entregamos-te as chaves. Arquitetura, produto, código e deployment: uma equipa, do início ao fim.</p>
+      <p class="body-text ventures-lede" data-i18n="foundationCopy">Tu trazes a ideia. Nós reduzimos o risco, construímos o essencial e entregamos um produto funcional.</p>
       <div class="ventures-cols">
         <div>
           <span class="label" data-i18n="foundationScope">definição</span>
@@ -368,33 +374,136 @@
     </div>
   </section>
 
+  <!-- diagnosis band -->
+  <section class="diag-band reveal" id="diag-band">
+    <div class="wrap diag-band-inner">
+      <div class="diag-band-copy">
+        <span class="label" data-i18n="diagBandLabel">diagnóstico</span>
+        <h2 class="h2 diag-band-title" data-i18n="diagBandTitle">Não te dizemos o que queres ouvir. Em poucos minutos, mostramos onde o teu sistema perde dinheiro.</h2>
+      </div>
+      <div class="diag-ascii-wrap" aria-hidden="true">
+        <pre class="diag-ascii" id="diagAscii"></pre>
+      </div>
+      <a class="btn diag-band-cta" href="diagnostico.html" data-i18n-html="diagBandCta">Fazer o diagnóstico <span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <!-- use cases -->
+  <section class="sec use-cases" id="use-cases">
+    <div class="wrap use-cases-head reveal">
+      <div class="use-cases-copy">
+        <span class="label use-cases-label" data-i18n="useCasesLabel">casos de aplicação</span>
+        <h2 class="h2 use-cases-title" data-i18n="useCasesTitle">Sistemas construídos para problemas reais.</h2>
+        <p class="body-text use-cases-intro" data-i18n="useCasesIntro">Projetos de IA aplicada, produto e sistemas internos, do MVP à operação.</p>
+      </div>
+      <div class="use-cases-controls" aria-label="Filtros dos casos de aplicação" data-i18n-aria="useCasesControlsLabel">
+        <button class="use-case-filter is-active" type="button" data-filter="mvp" aria-pressed="true" data-i18n="useCasesMvp">MVPs</button>
+        <button class="use-case-filter is-active" type="button" data-filter="applied-ai" aria-pressed="true" data-i18n="useCasesAi">Applied AI</button>
+        <span class="use-cases-nav" aria-label="Navegação do carrossel">
+          <button class="use-case-control" id="useCasesPrev" type="button" aria-label="Caso anterior" data-i18n-aria="useCasesPrev" disabled><span aria-hidden="true">←</span></button>
+          <button class="use-case-control" id="useCasesNext" type="button" aria-label="Caso seguinte" data-i18n-aria="useCasesNext"><span aria-hidden="true">→</span></button>
+        </span>
+      </div>
+    </div>
+
+    <div class="use-cases-rail reveal" id="useCasesRail" role="region" tabindex="0" aria-label="Casos de aplicação" data-i18n-aria="useCasesRailLabel">
+      <article class="use-case-card has-image" data-category="applied-ai">
+        <div class="use-case-media" aria-hidden="true">
+          <img src="assets/img/avaliaçãointerna.png" alt="" loading="lazy">
+        </div>
+        <span class="use-case-index">01</span>
+        <div class="use-case-content">
+          <span class="use-case-tags" data-i18n="useCase1Tags">People Analytics · RAG</span>
+          <h3 data-i18n="useCase1Title">Sistema interno de avaliação de desempenho</h3>
+          <p data-i18n="useCase1Desc">Plataforma de avaliação com uma camada RAG para consulta contextual de critérios, feedback e documentação interna.</p>
+        </div>
+      </article>
+
+      <article class="use-case-card has-image" data-category="mvp">
+        <div class="use-case-media" aria-hidden="true">
+          <img src="assets/img/kynex.png" alt="" loading="lazy">
+        </div>
+        <span class="use-case-index">02</span>
+        <div class="use-case-content">
+          <span class="use-case-tags" data-i18n="useCase2Tags">Energy Analytics · MVP</span>
+          <h3 data-i18n="useCase2Title">MVP de otimização do consumo energético</h3>
+          <p data-i18n="useCase2Desc">Aplicação para análise de padrões de consumo elétrico, deteção de anomalias e suporte a recomendações de eficiência energética.</p>
+        </div>
+      </article>
+
+      <article class="use-case-card has-image" data-category="applied-ai">
+        <div class="use-case-media" aria-hidden="true">
+          <img src="assets/img/OS.png" alt="" loading="lazy">
+        </div>
+        <span class="use-case-index">03</span>
+        <div class="use-case-content">
+          <span class="use-case-tags" data-i18n="useCase3Tags">Internal Operations · RAG</span>
+          <h3 data-i18n="useCase3Title">Sistema interno de informação estratégica</h3>
+          <p data-i18n="useCase3Desc">Sistema de gestão e consulta de informação estratégica, com arquitetura RAG para recuperação contextual e apoio à decisão.</p>
+        </div>
+      </article>
+
+      <article class="use-case-card has-image" data-category="applied-ai">
+        <div class="use-case-media" aria-hidden="true">
+          <img src="assets/img/voice.png" alt="" loading="lazy">
+        </div>
+        <span class="use-case-index">04</span>
+        <div class="use-case-content">
+          <span class="use-case-tags" data-i18n="useCase4Tags">Conversational AI · RAG</span>
+          <h3 data-i18n="useCase4Title">Agente conversacional com memória contextual</h3>
+          <p data-i18n="useCase4Desc">Agente de IA com RAG para recuperar conversas anteriores, preservar contexto longitudinal e preparar temas de continuidade.</p>
+        </div>
+      </article>
+
+      <article class="use-case-card has-image" data-category="mvp applied-ai">
+        <div class="use-case-media" aria-hidden="true">
+          <img src="assets/img/rag.png" alt="" loading="lazy">
+        </div>
+        <span class="use-case-index">05</span>
+        <div class="use-case-content">
+          <span class="use-case-tags" data-i18n="useCase5Tags">Employee Experience · RAG Copilot</span>
+          <h3 data-i18n="useCase5Title">Portal do colaborador com copiloto interno</h3>
+          <p data-i18n="useCase5Desc">Portal para centralização e gestão de dados de colaboradores, integrado com um RAG Copilot para pesquisa e acesso contextual à informação.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <!-- about -->
   <section class="sec wrap" id="about">
-    <div class="sec-head reveal">
-      <div>
-        <span class="label" data-i18n="aboutLabel">sobre</span>
-        <h2 class="h2" data-i18n="aboutTitle">Como pensamos</h2>
+    <div class="about-head reveal">
+      <div class="about-heading">
+        <span class="about-eyebrow" data-i18n="aboutLabel">05 / COMO TRABALHAMOS</span>
+        <h2 data-i18n="aboutTitle">Do problema à operação.</h2>
+        <p class="about-subheadline" data-i18n="aboutCopy1">Combinamos produto, software e IA aplicada para transformar contexto em sistemas que funcionam no dia-a-dia.</p>
       </div>
-      <span class="sec-num" data-i18n="aboutNum">05 / sobre</span>
+      <div class="about-manifesto">
+        <span data-i18n-html="aboutPrinciple1"><span class="grad">Contexto</span> antes</span>
+        <span data-i18n="aboutPrinciple2">da tecnologia.</span>
+        <span class="about-manifesto-divider" aria-hidden="true">
+          <svg viewBox="0 0 44 76" fill="none">
+            <path d="M10 2C10 22 33 20 33 40C33 56 22 64 12 70"/>
+            <path d="M12 70L13 60M12 70L22 67"/>
+          </svg>
+        </span>
+        <span data-i18n-html="aboutPrinciple3"><span class="grad">Responsabilidades</span></span>
+        <span data-i18n="aboutPrinciple4">até à entrega.</span>
+      </div>
     </div>
-    <div class="about-grid">
-      <div class="content reveal">
-        <p class="body-text" data-i18n="aboutCopy1">A Vouga é construída por jovens engenheiros com muita iniciativa e pensamento sistémico. Assumimos os problemas de ponta a ponta e estamos a construir uma casa para o melhor talento técnico jovem: pessoas que querem responsabilidade antes de títulos.</p>
-        <p class="body-text" data-i18n="aboutCopy2">Vemos as empresas como sistemas: pessoas, decisões, ferramentas, documentos e incentivos a moverem-se em conjunto.</p>
-        <p class="principle" data-i18n="aboutPrinciple">Nenhuma funcionalidade sem contexto. Nenhuma automação sem compreender o sistema.</p>
-      </div>
-      <div class="about-art reveal" aria-hidden="true">
-        <svg viewBox="0 0 320 320" fill="none" stroke="currentColor" stroke-linecap="round">
-          <g class="rings">
-            <ellipse cx="160" cy="160" rx="38" ry="26" stroke-dasharray="0.1 6" stroke-width="2.2"/>
-            <ellipse cx="160" cy="160" rx="74" ry="52" stroke-dasharray="0.1 8" stroke-width="2" opacity=".75"/>
-            <ellipse cx="160" cy="160" rx="110" ry="80" stroke-dasharray="0.1 10" stroke-width="2" opacity=".55"/>
-            <ellipse cx="160" cy="160" rx="146" ry="108" stroke-dasharray="0.1 13" stroke-width="2" opacity=".35"/>
-          </g>
-          <path d="M160 38 V282" stroke-dasharray="0.1 9" stroke-width="2" opacity=".4"/>
-          <path d="M22 160 H298" stroke-dasharray="0.1 9" stroke-width="2" opacity=".4"/>
-        </svg>
-      </div>
+
+    <div class="about-steps reveal">
+      <article class="about-step">
+        <h3 data-i18n-html="step1Title"><span>Sprint</span><span>Operacional</span></h3>
+        <p data-i18n="step1Copy">Mapeamos o trabalho real, os bloqueios e onde a IA pode gerar impacto.</p>
+      </article>
+      <article class="about-step">
+        <h3 data-i18n-html="step2Title"><span>Construção</span><span>Piloto</span></h3>
+        <p data-i18n="step2Copy">Construímos e testamos a primeira solução com a equipa.</p>
+      </article>
+      <article class="about-step">
+        <h3 data-i18n-html="step3Title"><span>Parceiro</span><span>Operacional</span></h3>
+        <p data-i18n="step3Copy">Melhoramos o que está em produção e avançamos para o próximo problema.</p>
+      </article>
     </div>
   </section>
 
@@ -405,7 +514,7 @@
       <div class="reveal">
         <span class="label" style="display:block;margin-bottom:18px" data-i18n="contactLabel">contacto</span>
         <h2 class="h2" data-i18n-html="contactTitle">Vamos <em>falar</em></h2>
-        <p class="body-text" style="margin-top:22px" data-i18n="contactCopy">Envia-nos o processo que é lento, confuso ou dependente de uma só pessoa. Dizemos-te se vale a pena construir algo à volta dele.</p>
+        <p class="body-text" style="margin-top:22px" data-i18n="contactCopy">Manda-nos o processo mais lento, confuso ou dependente de uma só pessoa. Dizemos-te se vale a pena, mesmo que a resposta seja não.</p>
         <a class="email-link" href="mailto:hello@vouga.agency">hello@vouga.agency</a>
       </div>
       <form class="contact-form reveal" id="contactForm">
@@ -446,16 +555,13 @@
         <p class="footer-tag" data-i18n="footerTag">Inteligência para trabalho real.</p>
       </div>
       <div class="footer-cols">
-        <div class="f-col">
-          <span class="label" data-i18n="visitLabel">visita</span>
+        <div class="f-col footer-address">
           <p>Rua de Santa Catarina 1234<br>4000-447 Porto<br>Portugal</p>
         </div>
-        <div class="f-col">
-          <span class="label" data-i18n="contactLabel">contacto</span>
-          <p><a href="mailto:hello@vouga.agency">hello@vouga.agency</a><br><a href="tel:+351220000000">+351 220 000 000</a></p>
+        <div class="f-col footer-contact">
+          <p><a href="mailto:hello@vouga.agency">hello@vouga.agency</a><br><a href="tel:+351936369610">936369610</a></p>
         </div>
-        <div class="f-col">
-          <span class="label" data-i18n="followLabel">seguir</span>
+        <div class="f-col footer-socials">
           <div class="f-social">
             <a href="https://www.linkedin.com/company/vouga" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.1h4.56V23H.22V8.1zM8.34 8.1h4.37v2.03h.06c.61-1.15 2.1-2.37 4.32-2.37 4.62 0 5.47 3.04 5.47 7v8.24h-4.55v-7.3c0-1.74-.03-3.98-2.42-3.98-2.43 0-2.8 1.9-2.8 3.86V23H8.34V8.1z"/></svg>
@@ -468,15 +574,13 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span data-i18n="rights">© 2026 Vouga Agency · Todos os direitos reservados</span>
-      <span>NIF 517 000 000</span>
+      <span data-i18n="rights">Copyright © 2026 Vouga Agency</span>
       <span data-i18n-html="legalLinks"><a href="privacy.html">Privacidade</a> · <a href="terms.html">Termos</a></span>
-      <span data-i18n="madeIn">Feito em Portugal</span>
     </div>
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20260616-3" defer></script>
+<script src="assets/js/main.js?v=20260707-20" defer></script>
 <script src="assets/js/gradual-blur.js?v=20260616-3" defer></script>
 </body>
 </html>
