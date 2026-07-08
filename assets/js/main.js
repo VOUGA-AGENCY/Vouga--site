@@ -40,7 +40,7 @@
   }
 
   /* ===== language ===== */
-  var currentLang = 'pt';
+  var currentLang = 'en';
   try {
     var savedLang = localStorage.getItem('vouga-lang');
     if (savedLang === 'pt' || savedLang === 'en') currentLang = savedLang;

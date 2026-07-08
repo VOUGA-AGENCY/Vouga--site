@@ -217,3 +217,10 @@ body.diag-page{overflow-x:hidden}
   .diag-foot{padding-bottom:20px}
   .diag-step-line{width:10px}
 }
+
+@media (max-width:420px){
+  .diag-page .logo span{display:none}
+  .diag-page .nav-inner{padding-right:14px;padding-left:14px}
+  .diag-page .nav-right{gap:6px}
+  .diag-page .lang-toggle span{min-width:25px}
+}

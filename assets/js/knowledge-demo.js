@@ -16,7 +16,7 @@
   var root = document.documentElement;
   var langToggle = document.getElementById('demoLangToggle');
   var state = 0;
-  var currentLang = 'pt';
+  var currentLang = 'en';
   try {
     var savedTheme = localStorage.getItem('vouga-theme');
     if (savedTheme === 'light' || savedTheme === 'dark') root.setAttribute('data-theme', savedTheme);
