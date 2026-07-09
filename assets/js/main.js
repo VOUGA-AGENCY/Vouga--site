@@ -8,6 +8,44 @@
   (function initPreloader(){
     var overlay = document.getElementById('sitePreloader');
     if (!overlay || !document.body.classList.contains('home')) return;
+    var wordEl = document.getElementById('sitePreloaderWord');
+    var savedLang = 'en';
+    try {
+      var storedLang = localStorage.getItem('vouga-lang');
+      if (storedLang === 'pt' || storedLang === 'en') savedLang = storedLang;
+    } catch(e){}
+    var words = savedLang === 'pt'
+      ? ['mapear contexto','ler o sistema','encontrar fricção','ligar decisões','preparar operação']
+      : ['mapping context','reading the system','finding friction','connecting decisions','preparing operation'];
+    var stopWords = false;
+    function runTerminalWords(){
+      if (!wordEl) return;
+      var wi = 0;
+      var text = '';
+      var deleting = false;
+      function tick(){
+        if (stopWords) return;
+        var target = words[wi % words.length];
+        if (deleting) text = target.slice(0, Math.max(0, text.length - 2));
+        else text = target.slice(0, text.length + 1);
+        wordEl.textContent = text;
+        var doneWriting = !deleting && text === target;
+        var doneDeleting = deleting && text.length === 0;
+        if (doneWriting) {
+          deleting = true;
+          window.setTimeout(tick, 620);
+        } else if (doneDeleting) {
+          deleting = false;
+          wi += 1;
+          window.setTimeout(tick, 90);
+        } else {
+          window.setTimeout(tick, deleting ? 34 : 46);
+        }
+      }
+      wordEl.textContent = '';
+      tick();
+    }
+    runTerminalWords();
     var criticalImages = [
       'assets/img/logoVouga.png',
       'assets/img/vouga_site_re_w.png',
@@ -40,6 +78,7 @@
       });
     }
     function revealSite(){
+      stopWords = true;
       overlay.classList.add('is-hidden');
       document.body.classList.remove('is-preloading');
       window.setTimeout(function(){

@@ -39,7 +39,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="assets/js/site-preferences.js?v=20260707-1"></script>
-<link rel="stylesheet" href="assets/css/main.css?v=20260709-preloader">
+<link rel="stylesheet" href="assets/css/main.css?v=20260709-preloader-words">
 <noscript><style>.site-preloader{display:none!important}body.is-preloading{overflow:auto!important}</style></noscript>
 <script type="application/ld+json">
 {
@@ -121,7 +121,14 @@
 <body class="home is-preloading">
 
 <div class="site-preloader" id="sitePreloader" aria-label="A carregar Vouga Agency" role="status">
-  <img src="assets/img/logoVouga.png" alt="Vouga Agency">
+  <div class="site-preloader-inner">
+    <img src="assets/img/logoVouga.png" alt="Vouga Agency">
+    <p class="site-preloader-terminal" aria-live="polite">
+      <span class="site-preloader-prompt" aria-hidden="true">&gt;</span>
+      <span id="sitePreloaderWord">mapping context</span>
+      <span class="site-preloader-cursor" aria-hidden="true"></span>
+    </p>
+  </div>
 </div>
 
 <div class="progress" id="progress" aria-hidden="true"></div>
@@ -585,7 +592,7 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20260709-preloader" defer></script>
+<script src="assets/js/main.js?v=20260709-preloader-words" defer></script>
 <script src="assets/js/gradual-blur.js?v=20260616-3" defer></script>
 </body>
 </html>

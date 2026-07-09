@@ -59,6 +59,11 @@ body.home main{background:var(--tail-bg)}
   pointer-events:auto;
   transition:opacity .65s ease,visibility 0s linear 0s;
 }
+.site-preloader-inner{
+  display:grid;
+  place-items:center;
+  gap:22px;
+}
 .site-preloader img{
   width:clamp(132px,15vw,230px);
   height:auto;
@@ -67,6 +72,26 @@ body.home main{background:var(--tail-bg)}
   filter:drop-shadow(0 18px 38px rgba(0,0,0,.34));
   animation:preloaderBreath 1.8s ease-in-out infinite;
 }
+.site-preloader-terminal{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.55em;
+  min-height:1.8em;
+  font-family:var(--font-mono);
+  font-size:clamp(11px,1.05vw,13px);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:rgba(247,242,232,.72);
+}
+.site-preloader-prompt{color:var(--accent)}
+.site-preloader-cursor{
+  width:.58em;
+  height:1.12em;
+  background:var(--accent);
+  transform:translateY(.12em);
+  animation:preloaderCursor .82s steps(1) infinite;
+}
 .site-preloader.is-hidden{
   opacity:0;
   visibility:hidden;
@@ -74,8 +99,10 @@ body.home main{background:var(--tail-bg)}
   transition:opacity .65s ease,visibility 0s linear .65s;
 }
 @keyframes preloaderBreath{50%{opacity:.72;transform:scale(.985)}}
+@keyframes preloaderCursor{50%{opacity:0}}
 @media (prefers-reduced-motion:reduce){
   .site-preloader img{animation:none}
+  .site-preloader-cursor{animation:none}
   .site-preloader{transition:none}
 }
 ::selection{background:var(--text);color:var(--bg)}
