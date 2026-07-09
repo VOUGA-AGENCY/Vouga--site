@@ -17,12 +17,38 @@
     } catch(e) {}
     root.setAttribute('data-theme', theme);
 
-    var btn = document.getElementById('themeToggle');
-    if (!btn) return;
-    btn.addEventListener('click', function(){
+    function toggleTheme(){
       var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       try { localStorage.setItem('vouga-theme', next); } catch(e) {}
+    }
+    var btn = document.getElementById('themeToggle');
+    if (btn) btn.addEventListener('click', toggleTheme);
+    var mobileBtn = document.getElementById('themeToggleMobile');
+    if (mobileBtn) mobileBtn.addEventListener('click', toggleTheme);
+  })();
+
+  (function initMobileMenu(){
+    var navBurger = document.getElementById('navBurger');
+    var mobileMenu = document.getElementById('mobileMenu');
+    function setMenu(open){
+      if (!navBurger || !mobileMenu) return;
+      mobileMenu.classList.toggle('open', open);
+      navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navBurger.setAttribute('aria-label', open ? 'fechar menu' : 'abrir menu');
+    }
+    if (!navBurger || !mobileMenu) return;
+    navBurger.addEventListener('click', function(){
+      setMenu(!mobileMenu.classList.contains('open'));
+    });
+    mobileMenu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ setMenu(false); });
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') setMenu(false);
+    });
+    window.addEventListener('resize', function(){
+      if (window.innerWidth > 820) setMenu(false);
     });
   })();
 
@@ -358,7 +384,7 @@
       var common = COMMON[lang], copy = COPY[page][lang];
       document.title = copy.title;
       meta('meta[name="description"]', copy.description);
-      text('.nav-right .btn-primary', common.contact);
+      qa('.nav .btn-primary').forEach(function(btn){ btn.textContent = common.contact; });
       var logo = q('.logo'); if (logo) logo.setAttribute('aria-label', common.logo);
       var theme = q('#themeToggle'); if (theme) theme.setAttribute('aria-label', common.theme);
       text('.detail-kicker', copy.kicker);
