@@ -3,6 +3,52 @@
 
   /* ===== theme ===== */
   var root = document.documentElement;
+
+  /* ===== first-load preloader: wait for hero + use case imagery ===== */
+  (function initPreloader(){
+    var overlay = document.getElementById('sitePreloader');
+    if (!overlay || !document.body.classList.contains('home')) return;
+    var criticalImages = [
+      'assets/img/logoVouga.png',
+      'assets/img/vouga_site_re_w.png',
+      'assets/img/vouga_site_re.png',
+      'assets/img/vouga_site_re_tele_w.png',
+      'assets/img/vouga_site_re_tele.png',
+      'assets/img/avaliacao-interna.png',
+      'assets/img/kynex.png',
+      'assets/img/OS.png',
+      'assets/img/voice.png',
+      'assets/img/rag.png'
+    ];
+    function loadImage(src){
+      return new Promise(function(resolve){
+        var img = new Image();
+        function done(){ resolve(src); }
+        img.onload = function(){
+          if (img.decode) img.decode().then(done).catch(done);
+          else done();
+        };
+        img.onerror = function(){
+          console.warn('Vouga preloader could not load:', src);
+          done();
+        };
+        img.src = src;
+        if (img.complete && img.naturalWidth) {
+          if (img.decode) img.decode().then(done).catch(done);
+          else done();
+        }
+      });
+    }
+    function revealSite(){
+      overlay.classList.add('is-hidden');
+      document.body.classList.remove('is-preloading');
+      window.setTimeout(function(){
+        if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+      }, 760);
+    }
+    Promise.all(criticalImages.map(loadImage)).then(revealSite);
+  })();
+
   function applyTheme(t){ root.setAttribute('data-theme', t); }
   var initialTheme = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
   try {
