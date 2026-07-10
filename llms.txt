@@ -25,12 +25,10 @@ Vouga Agency is relevant for searches and answers about enterprise AI services, 
 - Services: https://vouga.agency/#services
 - AI Knowledge System demo: https://vouga.agency/ai-knowledge-demo.html
 - Foundation / MVP builds: https://vouga.agency/#foundation
-- Contact: https://vouga.agency/#contact
 - Privacy Policy: https://vouga.agency/privacy.html
 - Terms: https://vouga.agency/terms.html
 
 ## Contact
 
-- Email: hello@vouga.agency
+- Email: hello@vouga-agency.pt
 - Phone: +351 220 000 000
-- Location: Porto, Portugal

@@ -81,9 +81,28 @@
       stopWords = true;
       overlay.classList.add('is-hidden');
       document.body.classList.remove('is-preloading');
+      settleHashNavigation();
       window.setTimeout(function(){
         if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
       }, 760);
+    }
+    function settleHashNavigation(){
+      var hash = window.location.hash;
+      if (!hash || hash.length < 2) return;
+      var id = '';
+      try { id = decodeURIComponent(hash.slice(1)); }
+      catch(e){ id = hash.slice(1); }
+      var target = document.getElementById(id === 'lets-talk' ? 'contact' : id);
+      if (!target) return;
+      var offset = window.matchMedia('(max-width: 820px)').matches ? 66 : 82;
+      function scrollToTarget(){
+        var top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(top, 0), behavior: 'auto' });
+      }
+      window.setTimeout(function(){
+        scrollToTarget();
+        requestAnimationFrame(scrollToTarget);
+      }, 90);
     }
     Promise.all(criticalImages.map(loadImage)).then(revealSite);
   })();
@@ -140,21 +159,21 @@
       themeLabel: 'Modo claro / escuro',
       talkToUs: 'Contacte-nos',
       heroTitle: '<span class="hero-line"><span class="grad">Inteligência</span>, desenhada</span><br><span class="hero-line">em torno <em>do negócio</em></span>',
-      heroSub: 'A maioria das empresas resolve o sintoma. Nós encontramos a <span class="grad">origem</span> e resolvemo-la com a ferramenta certa, da IA ao protótipo.',
-      heroSubMobile: 'Não tratamos sintomas.<br>Encontramos a <span class="grad">origem</span> e aplicamos<br>a ferramenta certa.',
-      heroDiagnose: 'Vê onde perdes dinheiro <span class="arrow">→</span>',
+      heroSub: 'A maioria das empresas trata o sintoma. Nós encontramos a <span class="grad hero-origin-word">origem</span><span class="hero-sub-normal"> e aplicamos a ferramenta certa, da IA ao protótipo.</span>',
+      heroSubMobile: 'Não tratamos sintomas.<br>Encontramos a <span class="grad hero-origin-word">origem</span><span class="hero-sub-normal"> e aplicamos</span><br><span class="hero-sub-normal">a ferramenta certa.</span>',
+      heroDiagnose: 'Ver onde o sistema perde valor <span class="arrow">→</span>',
       heroPillars: 'Ver os pilares',
       navMethod: 'método',
       pillarsKicker: 'os pilares · um sistema',
       pillarIntelDesc: 'IA integrada no trabalho que já move o negócio.',
-      pillarFoundDesc: 'Da ideia ao sistema validado, sem construir no escuro.',
-      pillarAcademyDesc: 'Formamos quem vai construir com inteligência.',
+      pillarFoundDesc: 'Da ideia à validação, sem construir no escuro.',
+      pillarAcademyDesc: 'Preparamos quem vai trabalhar e construir com inteligência.',
       explore: 'explorar →',
       seeWorking: 'Descubra o seu sistema <span class="arrow">→</span>',
       whatWeBuild: 'O que construímos',
       whyStoryLabel: 'why vouga',
       whyTitle: '<span class="why-title-line">Olhamos para o todo.</span><span class="why-title-line">Executamos o que realmente importa.</span>',
-      whyCopy: 'A Vouga entra antes de a solução estar decidida. Lemos o negócio como um sistema, encontramos o problema que realmente bloqueia e assumimos o caminho até à entrega.',
+      whyCopy: 'A Vouga entra antes de se escolher a solução. Olhamos para o negócio como um sistema, encontramos o problema que realmente bloqueia e acompanhamos o caminho até à entrega.',
       whySymptom: 'Diagnosticar',
       whySymptomCopy: 'Mapeamos como o trabalho acontece e onde se perde tempo, contexto ou capacidade de decisão.',
       whyOrigin: 'Desenhar',
@@ -162,28 +181,28 @@
       whySystem: 'Executar',
       whySystemCopy: 'Construímos, implementamos e melhoramos com a equipa até a solução funcionar no dia a dia.',
       whyPrinciple1: 'Visão sistémica',
-      whyPrinciple1Copy: 'Ligamos decisões, pessoas, processos e tecnologia.',
-      whyPrinciple2: 'Execução próxima',
-      whyPrinciple2Copy: 'Trabalhamos com a equipa, não à margem dela.',
-      whyPrinciple3: 'Tecnologia com propósito',
-      whyPrinciple3Copy: 'Escolhemos a ferramenta depois de perceber o problema.',
-      whyPrinciple4: 'Entrega que fica',
-      whyPrinciple4Copy: 'Construímos capacidade que a empresa consegue usar e evoluir.',
-      servicesLabel: 'sistemas de operação',
+      whyPrinciple1Copy: 'Lemos decisões, pessoas, processos e tecnologia como um só sistema antes de propor uma solução.',
+      whyPrinciple2: 'Proatividade operacional',
+      whyPrinciple2Copy: 'Não esperamos por um briefing perfeito. Entramos no trabalho real, encontramos bloqueios e puxamos o próximo passo.',
+      whyPrinciple3: 'IA como acelerador',
+      whyPrinciple3Copy: 'Usamos IA para chegar mais depressa à prova, ao protótipo e à entrega, sem abdicar de critério.',
+      whyPrinciple4: 'AI-native, negócio primeiro',
+      whyPrinciple4Copy: 'Construímos com ferramentas atuais, mas medimos valor em operação, decisão e capacidade que fica.',
+      servicesLabel: 'sistemas para operação',
       servicesTitle: 'O que construímos',
       servicesNum: '01 / agency',
       svc1Name: 'Auditoria de Workflow com IA',
-      svc1Desc: 'Mapeamos como o trabalho se move dentro da empresa e identificamos onde a IA pode remover fricção, reduzir desperdício ou aumentar velocidade.',
+      svc1Desc: 'Mapeamos como o trabalho circula dentro da empresa e identificamos onde a IA pode remover fricção, reduzir desperdício ou aumentar velocidade.',
       svc2Name: 'Sistema de Conhecimento com IA',
-      svc2Desc: 'Transformamos documentos, processos e know-how interno disperso numa camada de conhecimento pesquisável, com respostas citadas.',
+      svc2Desc: 'Transformamos documentos, processos e know-how interno disperso numa camada de conhecimento consultável, com respostas citadas.',
       svc3Name: 'Copiloto Comercial com IA',
-      svc3Desc: 'Ajudamos equipas comerciais a preparar, escrever e fazer follow-up mais depressa, usando o conhecimento da própria empresa.',
+      svc3Desc: 'Ajudamos equipas comerciais a preparar, escrever e acompanhar oportunidades mais depressa, usando o conhecimento da própria empresa.',
       svc4Name: 'Agente Reunião → Execução',
-      svc4Desc: 'Transformamos reuniões em decisões, responsáveis, prazos e follow-up.',
+      svc4Desc: 'Transformamos reuniões em decisões, responsáveis, prazos e próximos passos.',
       svc5Name: 'Auditoria de Governação de IA',
-      svc5Desc: 'Descobrimos onde a IA já está a ser usada, que riscos cria e de que regras a empresa precisa antes de escalar.',
+      svc5Desc: 'Descobrimos onde a IA já está a ser usada, que riscos cria e de que regras a empresa precisa antes de alargar o uso.',
       svc6Name: 'Capacitação em IA',
-      svc6Desc: 'Treinamos equipas no seu trabalho real, não em prompts genéricos.',
+      svc6Desc: 'Preparamos equipas a partir do seu trabalho real, não de prompts genéricos.',
       allServices: '← todos os serviços',
       svcOpen: 'abrir detalhe →',
       methodLabel: 'o método',
@@ -203,7 +222,7 @@
       step3Copy: 'Melhoramos o que está em produção e avançamos para o próximo problema.',
       useCasesLabel: 'casos de aplicação',
       useCasesTitle: 'Sistemas construídos para problemas reais.',
-      useCasesIntro: 'Projetos de IA aplicada, produto e sistemas internos, do MVP à operação.',
+      useCasesIntro: 'IA aplicada, produto e sistemas internos, do MVP à operação.',
       useCasesControlsLabel: 'Filtros dos casos de aplicação',
       useCasesMvp: 'MVPs',
       useCasesAi: 'Applied AI',
@@ -223,27 +242,27 @@
       useCase4Title: 'Agente conversacional com memória contextual',
       useCase4Desc: 'Agente de IA com RAG para recuperar conversas anteriores, preservar contexto longitudinal e preparar temas de continuidade.',
       useCase5Tags: 'Employee Experience · RAG Copilot',
-      useCase5Title: 'Portal do colaborador com copiloto interno',
+      useCase5Title: 'Portal interno do colaborador com copiloto',
       useCase5Desc: 'Portal para centralização e gestão de dados de colaboradores, integrado com um RAG Copilot para pesquisa e acesso contextual à informação.',
       foundationLabel: 'para além dos serviços',
       foundationSubLabel: 'construções chave-na-mão',
-      foundationHeadline: 'Algumas ideias merecem mais do que conselhos. Precisam de ser <em>construídas</em>.',
-      foundationCopy: 'Tu trazes a ideia. Nós reduzimos o risco, construímos o essencial e entregamos um produto funcional.',
+      foundationHeadline: 'Algumas ideias precisam de mais do que aconselhamento. Precisam de ser <em>construídas</em>.',
+      foundationCopy: 'Traz-nos a ideia. Nós reduzimos o risco, construímos o essencial e entregamos um produto funcional.',
       foundationScope: 'definição',
-      foundationScopeCopy: 'Definir a versão mais pequena que prova que há procura.',
+      foundationScopeCopy: 'Definir a versão mínima que prova procura real.',
       foundationBuild: 'construção',
-      foundationBuildCopy: 'Construir depressa, mas com arquitetura que aguenta.',
+      foundationBuildCopy: 'Construir depressa, com arquitetura preparada para crescer.',
       foundationHandover: 'entrega',
       foundationHandoverCopy: 'Código claro, infraestrutura clara, propriedade clara.',
       bringIdea: 'Traz-nos uma ideia <span class="arrow">→</span>',
       aboutLabel: '05 / COMO TRABALHAMOS',
       aboutTitle: 'Do problema à operação.',
       aboutNum: '05 / sobre',
-      aboutCopy1: 'Combinamos produto, software e IA aplicada para transformar contexto em sistemas que funcionam no dia-a-dia.',
-      aboutPrinciple: '<span>Contexto antes</span><span>da tecnologia.</span><span>Responsabilidades</span><span>até à entrega.</span>',
+      aboutCopy1: 'Combinamos produto, software e IA aplicada para transformar contexto em sistemas que funcionam no trabalho diário.',
+      aboutPrinciple: '<span>Contexto antes</span><span>da tecnologia.</span><span>Responsabilidade</span><span>até à entrega.</span>',
       aboutPrinciple1: '<span class="grad">Contexto</span> antes',
       aboutPrinciple2: 'da tecnologia.',
-      aboutPrinciple3: '<span class="grad">Responsabilidades</span>',
+      aboutPrinciple3: '<span class="grad">Responsabilidade</span>',
       aboutPrinciple4: 'até à entrega.',
       aboutMapLabel: 'Mapa do método Vouga, do contexto à entrega',
       aboutMapSystem: 'forma de operar',
@@ -253,9 +272,12 @@
       contactLabel: 'contacto',
       contactTitle: 'Vamos <em>falar</em>',
       contactCopy: 'Manda-nos o processo mais lento, confuso ou dependente de uma só pessoa. Dizemos-te se vale a pena, mesmo que a resposta seja não.',
+      contactDirect: 'Escreve-nos com uma frase sobre o sistema, processo ou ideia que queres desbloquear. Respondemos com o próximo passo mais honesto.',
+      contactEmailCta: 'Abrir email <span class="arrow">→</span>',
+      footerTalkTitle: 'Vamos <em>falar</em>',
       methodLead: 'Três etapas. Uma equipa responsável do início ao fim.',
       diagBandLabel: 'diagnóstico',
-      diagBandTitle: 'Não prometemos respostas fáceis. Em poucos minutos, mapeamos onde o sistema perde contexto, velocidade e capacidade de decisão.',
+      diagBandTitle: 'Não prometemos respostas fáceis. Em poucos minutos, mapeamos onde o sistema perde contexto, velocidade ou capacidade de decisão.',
       diagBandCta: 'Fazer o diagnóstico <span class="arrow">→</span>',
       nameLabel: 'nome',
       companyLabel: 'empresa',
@@ -275,8 +297,8 @@
       themeLabel: 'Light / dark mode',
       talkToUs: 'Contact us',
       heroTitle: '<span class="hero-line"><span class="grad">Intelligence</span>, built</span><br><span class="hero-line">around <em>the business</em></span>',
-      heroSub: 'Most companies fix the symptom. We find the <span class="grad">origin</span> and solve it with the right tool, from AI to a prototype.',
-      heroSubMobile: 'We don\'t treat symptoms.<br>We find the <span class="grad">origin</span> and apply<br>the right tool.',
+      heroSub: 'Most companies fix the symptom. We find the <span class="grad hero-origin-word">origin</span><span class="hero-sub-normal"> and solve it with the right tool, from AI to a prototype.</span>',
+      heroSubMobile: 'We don\'t treat symptoms.<br>We find the <span class="grad hero-origin-word">origin</span><span class="hero-sub-normal"> and apply</span><br><span class="hero-sub-normal">the right tool.</span>',
       heroDiagnose: 'See where you\'re losing money <span class="arrow">→</span>',
       heroPillars: 'See the pillars',
       navMethod: 'method',
@@ -297,13 +319,13 @@
       whySystem: 'Execute',
       whySystemCopy: 'We build, implement and improve with the team until the solution works in everyday operations.',
       whyPrinciple1: 'Systemic view',
-      whyPrinciple1Copy: 'We connect decisions, people, processes and technology.',
-      whyPrinciple2: 'Close execution',
-      whyPrinciple2Copy: 'We work with the team, not at its margins.',
-      whyPrinciple3: 'Purposeful technology',
-      whyPrinciple3Copy: 'We choose the tool after understanding the problem.',
-      whyPrinciple4: 'Delivery that lasts',
-      whyPrinciple4Copy: 'We build capability the company can use and evolve.',
+      whyPrinciple1Copy: 'We read decisions, people, processes and technology as one system before proposing a solution.',
+      whyPrinciple2: 'Operational proactivity',
+      whyPrinciple2Copy: 'We do not wait for a perfect brief. We enter the real work, find blockers and pull the next step forward.',
+      whyPrinciple3: 'AI as an accelerator',
+      whyPrinciple3Copy: 'We use AI to reach proof, prototype and delivery faster, without giving up judgment.',
+      whyPrinciple4: 'AI-native, business first',
+      whyPrinciple4Copy: 'We build with current tools, but measure value in operations, decisions and capability that remains.',
       servicesLabel: 'operating systems',
       servicesTitle: 'What we build',
       servicesNum: '01 / services',
@@ -388,6 +410,9 @@
       contactLabel: 'contact',
       contactTitle: "Let's <em>talk</em>",
       contactCopy: 'Send us your slowest, messiest, most one-person-dependent process. We\'ll tell you if it\'s worth it, even if the answer is no.',
+      contactDirect: 'Write us one sentence about the system, process or idea you want to unlock. We will reply with the most honest next step.',
+      contactEmailCta: 'Open email <span class="arrow">→</span>',
+      footerTalkTitle: 'Let’s <em>talk</em>',
       methodLead: 'Three stages. One accountable team from start to finish.',
       diagBandLabel: 'diagnosis',
       diagBandTitle: 'We do not promise easy answers. In a few minutes, we map where the system loses context, speed and decision capacity.',
@@ -834,8 +859,11 @@
     function finalizeCards(){
       enabled = false; running = false; done = true;
       dispP = 1; targetP = 1;
+      var cardsAnchorTop = getCardsAnchorTop();
+      var releaseScrollGuard = guardCardsHandoff();
       section.classList.remove('is-orbit');
       section.classList.add('is-cards', 'is-blur-in');
+      window.scrollTo({ top: Math.max(cardsAnchorTop, 0), behavior: 'auto' });
       window.removeEventListener('scroll', kick);
       nodes.forEach(function(n){
         n.classList.remove('is-active');
@@ -849,19 +877,55 @@
       pulls.forEach(function(p){ p.style.opacity = '0'; });
       if (kicker) kicker.style.opacity = '';
       if (systemWord){ systemWord.style.opacity = ''; systemWord.style.filter = ''; systemWord.style.transform = ''; }
-      keepCardsInView();
+      keepCardsInView(releaseScrollGuard, cardsAnchorTop);
       window.setTimeout(function(){ section.classList.remove('is-blur-in'); }, 1400);
     }
-    function keepCardsInView(){
+    function getCardsAnchorTop(){
+      var offset = window.innerWidth <= 820 ? 66 : 82;
+      return section.getBoundingClientRect().top + window.scrollY - offset;
+    }
+    function guardCardsHandoff(){
+      var active = true;
+      function stop(e){
+        if (active) e.preventDefault();
+      }
+      window.addEventListener('wheel', stop, { passive: false, capture: true });
+      window.addEventListener('touchmove', stop, { passive: false, capture: true });
+      return function(){
+        if (!active) return;
+        active = false;
+        window.removeEventListener('wheel', stop, true);
+        window.removeEventListener('touchmove', stop, true);
+      };
+    }
+    function keepCardsInView(releaseScrollGuard, cardsAnchorTop){
+      if (!shouldKeepCardsInView()){
+        if (releaseScrollGuard) releaseScrollGuard();
+        return;
+      }
       var previousBehavior = document.documentElement.style.scrollBehavior;
-      var targetTop = section.getBoundingClientRect().top + window.scrollY - 82;
+      var previousOverscroll = document.documentElement.style.overscrollBehavior;
+      var previousBodyOverscroll = document.body.style.overscrollBehavior;
+      var lockUntil = performance.now() + 1700;
       document.documentElement.style.scrollBehavior = 'auto';
-      window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'auto' });
-      requestAnimationFrame(function(){
-        targetTop = section.getBoundingClientRect().top + window.scrollY - 82;
-        window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'auto' });
+      document.documentElement.style.overscrollBehavior = 'none';
+      document.body.style.overscrollBehavior = 'none';
+      function hold(now){
+        window.scrollTo({ top: Math.max(cardsAnchorTop, 0), behavior: 'auto' });
+        if (now < lockUntil){
+          requestAnimationFrame(hold);
+          return;
+        }
         document.documentElement.style.scrollBehavior = previousBehavior;
-      });
+        document.documentElement.style.overscrollBehavior = previousOverscroll;
+        document.body.style.overscrollBehavior = previousBodyOverscroll;
+        if (releaseScrollGuard) releaseScrollGuard();
+      }
+      requestAnimationFrame(hold);
+    }
+    function shouldKeepCardsInView(){
+      var hash = window.location.hash;
+      return !hash || hash === '#top' || hash === '#pillars';
     }
 
     function enable(){
@@ -1565,7 +1629,7 @@
     });
     h += '</ul></div>';
     h += '<div class="ov-sec ov-kpis"><span class="label">' + esc(oc.measured) + '</span>' + statBlock(s.kpis) + '<p class="ov-note">' + esc(oc.kpisNote) + '</p></div>';
-    h += '<div class="ov-ctas"><a class="btn btn-primary" href="#contact" data-ov-close>' + oc.talk + '</a>';
+    h += '<div class="ov-ctas"><a class="btn btn-primary" href="mailto:hello@vouga-agency.pt" data-ov-close>' + oc.talk + '</a>';
     h += '</div>';
     ovBody.innerHTML = h;
     svcOverlay.hidden = false;
@@ -1732,36 +1796,4 @@
     }, 140);
   }
 
-  /* ===== contact form (mailto) ===== */
-  var MAIL_COPY = {
-    pt: {
-      subject: 'Pedido pelo website',
-      name: 'Nome',
-      email: 'Email',
-      company: 'Empresa',
-      privacy: 'Confirmação de privacidade: a pessoa aceitou que a Vouga use estes dados para responder a este pedido.'
-    },
-    en: {
-      subject: 'Website enquiry',
-      name: 'Name',
-      email: 'Email',
-      company: 'Company',
-      privacy: 'Privacy acknowledgement: the sender agreed that Vouga may use these details to reply to this enquiry.'
-    }
-  };
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    var mail = MAIL_COPY[currentLang] || MAIL_COPY.pt;
-    var name = document.getElementById('cfName').value.trim();
-    var email = document.getElementById('cfEmail').value.trim();
-    var company = document.getElementById('cfCompany').value.trim();
-    var msg = document.getElementById('cfMsg').value.trim();
-    var subject = mail.subject + (company ? ' · ' + company : '');
-    var body = msg + '\n\n' +
-      mail.name + ': ' + name + '\n' +
-      mail.email + ': ' + email + '\n' +
-      (company ? mail.company + ': ' + company + '\n' : '') +
-      '\n' + mail.privacy;
-    window.location.href = 'mailto:hello@vouga.agency?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-  });
 })();
