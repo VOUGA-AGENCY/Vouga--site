@@ -31,12 +31,28 @@
   (function initMobileMenu(){
     var navBurger = document.getElementById('navBurger');
     var mobileMenu = document.getElementById('mobileMenu');
+    function enforceMobileNavSurface(){
+      var mobile = window.matchMedia && window.matchMedia('(max-width: 820px)').matches;
+      document.querySelectorAll('.nav .nav-right > .theme-toggle, .nav .nav-right > .desktop-contact, .nav .nav-right > a[href^="mailto"]').forEach(function(el){
+        if (mobile) {
+          el.style.display = 'none';
+          el.setAttribute('aria-hidden', 'true');
+          el.setAttribute('tabindex', '-1');
+        } else {
+          el.style.display = '';
+          el.removeAttribute('aria-hidden');
+          el.removeAttribute('tabindex');
+        }
+      });
+    }
     function setMenu(open){
       if (!navBurger || !mobileMenu) return;
       mobileMenu.classList.toggle('open', open);
       navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
       navBurger.setAttribute('aria-label', open ? 'fechar menu' : 'abrir menu');
     }
+    enforceMobileNavSurface();
+    window.addEventListener('resize', enforceMobileNavSurface);
     if (!navBurger || !mobileMenu) return;
     navBurger.addEventListener('click', function(){
       setMenu(!mobileMenu.classList.contains('open'));

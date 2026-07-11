@@ -142,6 +142,22 @@
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape') setMenu(false); });
     window.addEventListener('resize', function(){ if (window.innerWidth > 820) setMenu(false); });
   }
+  function enforceMobileNavSurface(){
+    var mobile = window.matchMedia && window.matchMedia('(max-width: 820px)').matches;
+    document.querySelectorAll('.nav .nav-right > .theme-toggle, .nav .nav-right > .desktop-contact, .nav .nav-right > a[href^="mailto"]').forEach(function(el){
+      if (mobile) {
+        el.style.display = 'none';
+        el.setAttribute('aria-hidden', 'true');
+        el.setAttribute('tabindex', '-1');
+      } else {
+        el.style.display = '';
+        el.removeAttribute('aria-hidden');
+        el.removeAttribute('tabindex');
+      }
+    });
+  }
+  enforceMobileNavSurface();
+  window.addEventListener('resize', enforceMobileNavSurface);
 
   /* ===== language ===== */
   var currentLang = 'en';
@@ -160,7 +176,7 @@
       talkToUs: 'Contacte-nos',
       heroTitle: '<span class="hero-line"><span class="grad">Inteligência</span>, desenhada</span><br><span class="hero-line">em torno <em>do negócio</em></span>',
       heroSub: 'A maioria das empresas trata o sintoma. Nós encontramos a <span class="grad hero-origin-word">origem</span><span class="hero-sub-normal"> e aplicamos a ferramenta certa, da IA ao protótipo.</span>',
-      heroSubMobile: 'Não tratamos sintomas.<br>Encontramos a <span class="grad hero-origin-word">origem</span><span class="hero-sub-normal"> e aplicamos</span><br><span class="hero-sub-normal">a ferramenta certa.</span>',
+      heroSubMobile: 'Não tratamos sintomas.<br>Encontramos a origem e aplicamos<br>a ferramenta certa.',
       heroDiagnose: 'Ver onde o sistema perde valor <span class="arrow">→</span>',
       heroPillars: 'Ver os pilares',
       navMethod: 'método',
@@ -298,7 +314,7 @@
       talkToUs: 'Contact us',
       heroTitle: '<span class="hero-line"><span class="grad">Intelligence</span>, built</span><br><span class="hero-line">around <em>the business</em></span>',
       heroSub: 'Most companies fix the symptom. We find the <span class="grad hero-origin-word">origin</span><span class="hero-sub-normal"> and solve it with the right tool, from AI to a prototype.</span>',
-      heroSubMobile: 'We don\'t treat symptoms.<br>We find the <span class="grad hero-origin-word">origin</span><span class="hero-sub-normal"> and apply</span><br><span class="hero-sub-normal">the right tool.</span>',
+      heroSubMobile: 'We don\'t treat symptoms.<br>We find the origin and apply<br>the right tool.',
       heroDiagnose: 'See where you\'re losing money <span class="arrow">→</span>',
       heroPillars: 'See the pillars',
       navMethod: 'method',
