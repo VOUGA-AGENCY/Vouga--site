@@ -418,9 +418,9 @@ html[data-theme="dark"] .hero .btn-ghost:hover{border-color:#f7f2e8}
 }
 .why-v2-process p{max-width:30ch;margin-top:14px;font-size:15px;line-height:1.5;color:var(--why-dim)}
 .why-v2-principles{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(26px,3.4vw,56px);margin-top:clamp(38px,5vw,64px)}
-.why-v2-principles article{min-width:0}
+.why-v2-principles article{min-width:0;display:grid;grid-template-rows:minmax(2.24em,auto) auto;align-content:start}
 .why-v2-principles h4{
-  margin-top:0;font-family:var(--font-sans);font-size:clamp(18px,1.45vw,22px);font-weight:600;
+  min-height:2.24em;margin-top:0;font-family:var(--font-sans);font-size:clamp(18px,1.45vw,22px);font-weight:600;
   line-height:1.12;letter-spacing:-.035em;color:var(--why-text);
 }
 .why-v2-principles p{max-width:32ch;margin-top:12px;font-size:clamp(14px,1.05vw,16px);line-height:1.48;color:var(--why-dim)}
