@@ -485,7 +485,7 @@ html[data-theme="dark"] .hero .btn-ghost:hover{border-color:#f7f2e8}
   html[data-lang="en"] .why-v2-principles::before{content:'Principles'}
   .why-v2-principles article{padding:18px 14px 20px 0;border-top:1px solid var(--why-line)}
   .why-v2-principles article:nth-of-type(even){padding-right:0;padding-left:16px;border-left:1px solid var(--why-line)}
-  .why-v2-principles h4{font-size:16px;line-height:1.15}
+  .why-v2-principles h4{min-height:2.3em;font-size:16px;line-height:1.15}
   .why-v2-principles p{margin-top:8px;font-size:12.5px;line-height:1.42}
   .why-v2 + .pillars{padding-top:36px}
 }
