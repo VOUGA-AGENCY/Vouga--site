@@ -20,7 +20,6 @@
       navCapabilities:'Áreas',
       talkToUs:'Falar connosco',
       themeLabel:'Modo claro / escuro',
-      kicker:'contact us',
       title:'Start a conversation.',
       lead:'Bring us the problem, system or decision that needs to move. We reply with context, not an automatic proposal.',
       principleOne:'Contexto primeiro',
@@ -45,7 +44,6 @@
       navCapabilities:'Capabilities',
       talkToUs:'Contact us',
       themeLabel:'Light / dark mode',
-      kicker:'contact us',
       title:'Start a conversation.',
       lead:'Bring us the problem, system or decision that needs to move. We reply with context, not an automatic proposal.',
       principleOne:'Context first',
@@ -135,6 +133,62 @@
     window.addEventListener('resize', function(){
       if (window.innerWidth > 820) setMenu(false);
     });
+  })();
+
+  (function initContactAscii(){
+    var ASCII_GRID = [
+      '000000000000000000000011111111111111',
+      '000000000000000000000111111111111111',
+      '000000000000000000001111111111111111',
+      '111111111111111111111100000000000000',
+      '111111111111111111111000000000000000',
+      '111111111111111111111000000000000000',
+      '000000000000000000011111111111111111',
+      '000000000000000000111111111111111111',
+      '000000000000000001111111111111111111',
+      '111111111111111111100000000000000000',
+      '111111111111111111000000000000000000',
+      '111111111111111111000000000000000000',
+      '000000000000000111111111111111111111',
+      '000000000000000111111111111111111111',
+      '000000000000001111111111111111111111',
+      '111111111111111100000000000000000000',
+      '111111111111111000000000000000000000',
+      '111111111111110000000000000000000000'
+    ];
+    var SYMS = '%#$@&+=*';
+    var asciiEl = document.getElementById('contactAsciiLogo');
+    if (!asciiEl) return;
+    var asciiCells = [];
+    var asciiOn = [];
+    for (var r = 0; r < ASCII_GRID.length; r++) {
+      asciiCells.push([]);
+      for (var c = 0; c < ASCII_GRID[r].length; c++) {
+        if (ASCII_GRID[r][c] === '1') {
+          asciiCells[r].push(SYMS[Math.floor(Math.random() * SYMS.length)]);
+          asciiOn.push([r, c]);
+        } else {
+          asciiCells[r].push(' ');
+        }
+      }
+    }
+    function renderAscii(){
+      var out = '';
+      for (var r = 0; r < asciiCells.length; r++) out += asciiCells[r].join('') + (r < asciiCells.length - 1 ? '\n' : '');
+      asciiEl.textContent = out;
+    }
+    renderAscii();
+    if (!reducedMotion) {
+      setInterval(function(){
+        if (document.hidden) return;
+        var n = Math.max(4, Math.floor(asciiOn.length * 0.05));
+        for (var i = 0; i < n; i++) {
+          var cell = asciiOn[Math.floor(Math.random() * asciiOn.length)];
+          asciiCells[cell[0]][cell[1]] = SYMS[Math.floor(Math.random() * SYMS.length)];
+        }
+        renderAscii();
+      }, 140);
+    }
   })();
 
   var form = document.querySelector('[data-contact-form]');
