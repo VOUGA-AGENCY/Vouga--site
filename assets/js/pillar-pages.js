@@ -591,6 +591,7 @@
       return lum > 116 && sat < .38 && beigeLean;
     }
     function masked(mask,r,g,b,a,x,y,w,h){
+      if (a < 24) return true;
       if (mask === 'alpha') return a < 24;
       if (mask === 'paper') return lightBackground(r,g,b, 172, .46);
       if (mask === 'hand') {
@@ -615,6 +616,16 @@
       if (char === '<') return '&lt;';
       if (char === '>') return '&gt;';
       return char;
+    }
+    function fitParent(study){
+      if (!study.fitParent || (study.mobileAscii && !study.fitMobile)) return;
+      var parent = study.el.parentElement;
+      if (!parent) return;
+      var target = parent.clientWidth;
+      var actual = study.el.scrollWidth;
+      var current = parseFloat(getComputedStyle(study.el).fontSize) || 5;
+      if (!target || !actual) return;
+      study.el.style.fontSize = Math.max(2, Math.min(12, current * (target / actual))) + 'px';
     }
     function render(study){
       if (!study.accentEnabled) {
@@ -679,6 +690,7 @@
         study.nextWordAt = Date.now() + (study.frequentWords ? 280 + Math.random() * 520 : 1400 + Math.random() * 1800);
       }
       render(study);
+      fitParent(study);
     }
     function tick(study){
       if (document.hidden || !study.live.length) return;
@@ -720,11 +732,19 @@
     var studies = els.map(function(el){
       var accentEnabled = el.hasAttribute('data-ascii-accent');
       var wordAttr = el.getAttribute('data-ascii-words');
+      var mobileAscii = window.matchMedia && window.matchMedia('(max-width: 820px)').matches;
+      var baseCols = parseInt(el.getAttribute('data-cols') || '78', 10);
+      var mobileCols = parseInt(el.getAttribute('data-mobile-cols') || baseCols, 10);
       var study = {
         el: el,
         src: el.getAttribute('data-src'),
         mask: el.getAttribute('data-mask') || 'light',
-        cols: parseInt(el.getAttribute('data-cols') || '78', 10),
+        cols: mobileAscii ? mobileCols : baseCols,
+        baseCols: baseCols,
+        mobileCols: mobileCols,
+        mobileAscii: mobileAscii,
+        fitParent: el.hasAttribute('data-ascii-fit-parent'),
+        fitMobile: el.hasAttribute('data-ascii-fit-mobile'),
         trimBottom: parseFloat(el.getAttribute('data-trim-bottom') || '0') || 0,
         img: new Image(),
         cells: [],
@@ -741,8 +761,28 @@
       return study;
     });
 
+    var resizeTimer = null;
+    window.addEventListener('resize', function(){
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(function(){
+        var mobileAscii = window.matchMedia && window.matchMedia('(max-width: 820px)').matches;
+        studies.forEach(function(study){
+          var nextCols = mobileAscii ? study.mobileCols : study.baseCols;
+          if (study.mobileAscii !== mobileAscii || study.cols !== nextCols) {
+            study.mobileAscii = mobileAscii;
+            study.cols = nextCols;
+            study.el.style.fontSize = '';
+            if (study.img.complete) build(study);
+            return;
+          }
+          fitParent(study);
+        });
+      }, 120);
+    });
+
     if (!reducedMotion) {
       window.setInterval(function(){ studies.forEach(tick); }, 130);
     }
   })();
+
 })();

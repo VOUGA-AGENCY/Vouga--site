@@ -1,6 +1,6 @@
 # Vouga Agency Website
 
-Static website for Vouga Agency, a systems-led transformation and product company.
+Website for Vouga Agency, a systems-led transformation and product company. The public pages are static; `/api/contact` is a Vercel Function backed by Supabase.
 
 ## Structure
 
@@ -14,6 +14,10 @@ assets/
   js/main.js
   img/
   video/
+api/
+  contact.mjs
+supabase/
+  migrations/
 docs/
   site-documentation.md
 _headers
@@ -25,7 +29,7 @@ site.webmanifest
 
 ## Local Development
 
-Run a static server from the project root:
+For page-only work, run a static server from the project root:
 
 ```sh
 python3 -m http.server 8000 --bind 127.0.0.1
@@ -39,9 +43,11 @@ http://127.0.0.1:8000/
 
 If port `8000` is busy, use another port.
 
+For the complete contact flow, configure the environment variables from `.env.example`, apply the Supabase migration and run the project with `vercel dev`. See `docs/contact-backend.md`.
+
 ## Deployment
 
-The site has no build step. Deploy the repository root to a static host such as Netlify, Cloudflare Pages, Vercel or GitHub Pages.
+The committed browser assets need no production build step. Deploy the repository root to Vercel so the contact Function in `/api` is available. Run `bun run build:phone` only after changing `src/contact-phone.js`.
 
 Recommended production checks:
 
@@ -57,4 +63,4 @@ Recommended production checks:
 
 - `docs/site-documentation.md` is the living source of truth for design, content, SEO, accessibility and technical decisions.
 - Update that document after each meaningful iteration.
-- The current contact form uses `mailto:`. Replace it with a reliable endpoint before serious lead generation.
+- The contact form requires the Vercel and Supabase setup documented in `docs/contact-backend.md`.

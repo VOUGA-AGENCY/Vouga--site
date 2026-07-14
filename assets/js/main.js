@@ -296,13 +296,13 @@
       systemsChangeTitle: 'Como os Sistemas Evoluem',
       systemsChangeIntro: 'Todas as empresas são sistemas. O crescimento sustentável começa por compreendê-los antes de os transformar.',
       systemsStep1Title: 'Ver o Sistema',
-      systemsStep1Copy: 'Nunca otimizamos partes isoladas antes de compreender como tudo se relaciona.',
-      systemsStep2Title: 'Encontrar o Impacto',
-      systemsStep2Copy: 'A maioria dos problemas é consequência. Procuramos os pontos onde uma pequena mudança gera um grande resultado.',
+      systemsStep1Copy: 'Todas as decisões começam por compreender o funcionamento do sistema.<br><br>Analisamos pessoas, processos, tecnologia e informação como um único sistema antes de decidir o que deve mudar.',
+      systemsStep2Title: 'Identificar o Impacto',
+      systemsStep2Copy: 'Nem todos os problemas precisam de uma solução.<br><br>Identificamos as mudanças que geram maior impacto na operação.',
       systemsStep3Title: 'Aplicar a Ferramenta Certa',
-      systemsStep3Copy: 'Por vezes é IA. Outras vezes software, processos ou nenhuma dessas opções. A tecnologia vem sempre depois da compreensão.',
+      systemsStep3Copy: 'A tecnologia segue o problema, nunca o contrário.<br><br>Escolhemos a abordagem mais adequada ao negócio, seja IA, software, automação ou redesenho de processos.',
       systemsStep4Title: 'Evoluir Continuamente',
-      systemsStep4Copy: 'Cada implementação gera novo conhecimento. Os sistemas evoluem continuamente. A forma de trabalhar também.',
+      systemsStep4Copy: 'A entrega é o início, não o fim.<br><br>Cada implementação cria a base para a próxima melhoria.',
       contactLabel: 'contacto',
       contactTitle: 'Vamos <em>falar</em>',
       contactCopy: 'Manda-nos o processo mais lento, confuso ou dependente de uma só pessoa. Dizemos-te se vale a pena, mesmo que a resposta seja não.',
@@ -450,13 +450,13 @@
       systemsChangeTitle: 'How Systems Change',
       systemsChangeIntro: 'Every company is a system. Sustainable growth comes from understanding it before changing it.',
       systemsStep1Title: 'See the System',
-      systemsStep1Copy: 'We never optimise isolated parts before understanding the relationships between them.',
+      systemsStep1Copy: 'Every decision starts with understanding how the system works.<br><br>We analyse people, processes, technology and information as one connected system before deciding what should change.',
       systemsStep2Title: 'Find the Leverage',
-      systemsStep2Copy: 'Most problems are consequences.<br><br>We identify the few interventions that create the greatest impact.',
+      systemsStep2Copy: 'Not every problem deserves a solution.<br><br>We identify the few changes that produce the greatest operational impact.',
       systemsStep3Title: 'Apply the Right Tool',
-      systemsStep3Copy: "Sometimes that's AI.<br>Sometimes software.<br>Sometimes process.<br>Sometimes none of them.<br><br>Technology follows understanding.",
+      systemsStep3Copy: 'Technology follows the problem, never the other way around.<br><br>We choose the approach that best fits the business, whether that means AI, software, automation or process redesign.',
       systemsStep4Title: 'Keep Improving',
-      systemsStep4Copy: 'Every implementation creates new knowledge.<br><br>Systems evolve continuously.<br>So should the way they operate.',
+      systemsStep4Copy: 'Delivery is the beginning, not the end.<br><br>Every implementation becomes the foundation for the next improvement.',
       contactLabel: 'contact',
       contactTitle: "Let's <em>talk</em>",
       contactCopy: 'Send us your slowest, messiest, most one-person-dependent process. We\'ll tell you if it\'s worth it, even if the answer is no.',
@@ -589,6 +589,138 @@
   }
 
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ===== hero: sparse ASCII contours aligned to the desktop image ===== */
+  (function initHeroAsciiOverlay(){
+    var canvas = document.querySelector('[data-hero-ascii]');
+    if (!canvas) return;
+
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    var mobileMedia = window.matchMedia('(max-width: 820px)');
+    var source = new Image();
+    var cells = [];
+    var palette = '.:+*%V#A@';
+    var mutators = '.:%#@&V+=*A';
+    var timer = 0;
+    var visible = true;
+
+    function clamp(value, min, max){ return Math.max(min, Math.min(max, value)); }
+    function luminance(r, g, b){ return .2126 * r + .7152 * g + .0722 * b; }
+    function hash(x, y){
+      var value = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+      return value - Math.floor(value);
+    }
+    function pixel(data, width, height, x, y){
+      x = clamp(Math.round(x), 0, width - 1);
+      y = clamp(Math.round(y), 0, height - 1);
+      var index = (y * width + x) * 4;
+      return [data[index], data[index + 1], data[index + 2], data[index + 3]];
+    }
+    function draw(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.font = '700 12px "SFMono-Regular", Consolas, "Liberation Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#fff';
+      for (var i = 0; i < cells.length; i += 1){
+        var cell = cells[i];
+        ctx.fillText(cell.char, cell.x, cell.y);
+      }
+    }
+    function build(){
+      var width = source.naturalWidth;
+      var height = source.naturalHeight;
+      if (!width || !height) return;
+
+      canvas.width = width;
+      canvas.height = height;
+      var sample = document.createElement('canvas');
+      sample.width = width;
+      sample.height = height;
+      var sampleCtx = sample.getContext('2d', { willReadFrequently:true });
+      sampleCtx.drawImage(source, 0, 0, width, height);
+      var data = sampleCtx.getImageData(0, 0, width, height).data;
+      var mobile = mobileMedia.matches;
+      var stepX = mobile ? 10 : 9;
+      var stepY = mobile ? 14 : 13;
+      cells = [];
+
+      for (var y = Math.floor(stepY / 2); y < height; y += stepY){
+        for (var x = Math.floor(stepX / 2); x < width; x += stepX){
+          var center = pixel(data, width, height, x, y);
+          if (center[3] < 28) continue;
+
+          var left = pixel(data, width, height, x - stepX, y);
+          var right = pixel(data, width, height, x + stepX, y);
+          var up = pixel(data, width, height, x, y - stepY);
+          var down = pixel(data, width, height, x, y + stepY);
+          var horizontal = Math.abs(luminance(left[0], left[1], left[2]) - luminance(right[0], right[1], right[2]));
+          var vertical = Math.abs(luminance(up[0], up[1], up[2]) - luminance(down[0], down[1], down[2]));
+          var alphaEdge = Math.max(
+            Math.abs(center[3] - left[3]),
+            Math.abs(center[3] - right[3]),
+            Math.abs(center[3] - up[3]),
+            Math.abs(center[3] - down[3])
+          );
+          var detail = Math.sqrt(horizontal * horizontal + vertical * vertical) + alphaEdge * .42;
+          if (detail < (mobile ? 30 : 28)) continue;
+
+          var density = mobile
+            ? clamp((detail - 28) / 110, .08, .55)
+            : clamp((detail - 25) / 102, .1, .65);
+          if (hash(x, y) > density) continue;
+
+          var strength = clamp((detail - 20) / 110, 0, 1);
+          var shade = clamp(Math.round(strength * (palette.length - 1)), 0, palette.length - 1);
+          cells.push({
+            x:x,
+            y:y,
+            char:palette.charAt(shade)
+          });
+        }
+      }
+      draw();
+    }
+    function mutate(){
+      if (document.hidden || !visible || !cells.length) return;
+      var changes = Math.max(12, Math.floor(cells.length * .045));
+      for (var i = 0; i < changes; i += 1){
+        var cell = cells[Math.floor(Math.random() * cells.length)];
+        cell.char = mutators.charAt(Math.floor(Math.random() * mutators.length));
+      }
+      draw();
+    }
+
+    function loadSource(){
+      var nextSource = mobileMedia.matches ? canvas.getAttribute('data-mobile-src') : canvas.getAttribute('data-src');
+      if (nextSource && source.getAttribute('data-current-src') !== nextSource){
+        source.setAttribute('data-current-src', nextSource);
+        source.src = nextSource;
+      }
+    }
+    source.onload = function(){
+      build();
+      if (!reducedMotion && !timer) timer = window.setInterval(mutate, 150);
+    };
+    loadSource();
+    if (mobileMedia.addEventListener) mobileMedia.addEventListener('change', loadSource);
+    else if (mobileMedia.addListener) mobileMedia.addListener(loadSource);
+
+    if ('IntersectionObserver' in window){
+      new IntersectionObserver(function(entries){
+        visible = entries[0] ? entries[0].isIntersecting : true;
+      }, { threshold:0 }).observe(canvas);
+    }
+    window.addEventListener('pagehide', function(){
+      if (timer) window.clearInterval(timer);
+      if (mobileMedia.removeEventListener) mobileMedia.removeEventListener('change', loadSource);
+      else if (mobileMedia.removeListener) mobileMedia.removeListener(loadSource);
+    });
+  })();
 
   (function initSystemsAsciiMutation(){
     var nodes = Array.prototype.slice.call(document.querySelectorAll('.systems-ascii'));
@@ -752,7 +884,7 @@
     /* continuous rotation: no holds, just a slow heavy glide through the three pillars */
     function rot(p){
       if (p < 0.06) return 0;
-      if (p < 0.88) return lerp(0, 240, easeIO(seg(p, 0.06, 0.88)));
+      if (p < 0.82) return lerp(0, 240, easeIO(seg(p, 0.06, 0.82)));
       return 240;
     }
     function ellipseD(g, bulge, angs){
@@ -795,9 +927,11 @@
       var g = geom();
       var appear = easeIO(seg(p, 0.04, 0.20));   /* orbit + extra pillars fade in on first scroll */
       var R = rot(p);
+      var handoffOut = 1 - easeIO(seg(p, 0.84, 0.93));
+      var handoffBlur = (1 - handoffOut) * 12;
       var systemIn = easeIO(seg(p, 0.10, 0.25));
       var systemOut = 1 - easeIO(seg(p, 0.70, 0.87));
-      var systemVisible = systemIn * systemOut;
+      var systemVisible = systemIn * systemOut * handoffOut;
 
       if (kicker) kicker.style.opacity = '1';
       if (systemWord){
@@ -808,11 +942,11 @@
 
       var angs = [ANG[0] + R, ANG[1] + R, ANG[2] + R];
       if (svg){
-        svg.style.opacity = (0.14 + appear * 0.86).toFixed(3);
+        svg.style.opacity = ((0.14 + appear * 0.86) * handoffOut).toFixed(3);
         path.setAttribute('d', ellipseD(g, 1, angs));
         for (var q = 0; q < pulls.length; q++){
           pulls[q].setAttribute('d', ellipseArcD(g, 1, angs[q]));
-          pulls[q].style.opacity = (0.035 + appear * 0.515).toFixed(3);
+          pulls[q].style.opacity = ((0.035 + appear * 0.515) * handoffOut).toFixed(3);
         }
       }
 
@@ -825,13 +959,13 @@
         var ambientOpacity = lerp(0.14, 0.42, appear);
         var opOrbit = lerp(ambientOpacity, 1, focus);
         var blur = i === 0 ? 0 : (1 - appear) * 9;
-        setNode(i, x, y, sc, opOrbit, blur);
+        setNode(i, x, y, sc, opOrbit * handoffOut, Math.max(blur, handoffBlur));
         nodes[i].classList.toggle('is-active', activeOrbit);
         nodes[i].style.setProperty('--desc-open', focus.toFixed(3));
         var bl = blobs[i];
         if (bl){
           bl.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) translate(-50%,-50%)';
-          bl.style.opacity = ((0.012 + appear * 0.988) * lerp(0.035, 0.11, focus)).toFixed(3);
+          bl.style.opacity = ((0.012 + appear * 0.988) * lerp(0.035, 0.11, focus) * handoffOut).toFixed(3);
         }
       }
     }
@@ -848,7 +982,7 @@
       var settled = Math.abs(targetP - dispP) < 0.0006;
       if (settled) dispP = targetP;
       render(dispP);
-      if (dispP >= 0.88){ finalizeCards(); return; }
+      if (dispP >= 0.93){ finalizeCards(); return; }
       if (settled){ running = false; return; }   /* idle until next scroll */
       requestAnimationFrame(loop);
     }
@@ -857,11 +991,8 @@
       enabled = false; running = false; done = true;
       markCardsReady();
       dispP = 1; targetP = 1;
-      var cardsAnchorTop = getCardsAnchorTop();
-      var releaseScrollGuard = guardCardsHandoff();
       section.classList.remove('is-orbit');
-      section.classList.add('is-cards', 'is-blur-in');
-      window.scrollTo({ top: Math.max(cardsAnchorTop, 0), behavior: 'auto' });
+      section.classList.add('is-cards', 'is-handoff', 'is-blur-in');
       window.removeEventListener('scroll', kick);
       nodes.forEach(function(n){
         n.classList.remove('is-active');
@@ -875,13 +1006,12 @@
       pulls.forEach(function(p){ p.style.opacity = '0'; });
       if (kicker) kicker.style.opacity = '';
       if (systemWord){ systemWord.style.opacity = ''; systemWord.style.filter = ''; systemWord.style.transform = ''; }
-      keepCardsInView(releaseScrollGuard, cardsAnchorTop);
       window.setTimeout(function(){ section.classList.remove('is-blur-in'); }, 1400);
     }
     function showCardsImmediately(){
       enabled = false; running = false; done = true;
       dispP = 1; targetP = 1;
-      section.classList.remove('is-orbit', 'is-blur-in');
+      section.classList.remove('is-orbit', 'is-handoff', 'is-blur-in');
       section.classList.add('is-cards');
       window.removeEventListener('scroll', kick);
       nodes.forEach(function(n){
@@ -897,54 +1027,6 @@
       if (kicker) kicker.style.opacity = '';
       if (systemWord){ systemWord.style.opacity = ''; systemWord.style.filter = ''; systemWord.style.transform = ''; }
     }
-    function getCardsAnchorTop(){
-      var offset = window.innerWidth <= 820 ? 66 : 82;
-      return section.getBoundingClientRect().top + window.scrollY - offset;
-    }
-    function guardCardsHandoff(){
-      var active = true;
-      function stop(e){
-        if (active) e.preventDefault();
-      }
-      window.addEventListener('wheel', stop, { passive: false, capture: true });
-      window.addEventListener('touchmove', stop, { passive: false, capture: true });
-      return function(){
-        if (!active) return;
-        active = false;
-        window.removeEventListener('wheel', stop, true);
-        window.removeEventListener('touchmove', stop, true);
-      };
-    }
-    function keepCardsInView(releaseScrollGuard, cardsAnchorTop){
-      if (!shouldKeepCardsInView()){
-        if (releaseScrollGuard) releaseScrollGuard();
-        return;
-      }
-      var previousBehavior = document.documentElement.style.scrollBehavior;
-      var previousOverscroll = document.documentElement.style.overscrollBehavior;
-      var previousBodyOverscroll = document.body.style.overscrollBehavior;
-      var lockUntil = performance.now() + 1700;
-      document.documentElement.style.scrollBehavior = 'auto';
-      document.documentElement.style.overscrollBehavior = 'none';
-      document.body.style.overscrollBehavior = 'none';
-      function hold(now){
-        window.scrollTo({ top: Math.max(cardsAnchorTop, 0), behavior: 'auto' });
-        if (now < lockUntil){
-          requestAnimationFrame(hold);
-          return;
-        }
-        document.documentElement.style.scrollBehavior = previousBehavior;
-        document.documentElement.style.overscrollBehavior = previousOverscroll;
-        document.body.style.overscrollBehavior = previousBodyOverscroll;
-        if (releaseScrollGuard) releaseScrollGuard();
-      }
-      requestAnimationFrame(hold);
-    }
-    function shouldKeepCardsInView(){
-      var hash = window.location.hash;
-      return !hash || hash === '#top' || hash === '#pillars';
-    }
-
     function enable(){
       if (enabled || done) return;
       enabled = true;
@@ -955,7 +1037,7 @@
     function disable(){
       if (!enabled) return;
       enabled = false; running = false;
-      section.classList.remove('is-orbit', 'is-cards', 'is-blur-in');
+      section.classList.remove('is-orbit', 'is-cards', 'is-handoff', 'is-blur-in');
       window.removeEventListener('scroll', kick);
       nodes.forEach(function(n){ n.style.removeProperty('--desc-open'); n.style.transform = ''; n.style.opacity = ''; n.style.filter = ''; });
       blobs.forEach(function(b){ b.style.opacity = '0'; });

@@ -12,8 +12,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="assets/js/site-preferences.js?v=20260714-w029-dark-only-v1"></script>
-<link rel="stylesheet" href="assets/css/main.css?v=20260714-w029-dark-only-v1">
-<script src="assets/js/contact.js?v=20260714-w029-dark-only-v1" defer></script>
+<link rel="stylesheet" href="assets/css/main.css?v=20260714-w032-title-spacing-v1">
+<script src="assets/js/contact-phone.js?v=20260714-w031-contact-data-v1" defer></script>
+<script src="assets/js/contact.js?v=20260714-w031-contact-data-v1" defer></script>
 </head>
 <body class="contact-page">
 <header class="nav">
@@ -40,32 +41,43 @@
   </section>
 
   <section class="contact-panel" aria-label="Formulário de contacto">
-    <form class="contact-form" data-contact-form data-supabase-table="contact_requests" novalidate>
+    <form class="contact-form" data-contact-form novalidate>
       <input type="hidden" name="source" value="website_contact">
+      <div class="contact-trap" aria-hidden="true">
+        <label for="contactWebsite">Website</label>
+        <input id="contactWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
       <div class="contact-field">
         <label for="contactName" data-contact-i18n="nameLabel">Nome</label>
-        <input id="contactName" name="name" type="text" autocomplete="name" placeholder="Miguel Silva" required>
+        <input id="contactName" name="name" type="text" autocomplete="name" placeholder="Pedro Santos" minlength="2" maxlength="100" aria-describedby="contactNameError" required>
+        <p class="contact-field-error" id="contactNameError"></p>
       </div>
       <div class="contact-field">
         <label for="contactEmail" data-contact-i18n="emailLabel">Email</label>
-        <input id="contactEmail" name="email" type="email" autocomplete="email" placeholder="nome@empresa.pt" required>
+        <input id="contactEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="nome@exemplo.com" maxlength="254" aria-describedby="contactEmailError" required>
+        <p class="contact-field-error" id="contactEmailError"></p>
       </div>
       <div class="contact-field">
         <label for="contactPhone"><span data-contact-i18n="phoneLabel">Telefone</span> <em data-contact-i18n="optionalLabel">(opcional)</em></label>
-        <input id="contactPhone" name="phone" type="tel" autocomplete="tel" placeholder="+351 900 000 000">
+        <input id="contactPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+351 900 000 000" maxlength="25" aria-describedby="contactPhoneHint contactPhoneError">
+        <p class="contact-field-hint" id="contactPhoneHint" data-contact-i18n="phoneHint">Inclui o indicativo do país.</p>
+        <p class="contact-field-error" id="contactPhoneError"></p>
       </div>
       <div class="contact-field">
         <label for="contactCompany" data-contact-i18n="companyLabel">Empresa</label>
-        <input id="contactCompany" name="company" type="text" autocomplete="organization" placeholder="Empresa">
+        <input id="contactCompany" name="company" type="text" autocomplete="organization" placeholder="Empresa" minlength="2" maxlength="120" aria-describedby="contactCompanyError" required>
+        <p class="contact-field-error" id="contactCompanyError"></p>
       </div>
       <div class="contact-field">
         <label for="contactMessage" data-contact-i18n="messageLabel">Mensagem</label>
-        <textarea id="contactMessage" name="message" rows="5" placeholder="Conta-nos o que precisa de mudar..." required></textarea>
+        <textarea id="contactMessage" name="message" rows="5" placeholder="Conta-nos o que precisa de mudar..." minlength="10" maxlength="5000" aria-describedby="contactMessageError" required></textarea>
+        <p class="contact-field-error" id="contactMessageError"></p>
       </div>
       <label class="contact-consent">
-        <input name="consent" type="checkbox" required>
+        <input name="consent" type="checkbox" aria-describedby="contactConsentError" required>
         <span data-contact-i18n="consent">Aceito que a Vouga use estes dados para responder ao meu pedido.</span>
       </label>
+      <p class="contact-field-error contact-consent-error" id="contactConsentError"></p>
       <button class="contact-submit" type="submit" data-contact-i18n="submit">Enviar</button>
       <p class="contact-status" data-contact-status role="status" aria-live="polite"></p>
     </form>

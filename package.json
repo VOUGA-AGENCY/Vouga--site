@@ -1,0 +1,12 @@
+{
+  "name": "vouga-agency-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:phone": "bun build src/contact-phone.js --outfile assets/js/contact-phone.js --target browser --format=iife --minify",
+    "test": "bun test tests/contact-api.test.mjs"
+  },
+  "dependencies": {
+    "libphonenumber-js": "1.13.8"
+  }
+}

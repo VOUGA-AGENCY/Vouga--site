@@ -8,6 +8,7 @@
   var root = document.documentElement;
   root.setAttribute('data-theme', 'dark');
   try { localStorage.removeItem('vouga-theme'); } catch(e) {}
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var lang = 'pt';
   try {
     var savedLang = localStorage.getItem('vouga-lang');
@@ -30,12 +31,19 @@
       emailLabel:'Email',
       phoneLabel:'Telefone',
       optionalLabel:'(opcional)',
+      phoneHint:'Inclui o indicativo do país.',
       companyLabel:'Empresa',
       messageLabel:'Mensagem',
       consent:'Aceito que a Vouga use estes dados para responder ao meu pedido.',
       submit:'Enviar',
+      sending:'A enviar...',
       missing:'Preenche os campos obrigatórios para continuarmos.',
-      pending:'Formulário pronto. Falta ligar o Supabase para recolher submissões reais.',
+      invalidName:'Indica um nome com pelo menos 2 caracteres.',
+      invalidEmail:'Introduz um email válido, como nome@exemplo.com.',
+      invalidPhone:'Introduz um número válido com o indicativo do país, como +351 912 345 678.',
+      invalidCompany:'Indica o nome da empresa.',
+      invalidMessage:'Conta-nos um pouco mais, usando pelo menos 10 caracteres.',
+      consentRequired:'Precisamos do teu consentimento para responder ao pedido.',
       success:'Pedido enviado. Falamos em breve.',
       error:'Não foi possível enviar. Tenta novamente ou escreve para hello@vouga-agency.pt.'
     },
@@ -53,12 +61,19 @@
       emailLabel:'Email',
       phoneLabel:'Phone',
       optionalLabel:'(optional)',
+      phoneHint:'Include the international country code.',
       companyLabel:'Company',
       messageLabel:'Message',
       consent:'I agree that Vouga may use these details to reply to my request.',
       submit:'Submit',
+      sending:'Sending...',
       missing:'Fill in the required fields before continuing.',
-      pending:'Form ready. Supabase still needs to be connected before real submissions are collected.',
+      invalidName:'Enter a name with at least 2 characters.',
+      invalidEmail:'Enter a valid email, such as name@example.com.',
+      invalidPhone:'Enter a valid number with its country code, such as +351 912 345 678.',
+      invalidCompany:'Enter the company name.',
+      invalidMessage:'Tell us a little more, using at least 10 characters.',
+      consentRequired:'We need your consent before replying to the request.',
       success:'Request sent. We will be in touch soon.',
       error:'We could not send it. Please try again or email hello@vouga-agency.pt.'
     }
@@ -73,6 +88,23 @@
     });
     document.querySelectorAll('[data-lang-option]').forEach(function(el){
       el.classList.toggle('is-active', el.getAttribute('data-lang-option') === lang);
+    });
+    var placeholders = lang === 'pt' ? {
+      contactName:'Pedro Santos',
+      contactEmail:'nome@exemplo.com',
+      contactPhone:'+351 900 000 000',
+      contactCompany:'Empresa',
+      contactMessage:'Conta-nos o que precisa de mudar...'
+    } : {
+      contactName:'Pedro Santos',
+      contactEmail:'name@example.com',
+      contactPhone:'+351 900 000 000',
+      contactCompany:'Company',
+      contactMessage:'Tell us what needs to change...'
+    };
+    Object.keys(placeholders).forEach(function(id){
+      var field = document.getElementById(id);
+      if (field) field.setAttribute('placeholder', placeholders[id]);
     });
   }
   applyCopy();
@@ -198,54 +230,108 @@
       company: String(data.get('company') || '').trim(),
       message: String(data.get('message') || '').trim(),
       source: String(data.get('source') || 'website_contact'),
-      language: lang
+      language: lang,
+      consent: data.get('consent') === 'on',
+      website: String(data.get('website') || '').trim()
     };
   }
-  function storePending(payload){
-    try {
-      var existing = JSON.parse(localStorage.getItem('vouga-contact-pending') || '[]');
-      existing.push(Object.assign({ created_at: new Date().toISOString() }, payload));
-      localStorage.setItem('vouga-contact-pending', JSON.stringify(existing.slice(-20)));
-    } catch(e) {}
+
+  var fields = {
+    name: form.elements.name,
+    email: form.elements.email,
+    phone: form.elements.phone,
+    company: form.elements.company,
+    message: form.elements.message,
+    consent: form.elements.consent
+  };
+
+  function setFieldError(name, message){
+    var field = fields[name];
+    var error = document.getElementById('contact' + name.charAt(0).toUpperCase() + name.slice(1) + 'Error');
+    if (field) field.setAttribute('aria-invalid', message ? 'true' : 'false');
+    if (error) error.textContent = message || '';
   }
 
-  form.addEventListener('submit', function(e){
+  function validateField(name){
+    var field = fields[name];
+    if (!field) return true;
+    var value = typeof field.value === 'string' ? field.value.trim() : '';
+    var message = '';
+
+    if (name === 'name' && (value.length < 2 || value.length > 100)) message = copy.invalidName;
+    if (name === 'email' && (value.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value))) message = copy.invalidEmail;
+    if (name === 'company' && (value.length < 2 || value.length > 120)) message = copy.invalidCompany;
+    if (name === 'message' && (value.length < 10 || value.length > 5000)) message = copy.invalidMessage;
+    if (name === 'consent' && !field.checked) message = copy.consentRequired;
+    if (name === 'phone' && value) {
+      var phone = window.VougaPhone && window.VougaPhone.parse(value);
+      if (!phone || !phone.valid) message = copy.invalidPhone;
+    }
+
+    setFieldError(name, message);
+    return !message;
+  }
+
+  function validateForm(){
+    var order = ['name', 'email', 'phone', 'company', 'message', 'consent'];
+    var firstInvalid = null;
+    order.forEach(function(name){
+      if (!validateField(name) && !firstInvalid) firstInvalid = fields[name];
+    });
+    if (firstInvalid && firstInvalid.focus) firstInvalid.focus();
+    return !firstInvalid;
+  }
+
+  Object.keys(fields).forEach(function(name){
+    var field = fields[name];
+    var eventName = name === 'consent' ? 'change' : 'blur';
+    field.addEventListener(eventName, function(){ validateField(name); });
+    if (name !== 'consent') {
+      field.addEventListener('input', function(){
+        if (field.getAttribute('aria-invalid') === 'true') validateField(name);
+      });
+    }
+  });
+
+  fields.phone.addEventListener('blur', function(){
+    var phone = window.VougaPhone && window.VougaPhone.parse(fields.phone.value);
+    if (phone && phone.valid && !phone.empty) fields.phone.value = phone.international;
+  });
+
+  form.addEventListener('submit', async function(e){
     e.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
+    if (!validateForm()) {
       setStatus(copy.missing, 'error');
       return;
     }
     var payload = payloadFromForm();
-    var cfg = window.VOUGA_SUPABASE_CONFIG || {};
-    var table = form.getAttribute('data-supabase-table') || 'contact_requests';
     var submit = form.querySelector('button[type="submit"]');
     if (submit) submit.disabled = true;
+    if (submit) submit.textContent = copy.sending;
+    setStatus('', 'info');
 
-    if (!cfg.url || !cfg.anonKey) {
-      storePending(payload);
-      setStatus(copy.pending, 'info');
-      if (submit) submit.disabled = false;
-      return;
-    }
-
-    fetch(String(cfg.url).replace(/\/$/, '') + '/rest/v1/' + encodeURIComponent(table), {
-      method: 'POST',
-      headers: {
-        apikey: cfg.anonKey,
-        Authorization: 'Bearer ' + cfg.anonKey,
-        'Content-Type': 'application/json',
-        Prefer: 'return=minimal'
-      },
-      body: JSON.stringify(payload)
-    }).then(function(res){
-      if (!res.ok) throw new Error('Supabase request failed');
+    try {
+      var response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      var result = await response.json().catch(function(){ return {}; });
+      if (!response.ok) {
+        if (result.field && fields[result.field]) {
+          validateField(result.field);
+          fields[result.field].focus();
+        }
+        throw new Error(result.code || 'contact_request_failed');
+      }
       form.reset();
+      Object.keys(fields).forEach(function(name){ setFieldError(name, ''); });
       setStatus(copy.success, 'success');
-    }).catch(function(){
+    } catch(e) {
       setStatus(copy.error, 'error');
-    }).finally(function(){
+    } finally {
       if (submit) submit.disabled = false;
-    });
+      if (submit) submit.textContent = copy.submit;
+    }
   });
 })();
