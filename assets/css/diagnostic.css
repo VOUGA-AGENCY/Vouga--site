@@ -137,8 +137,6 @@ body.diag-page{overflow-x:hidden}
   .diag-page .logo{font-size:19px;gap:8px;min-width:0}
   .diag-page .logo-mark{width:21px;height:21px}
   .diag-page .nav-right{gap:8px}
-  .diag-page .nav-right > .theme-toggle{display:grid}
-  .diag-page .theme-toggle{width:32px;height:32px}
   .diag-page .nav .btn{padding:.52em .92em;font-size:13px}
   .diag{
     align-items:center;

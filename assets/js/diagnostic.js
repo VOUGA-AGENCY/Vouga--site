@@ -15,18 +15,8 @@
   var CAL = 'https://cal.com/vouga';
 
   (function initTheme(){
-    var theme = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    try {
-      var savedTheme = localStorage.getItem('vouga-theme');
-      if (savedTheme === 'light' || savedTheme === 'dark') theme = savedTheme;
-    } catch(e){}
-    root.setAttribute('data-theme', theme);
-    var btn = document.getElementById('themeToggle');
-    if (btn) btn.addEventListener('click', function(){
-      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('vouga-theme', next); } catch(e){}
-    });
+    root.setAttribute('data-theme', 'dark');
+    try { localStorage.removeItem('vouga-theme'); } catch(e){}
   })();
 
   var COPY = {
@@ -558,8 +548,6 @@
     if (siteLink) siteLink.textContent = c().site;
     var logo = document.querySelector('.logo');
     if (logo) logo.setAttribute('aria-label', currentLang === 'pt' ? 'Vouga Agency, início' : 'Vouga Agency, home');
-    var theme = document.getElementById('themeToggle');
-    if (theme) theme.setAttribute('aria-label', currentLang === 'pt' ? 'alternar modo claro e escuro' : 'toggle light and dark mode');
     var langToggle = document.getElementById('langToggle');
     if (langToggle) {
       langToggle.setAttribute('aria-label', currentLang === 'pt' ? 'Switch to English' : 'Mudar para português');

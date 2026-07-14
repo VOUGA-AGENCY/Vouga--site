@@ -6,6 +6,8 @@
   }
 
   var root = document.documentElement;
+  root.setAttribute('data-theme', 'dark');
+  try { localStorage.removeItem('vouga-theme'); } catch(e) {}
   var lang = 'pt';
   try {
     var savedLang = localStorage.getItem('vouga-lang');
@@ -19,7 +21,6 @@
       navWork:'Casos de Uso',
       navCapabilities:'Áreas',
       talkToUs:'Falar connosco',
-      themeLabel:'Modo claro / escuro',
       title:'Start a conversation.',
       lead:'Bring us the problem, system or decision that needs to move. We reply with context, not an automatic proposal.',
       principleOne:'Contexto primeiro',
@@ -43,7 +44,6 @@
       navWork:'Use Cases',
       navCapabilities:'Capabilities',
       talkToUs:'Contact us',
-      themeLabel:'Light / dark mode',
       title:'Start a conversation.',
       lead:'Bring us the problem, system or decision that needs to move. We reply with context, not an automatic proposal.',
       principleOne:'Context first',
@@ -86,16 +86,6 @@
         applyCopy();
       });
     }
-    function toggleTheme(){
-      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('vouga-theme', next); } catch(e) {}
-    }
-    var themeBtn = document.getElementById('themeToggle');
-    var themeBtnMobile = document.getElementById('themeToggleMobile');
-    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
-    if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
-
     var navBurger = document.getElementById('navBurger');
     var mobileMenu = document.getElementById('mobileMenu');
     function setMenu(open){
@@ -106,7 +96,7 @@
     }
     function enforceMobileNavSurface(){
       var mobile = window.matchMedia && window.matchMedia('(max-width: 820px)').matches;
-      document.querySelectorAll('.nav .nav-right > .theme-toggle, .nav .nav-right > .desktop-contact').forEach(function(el){
+      document.querySelectorAll('.nav .nav-right > .desktop-contact').forEach(function(el){
         if (mobile) {
           el.style.display = 'none';
           el.setAttribute('aria-hidden', 'true');

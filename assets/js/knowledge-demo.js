@@ -17,9 +17,9 @@
   var langToggle = document.getElementById('demoLangToggle');
   var state = 0;
   var currentLang = 'en';
+  root.setAttribute('data-theme', 'dark');
   try {
-    var savedTheme = localStorage.getItem('vouga-theme');
-    if (savedTheme === 'light' || savedTheme === 'dark') root.setAttribute('data-theme', savedTheme);
+    localStorage.removeItem('vouga-theme');
     var savedLang = localStorage.getItem('vouga-lang');
     if (savedLang === 'pt' || savedLang === 'en') currentLang = savedLang;
   } catch(e){}

@@ -28,22 +28,8 @@
   } catch(e) {}
 
   (function initTheme(){
-    var theme = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    try {
-      var savedTheme = localStorage.getItem('vouga-theme');
-      if (savedTheme === 'light' || savedTheme === 'dark') theme = savedTheme;
-    } catch(e) {}
-    root.setAttribute('data-theme', theme);
-
-    function toggleTheme(){
-      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      try { localStorage.setItem('vouga-theme', next); } catch(e) {}
-    }
-    var btn = document.getElementById('themeToggle');
-    if (btn) btn.addEventListener('click', toggleTheme);
-    var mobileBtn = document.getElementById('themeToggleMobile');
-    if (mobileBtn) mobileBtn.addEventListener('click', toggleTheme);
+    root.setAttribute('data-theme', 'dark');
+    try { localStorage.removeItem('vouga-theme'); } catch(e) {}
   })();
 
   (function initMobileMenu(){
@@ -51,7 +37,7 @@
     var mobileMenu = document.getElementById('mobileMenu');
     function enforceMobileNavSurface(){
       var mobile = window.matchMedia && window.matchMedia('(max-width: 820px)').matches;
-      document.querySelectorAll('.nav .nav-right > .theme-toggle, .nav .nav-right > .desktop-contact, .nav .nav-right > a[href^="mailto"]').forEach(function(el){
+      document.querySelectorAll('.nav .nav-right > .desktop-contact, .nav .nav-right > a[href^="mailto"]').forEach(function(el){
         if (mobile) {
           el.style.display = 'none';
           el.setAttribute('aria-hidden', 'true');
@@ -95,9 +81,50 @@
     if (!page) return;
 
     var COMMON = {
-      pt: { contact:'Falar connosco', theme:'alternar modo claro e escuro', logo:'Vouga Agency, início', nav:['Como Pensamos','Casos de Uso','Áreas'], mobileTheme:'Modo claro / escuro' },
-      en: { contact:'Contact us', theme:'toggle light and dark mode', logo:'Vouga Agency, home', nav:['Our Approach','Use Cases','Capabilities'], mobileTheme:'Light / dark mode' }
+      pt: { contact:'Falar connosco', logo:'Vouga Agency, início', nav:['Como Pensamos','Casos de Uso','Áreas'] },
+      en: { contact:'Contact us', logo:'Vouga Agency, home', nav:['Our Approach','Use Cases','Capabilities'] }
     };
+    if (document.body.hasAttribute('data-static-detail')) {
+      function applyStatic(lang){
+        lang = lang === 'en' ? 'en' : 'pt';
+        currentLang = lang;
+        root.setAttribute('lang', lang === 'en' ? 'en' : 'pt-PT');
+        root.setAttribute('data-lang', lang);
+        var common = COMMON[lang];
+        var pageTitle = document.body.getAttribute('data-title-' + lang);
+        var pageDescription = document.body.getAttribute('data-description-' + lang);
+        if (pageTitle) document.title = pageTitle;
+        var description = document.querySelector('meta[name="description"]');
+        if (description && pageDescription) description.setAttribute('content', pageDescription);
+        Array.prototype.slice.call(document.querySelectorAll('[data-en][data-pt]')).forEach(function(el){
+          el.textContent = el.getAttribute('data-' + lang);
+        });
+        Array.prototype.slice.call(document.querySelectorAll('[data-html-en][data-html-pt]')).forEach(function(el){
+          el.innerHTML = el.getAttribute('data-html-' + lang);
+        });
+        Array.prototype.slice.call(document.querySelectorAll('[data-lang-option]')).forEach(function(option){
+          option.classList.toggle('is-active', option.getAttribute('data-lang-option') === lang);
+        });
+        Array.prototype.slice.call(document.querySelectorAll('.nav-links a,.mobile-links a')).forEach(function(a, i){
+          a.textContent = common.nav[i % common.nav.length];
+        });
+        Array.prototype.slice.call(document.querySelectorAll('.nav .btn-primary')).forEach(function(btn){
+          if (!btn.hasAttribute('data-html-en')) btn.textContent = common.contact;
+        });
+        var logo = document.querySelector('.logo');
+        if (logo) logo.setAttribute('aria-label', common.logo);
+        if (langToggle) langToggle.setAttribute('aria-label', lang === 'pt' ? 'Switch to English' : 'Mudar para português');
+      }
+      applyStatic(currentLang);
+      if (langToggle) {
+        langToggle.addEventListener('click', function(){
+          var next = currentLang === 'pt' ? 'en' : 'pt';
+          applyStatic(next);
+          try { localStorage.setItem('vouga-lang', next); } catch(e) {}
+        });
+      }
+      return;
+    }
     var COPY = {
       intelligence: {
         pt: {
@@ -479,10 +506,7 @@
       meta('meta[name="description"]', copy.description);
       qa('.nav .btn-primary').forEach(function(btn){ btn.textContent = common.contact; });
       qa('.nav-links a,.mobile-links a').forEach(function(a, i){ a.textContent = common.nav[i % common.nav.length]; });
-      qa('.mobile-theme span').forEach(function(span){ span.textContent = common.mobileTheme; });
       var logo = q('.logo'); if (logo) logo.setAttribute('aria-label', common.logo);
-      var theme = q('#themeToggle'); if (theme) theme.setAttribute('aria-label', common.theme);
-      var mobileTheme = q('#themeToggleMobile'); if (mobileTheme) mobileTheme.setAttribute('aria-label', common.theme);
       text('.detail-kicker', copy.kicker);
       text('.detail-lead', copy.lead);
       html('.detail-actions .btn-primary', copy.primary);

@@ -56,9 +56,7 @@
     runTerminalWords();
     var criticalImages = [
       'assets/img/logoVouga.png',
-      'assets/img/vouga_site_re_w.png',
       'assets/img/vouga_site_re.png',
-      'assets/img/vouga_site_re_tele_w.png',
       'assets/img/vouga_site_re_tele.png',
       'assets/img/avaliacao-interna.png',
       'assets/img/kynex.png',
@@ -115,25 +113,8 @@
     Promise.all(criticalImages.map(loadImage)).then(revealSite);
   })();
 
-  function applyTheme(t){ root.setAttribute('data-theme', t); }
-  var initialTheme = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-  try {
-    var savedTheme = localStorage.getItem('vouga-theme');
-    if (savedTheme === 'light' || savedTheme === 'dark') initialTheme = savedTheme;
-  } catch(e){}
-  applyTheme(initialTheme);
-  function toggleTheme(){
-    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    applyTheme(next);
-    try { localStorage.setItem('vouga-theme', next); } catch(e){}
-    if (typeof refreshCanvasColors === 'function') refreshCanvasColors();
-    if (typeof drawWhyMark === 'function') drawWhyMark();
-    if (typeof drawWhyDots === 'function') drawWhyDots();
-  }
-  var themeBtn = document.getElementById('themeToggle');
-  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
-  var themeBtnMobile = document.getElementById('themeToggleMobile');
-  if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
+  root.setAttribute('data-theme', 'dark');
+  try { localStorage.removeItem('vouga-theme'); } catch(e){}
 
   document.addEventListener('click', function(e){
     var link = e.target.closest ? e.target.closest('a[data-route-page]') : null;
@@ -161,7 +142,7 @@
   }
   function enforceMobileNavSurface(){
     var mobile = window.matchMedia && window.matchMedia('(max-width: 820px)').matches;
-    document.querySelectorAll('.nav .nav-right > .theme-toggle, .nav .nav-right > .desktop-contact, .nav .nav-right > a[href^="mailto"]').forEach(function(el){
+      document.querySelectorAll('.nav .nav-right > .desktop-contact, .nav .nav-right > a[href^="mailto"]').forEach(function(el){
       if (mobile) {
         el.style.display = 'none';
         el.setAttribute('aria-hidden', 'true');
@@ -191,8 +172,6 @@
       navApproach: 'Como Pensamos',
       navWork: 'Casos de Uso',
       navCapabilities: 'Áreas',
-      themeToggle: 'alternar modo claro e escuro',
-      themeLabel: 'Modo claro / escuro',
       talkToUs: 'Falar connosco',
       heroTitle: '<span class="hero-line"><span class="grad">Visão sistémica</span> para</span><br><span class="hero-line"><em>transformar negócios.</em></span>',
       heroSub: 'Encontramos o que realmente está a travar o negócio e construímos o que gera impacto.',
@@ -347,8 +326,6 @@
       navApproach: 'Our Approach',
       navWork: 'Use Cases',
       navCapabilities: 'Capabilities',
-      themeToggle: 'toggle light and dark mode',
-      themeLabel: 'Light / dark mode',
       talkToUs: 'Contact us',
       heroTitle: '<span class="hero-line"><span class="grad">Systemic view</span> for</span><br><span class="hero-line"><em>scaling businesses</em></span>',
       heroSub: 'We find what is really holding the business back, then design and build what changes it.',
