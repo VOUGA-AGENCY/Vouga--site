@@ -218,6 +218,35 @@ em,i{font-style:italic}
 .mobile-links a:hover{color:var(--accent)}
 .mobile-actions{display:flex;align-items:center;gap:14px;margin-top:18px}
 .mobile-actions .btn{flex:1;justify-content:center;padding:.9em 1.2em}
+.page-back{
+  position:fixed;
+  z-index:40;
+  top:calc(62px + clamp(12px,1.4vw,20px));
+  left:clamp(14px,1.8vw,28px);
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  color:var(--text-dim);
+  font-family:var(--font-sans);
+  font-size:24px;
+  font-weight:400;
+  line-height:1;
+  transition:color .2s ease,transform .25s cubic-bezier(.22,1,.36,1);
+}
+.page-back:hover{color:var(--text);transform:translateX(-3px)}
+.page-back:focus-visible{outline:1px solid var(--text-dim);outline-offset:2px}
+.page-back-label{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
 .lang-toggle{
   position:relative;height:30px;padding:3px;border:1px solid var(--divider);border-radius:999px;
   display:inline-flex;align-items:center;gap:0;overflow:hidden;
@@ -240,6 +269,7 @@ html[data-lang="en"] .lang-toggle::before{transform:translateX(100%)}
 }
 .lang-toggle span.is-active{color:var(--bg)}
 @media (prefers-reduced-motion:reduce){.lang-toggle::before{transition:none}}
+@media (prefers-reduced-motion:reduce){.page-back{transition:none}}
 /* ============ hero ============ */
 .hero{
   position:relative;overflow:hidden;
