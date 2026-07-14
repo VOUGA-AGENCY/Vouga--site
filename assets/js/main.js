@@ -132,7 +132,9 @@
     if (!navBurger || !mobileMenu) return;
     mobileMenu.classList.toggle('open', open);
     navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    navBurger.setAttribute('aria-label', open ? 'fechar menu' : 'abrir menu');
+    navBurger.setAttribute('aria-label', currentLang === 'en'
+      ? (open ? 'close menu' : 'open menu')
+      : (open ? 'fechar menu' : 'abrir menu'));
   }
   if (navBurger && mobileMenu) {
     navBurger.addEventListener('click', function(){ setMenu(!mobileMenu.classList.contains('open')); });
@@ -175,7 +177,7 @@
       talkToUs: 'Falar connosco',
       heroTitle: '<span class="hero-line"><span class="grad">Visão sistémica</span> para</span><br><span class="hero-line"><em>transformar negócios.</em></span>',
       heroSub: 'Encontramos o que realmente está a travar o negócio e construímos o que gera impacto.',
-      heroSubMobile: 'Encontramos o que realmente está a travar o negócio<br>e construímos o que gera impacto.',
+      heroSubMobile: 'Encontramos o que realmente<br>está a travar o negócio<br>e construímos o que gera impacto',
       heroDiagnose: 'Falar connosco <span class="arrow">→</span>',
       heroPillars: 'Porquê a Vouga',
       navMethod: 'método',
@@ -315,7 +317,7 @@
       consentCopy: 'Aceito que a Vouga use os meus dados para responder a este pedido. Lê a <a href="privacy.html">Política de Privacidade</a>.',
       formNote: 'Usamos os dados do formulário apenas para responder ao teu pedido e avaliar se podemos ajudar. Não envies dados confidenciais de clientes através deste formulário.',
       sendButton: 'Enviar <span class="arrow">→</span>',
-      footerTag: 'Inteligência para problemas reais.',
+      footerTag: 'understand, before building.',
       rights: 'Copyright © 2026 Vouga Agency',
       legalLinks: '<a href="privacy.html">Privacidade</a> · <a href="terms.html">Termos</a>'
     },
@@ -329,7 +331,7 @@
       talkToUs: 'Contact us',
       heroTitle: '<span class="hero-line"><span class="grad">Systemic view</span> for</span><br><span class="hero-line"><em>scaling businesses</em></span>',
       heroSub: 'We find what is really holding the business back, then design and build what changes it.',
-      heroSubMobile: 'We find what is really holding the business back,<br>then design and build what changes it.',
+      heroSubMobile: 'We find what is really holding the business<br>back, then design and build what changes it.',
       heroDiagnose: 'Start a conversation <span class="arrow">→</span>',
       heroPillars: 'Why Vouga',
       navMethod: 'method',
@@ -469,7 +471,7 @@
       consentCopy: 'I agree that Vouga may use my details to reply to this enquiry. Read the <a href="privacy.html">Privacy Policy</a>.',
       formNote: 'We use contact form details only to respond to your enquiry and evaluate whether we can help. Do not send confidential client data through this form.',
       sendButton: 'Send <span class="arrow">→</span>',
-      footerTag: 'Intelligence for real work.',
+      footerTag: 'understand, before building.',
       rights: 'Copyright © 2026 Vouga Agency',
       legalLinks: '<a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a>'
     }
@@ -531,6 +533,12 @@
       if (copy[key]) el.setAttribute('alt', copy[key]);
     });
     syncLangToggle(lang);
+    if (navBurger) {
+      var menuOpen = navBurger.getAttribute('aria-expanded') === 'true';
+      navBurger.setAttribute('aria-label', lang === 'en'
+        ? (menuOpen ? 'close menu' : 'open menu')
+        : (menuOpen ? 'fechar menu' : 'abrir menu'));
+    }
     var meta = META_COPY[lang];
     document.title = meta.title;
     setMeta('meta[name="description"]', meta.description);
@@ -991,8 +999,9 @@
       enabled = false; running = false; done = true;
       markCardsReady();
       dispP = 1; targetP = 1;
+      var orbitTop = orbit.getBoundingClientRect().top;
       section.classList.remove('is-orbit');
-      section.classList.add('is-cards', 'is-handoff', 'is-blur-in');
+      section.classList.add('is-cards', 'is-blur-in');
       window.removeEventListener('scroll', kick);
       nodes.forEach(function(n){
         n.classList.remove('is-active');
@@ -1006,12 +1015,19 @@
       pulls.forEach(function(p){ p.style.opacity = '0'; });
       if (kicker) kicker.style.opacity = '';
       if (systemWord){ systemWord.style.opacity = ''; systemWord.style.filter = ''; systemWord.style.transform = ''; }
+      var layoutShift = orbit.getBoundingClientRect().top - orbitTop;
+      if (Math.abs(layoutShift) > 0.5) {
+        var previousScrollBehavior = root.style.scrollBehavior;
+        root.style.scrollBehavior = 'auto';
+        window.scrollBy(0, layoutShift);
+        root.style.scrollBehavior = previousScrollBehavior;
+      }
       window.setTimeout(function(){ section.classList.remove('is-blur-in'); }, 1400);
     }
     function showCardsImmediately(){
       enabled = false; running = false; done = true;
       dispP = 1; targetP = 1;
-      section.classList.remove('is-orbit', 'is-handoff', 'is-blur-in');
+      section.classList.remove('is-orbit', 'is-blur-in');
       section.classList.add('is-cards');
       window.removeEventListener('scroll', kick);
       nodes.forEach(function(n){
@@ -1037,7 +1053,7 @@
     function disable(){
       if (!enabled) return;
       enabled = false; running = false;
-      section.classList.remove('is-orbit', 'is-cards', 'is-handoff', 'is-blur-in');
+      section.classList.remove('is-orbit', 'is-cards', 'is-blur-in');
       window.removeEventListener('scroll', kick);
       nodes.forEach(function(n){ n.style.removeProperty('--desc-open'); n.style.transform = ''; n.style.opacity = ''; n.style.filter = ''; });
       blobs.forEach(function(b){ b.style.opacity = '0'; });
@@ -1165,147 +1181,6 @@
       window.setInterval(function(){ studies.forEach(tick); }, 140);
     }
   })();
-
-  /* ===== hero canvas: video halftone, with drifting-dots fallback ===== */
-  var canvas = document.getElementById('heroCanvas');
-  var video = document.getElementById('heroVideo');
-  if (canvas && video) {
-  var ctx = canvas.getContext('2d');
-  var mode = 'drift'; // 'video' once a frame can be read safely
-  var dots = [];
-  var colFaint = '#9d998c', colDim = '#615e54', colAccent = '#c97800';
-  function refreshCanvasColors(){
-    var cs = getComputedStyle(root);
-    colFaint = cs.getPropertyValue('--text-faint').trim() || colFaint;
-    colDim = cs.getPropertyValue('--text-dim').trim() || colDim;
-    colAccent = cs.getPropertyValue('--accent').trim() || colAccent;
-  }
-  function sizeCanvas(){
-    var r = canvas.parentElement.getBoundingClientRect();
-    canvas.width = r.width;
-    canvas.height = r.height;
-    if (!dots.length) seed();
-  }
-  function seed(){
-    dots = [];
-    var n = Math.min(72, Math.floor(canvas.width / 16));
-    for (var i = 0; i < n; i++) {
-      dots.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: 0.8 + Math.random() * 1.4,
-        v: 0.12 + Math.random() * 0.3,
-        ph: Math.random() * Math.PI * 2,
-        amp: 6 + Math.random() * 14,
-        accent: Math.random() < 0.06
-      });
-    }
-  }
-  function driftFrame(t, dt){
-    for (var i = 0; i < dots.length; i++) {
-      var d = dots[i];
-      d.x += d.v * (dt / 16.7);
-      if (d.x > canvas.width + 8) { d.x = -8; d.y = Math.random() * canvas.height; }
-      var y = d.y + Math.sin(t / 2400 + d.ph) * d.amp;
-      ctx.beginPath();
-      ctx.arc(d.x, y, d.r, 0, Math.PI * 2);
-      ctx.fillStyle = d.accent ? colAccent : colFaint;
-      ctx.globalAlpha = d.accent ? 0.55 : 0.4;
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  /* video sampling */
-  var off = document.createElement('canvas');
-  var offCtx = off.getContext('2d', { willReadFrequently: true });
-  var CELL = 12;           // px per dot cell on screen
-  var THRESH = 0.42;       // intensity needed before a dot appears
-  function videoFrame(){
-    var cols = Math.max(8, Math.min(170, Math.round(canvas.width / CELL)));
-    var rows = Math.max(8, Math.round(canvas.height / CELL));
-    if (off.width !== cols || off.height !== rows) { off.width = cols; off.height = rows; }
-    /* cover-fit crop of the video into the grid */
-    var va = video.videoWidth / video.videoHeight;
-    var ca = canvas.width / canvas.height;
-    var sw = video.videoWidth, sh = video.videoHeight, sx = 0, sy = 0;
-    if (va > ca) { sw = video.videoHeight * ca; sx = (video.videoWidth - sw) / 2; }
-    else { sh = video.videoWidth / ca; sy = (video.videoHeight - sh) / 2; }
-    offCtx.drawImage(video, sx, sy, sw, sh, 0, 0, cols, rows);
-    var data = offCtx.getImageData(0, 0, cols, rows).data;
-    var dark = root.getAttribute('data-theme') === 'dark';
-    var cw = canvas.width / cols, ch = canvas.height / rows;
-    ctx.fillStyle = colDim;
-    for (var j = 0; j < rows; j++) {
-      for (var i = 0; i < cols; i++) {
-        var p = (j * cols + i) * 4;
-        var lum = (0.2126 * data[p] + 0.7152 * data[p + 1] + 0.0722 * data[p + 2]) / 255;
-        /* bright source areas produce dots; this inverts the former light-theme mapping */
-        var intensity = lum;
-        if (intensity <= THRESH) continue;
-        var a = (intensity - THRESH) / (1 - THRESH);
-        var r = cw * 0.42 * (0.35 + 0.65 * a);
-        ctx.globalAlpha = 0.22 + 0.5 * a;
-        var isAccent = ((i * 7 + j * 13) % 97) === 0;
-        if (isAccent) ctx.fillStyle = colAccent;
-        ctx.beginPath();
-        ctx.arc(i * cw + cw / 2, j * ch + ch / 2, r, 0, Math.PI * 2);
-        ctx.fill();
-        if (isAccent) ctx.fillStyle = colDim;
-      }
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  var t0 = 0, lastDraw = 0;
-  function frame(t){
-    requestAnimationFrame(frame);
-    if (document.hidden) return;
-    var dt = t - t0; t0 = t;
-    if (mode === 'video') {
-      if (t - lastDraw < 33 || video.readyState < 2) return; // ~30 fps
-      lastDraw = t;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      try { videoFrame(); }
-      catch(e) { mode = 'drift'; } // tainted canvas (file://) or decode issue
-    } else {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      driftFrame(t, dt);
-    }
-  }
-
-  function tryEnableVideo(){
-    if (!video.videoWidth) return;
-    try {
-      off.width = 4; off.height = 4;
-      offCtx.drawImage(video, 0, 0, 4, 4);
-      offCtx.getImageData(0, 0, 1, 1); // throws if pixel access is blocked
-      mode = 'video';
-    } catch(e) { mode = 'drift'; }
-  }
-
-  if (!reducedMotion) {
-    refreshCanvasColors();
-    sizeCanvas();
-    window.addEventListener('resize', sizeCanvas);
-    video.addEventListener('loadeddata', tryEnableVideo);
-    video.addEventListener('error', function(){ mode = 'drift'; });
-    if (video.readyState >= 2) tryEnableVideo();
-    var playP = video.play();
-    if (playP && playP.catch) playP.catch(function(){});
-    /* pause the video when the hero leaves the viewport */
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function(entries){
-        entries.forEach(function(en){
-          if (mode !== 'video') return;
-          if (en.isIntersecting) { var p = video.play(); if (p && p.catch) p.catch(function(){}); }
-          else video.pause();
-        });
-      }, { threshold: 0 }).observe(canvas.parentElement);
-    }
-    requestAnimationFrame(function(t){ t0 = t; requestAnimationFrame(frame); });
-  }
-  }
 
   /* ============================================================
      Why mark: dotted frame around "Vouga", dots fading out and

@@ -31,9 +31,7 @@ Use this checklist before publishing Vouga Agency to production.
 
 ## Performance
 
-- [ ] Confirm the hero video is lazy-loaded.
-- [ ] Compress or re-encode `assets/video/vouga.mp4`.
-- [ ] Add a WebM variant if possible.
+- [ ] Confirm hero imagery and ASCII overlay load without blocking interaction.
 - [ ] Run Lighthouse or WebPageTest after deploy.
 
 ## Hosting
@@ -46,7 +44,9 @@ Use this checklist before publishing Vouga Agency to production.
 
 ## Contact Flow
 
-- [ ] Replace `mailto:` with a reliable submission endpoint before launch.
-- [ ] Confirm lead delivery destination.
+- [ ] Verify the Resend sending domain and its SPF/DKIM records.
+- [ ] Configure `RESEND_API_KEY`, `CONTACT_FROM_EMAIL` and `CONTACT_TO_EMAIL` in Vercel.
+- [ ] Confirm enquiries arrive at `hello@vouga-agency.pt` in PT and EN.
+- [ ] Confirm replying to an enquiry uses the visitor address from `Reply-To`.
 - [ ] Confirm spam protection.
 - [ ] Confirm no sensitive data is requested.

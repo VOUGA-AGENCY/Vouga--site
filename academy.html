@@ -13,8 +13,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="assets/js/site-preferences.js?v=20260714-w029-dark-only-v1"></script>
 <link rel="stylesheet" href="assets/css/main.css?v=20260714-w029-dark-only-v1">
-<link rel="stylesheet" href="assets/css/pillar-pages.css?v=20260714-w029-dark-only-v1">
-<script src="assets/js/pillar-pages.js?v=20260714-w029-dark-only-v1" defer></script>
+<link rel="stylesheet" href="assets/css/pillar-pages.css?v=20260714-w073-academy-type-trigger-v1">
+<script src="assets/js/pillar-pages.js?v=20260714-w073-academy-type-trigger-v1" defer></script>
 </head>
 <body class="detail-page academy-page">
 <header class="nav">
@@ -56,7 +56,10 @@
       </div>
     </div>
     <div class="academy-loading-overlay">
-      <h2 id="academyLoadingTitle">Still loading...</h2>
+      <h2 id="academyLoadingTitle" aria-label="Still loading..." data-academy-loading-title data-text="Still loading...">
+        <span class="academy-loading-reserve" aria-hidden="true">Still loading...</span>
+        <span class="academy-loading-type" aria-hidden="true"><span data-academy-loading-output></span><span class="academy-loading-cursor"></span></span>
+      </h2>
       <p>Vouga Academy is in development.</p>
     </div>
   </section>

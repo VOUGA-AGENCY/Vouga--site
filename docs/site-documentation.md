@@ -1,6 +1,6 @@
 # Vouga Agency Site Documentation
 
-Last updated: 2026-06-16
+Last updated: 2026-07-14
 
 This document is the living reference for the Vouga Agency website. Every meaningful iteration on copy, design, SEO, performance, accessibility, deployment or technical structure should update this file.
 
@@ -75,15 +75,11 @@ Visual assets:
 - Navigation wordmark: the inline SVG logo inherits `currentColor`; in light mode the logo and "Agency" text render black.
 - Navigation color behavior: the symbol, "Vouga" and "Agency" all inherit the same `.logo` color and transition together when the theme changes.
 - Primary navigation labels: Our Approach, Use Cases, Capabilities and a visual Contact CTA.
-- Language toggle: a compact segmented `PT/EN` control sits next to the theme switcher on the homepage and persists the selected language in `localStorage`; the AI Knowledge demo reads the same preference.
-- `assets/video/vouga.mp4`: hero video sampled into a halftone canvas effect.
+- Language toggle: a compact segmented `PT/EN` control persists the selected language in `localStorage`; the AI Knowledge demo reads the same preference.
 
 Motion and effects:
-- The hero uses a hidden video and canvas sampling to create a dotted halftone field.
-- The hero video is requested immediately with `src`, `autoplay` and `preload="auto"` so the halftone canvas has video frames available from the first viewport.
-- The video/canvas effect is still disabled when `prefers-reduced-motion` is active.
-- In light mode, the hero halftone maps bright video areas to visible dots so the bridge/trees relationship reads inverted from the previous version. Dark mode keeps the same visual logic.
-- If video sampling fails, the hero falls back to drifting dots.
+- The hero uses static imagery plus a canvas ASCII overlay generated from `assets/img/heroascii.png` and `assets/img/heroascii-mobile.png`.
+- The ASCII overlay is disabled when `prefers-reduced-motion` is active.
 - The why section uses canvas-drawn guide lines around the Vouga mark.
 - Content reveals on scroll through IntersectionObserver.
 - On mobile, the `why` section drops the decorative Vouga frame and becomes a clean editorial stack with a small animated accent line.
@@ -91,26 +87,31 @@ Motion and effects:
 - On mobile, `how we think` becomes a numbered editorial manifesto with a compact system mark and staggered copy reveal.
 - Motion respects `prefers-reduced-motion`.
 - Theme preference is stored in `localStorage`.
-- The AI Knowledge System demo uses interaction state and motion to show a before/after management workflow: scattered sources visually converge into a packet, then produce citations, owner, draft reply and generated tasks. It is a front-end simulation only, designed to communicate deployment value without requiring a backend.
-
 ## Technical Structure
 
 Current structure:
 
 ```text
 index.html
-ai-knowledge-demo.html
+contact.html
+intelligence.html
+foundations.html
+academy.html
+privacy.html
+terms.html
 assets/
   css/
     main.css
-    knowledge-demo.css
+    pillar-pages.css
   js/
     main.js
-    knowledge-demo.js
+    pillar-pages.js
+    contact.js
+    contact-phone.js
   img/
     poster.jpg
-  video/
-    vouga.mp4
+api/
+  contact.mjs
 docs/
   site-documentation.md
 llms.txt
@@ -121,19 +122,20 @@ sitemap.xml
 
 Responsibilities:
 - `index.html`: page structure, Portuguese default semantic content, metadata, JSON-LD structured data and external asset references.
-- `ai-knowledge-demo.html`: dedicated bilingual AI Knowledge System demo page with product-style motion and glass interface.
+- `contact.html`: premium contact page and form surface, canonically represented as `/#contact`.
+- `intelligence.html`, `foundations.html`, `academy.html`: capability pages for Vouga Intelligence, Vouga Engineering and the Academy placeholder.
 - `privacy.html`: privacy policy for enquiry and website data.
 - `terms.html`: basic website terms.
 - `assets/css/main.css`: visual system, responsive layout, themes and motion styling.
-- `assets/js/main.js`: theme switching, homepage language switching, scroll progress, reveal animation, canvas effects, translated service overlay, ASCII footer mark and contact form behavior.
-- `assets/js/knowledge-demo.js`: language switching and interaction states for the AI Knowledge System demo.
+- `assets/js/main.js`: homepage language switching, scroll progress, reveal animation, canvas effects, use case interactions and ASCII footer mark.
+- `assets/js/contact.js`: contact page language switching, ASCII signature and form submission.
 - `assets/img/`: image assets and social preview assets.
-- `assets/video/`: video assets.
+- `api/contact.mjs`: Vercel contact endpoint that validates enquiries and delivers them by email through Resend.
 - `docs/`: project documentation and iteration history.
 - `_headers`: production security and cache headers for hosts that support Netlify-style headers.
 - CSS and JS are referenced with a manual `?v=` query version because the site has no build step or hashed filenames.
 
-The site is static and does not currently require a build step, package manager or backend.
+The public pages are static, with a Vercel Function used for the contact form.
 
 ## SEO Strategy
 
@@ -201,7 +203,6 @@ The site can be deployed as a static site to:
 - Any static host or CDN
 
 Recommended next production files:
-- Real contact form endpoint.
 - If a build pipeline is added later, replace manual query versions with hashed filenames and restore long immutable caching for CSS/JS.
 
 ## Known Gaps
@@ -209,9 +210,7 @@ Recommended next production files:
 To improve before final production launch:
 - Consider dedicated `/en/` URLs with `hreflang` if English SEO becomes a primary acquisition channel; the current English version is a client-side toggle on the homepage.
 - Translate or duplicate legal pages for full site-wide bilingual parity if Privacy and Terms need the same EN/PT toggle.
-- Encode smaller production video variants; current MP4 is loaded immediately for stronger first-viewport visual impact.
-- Add a WebM version and fallback source list when a media pipeline such as `ffmpeg` is available.
-- Replace `mailto:` contact form with a reliable submission endpoint.
+- Verify the Resend sending domain and contact-email delivery after the production deploy.
 - Review privacy/legal pages with legal counsel before final launch.
 - Confirm production host applies `_headers` or port them to host-specific configuration.
 - Avoid `immutable` caching on un-hashed CSS/JS filenames; otherwise deployed HTML can load stale styles/scripts while local looks correct.
@@ -223,7 +222,7 @@ To improve before final production launch:
 ### 2026-06-14
 
 - Split single-file site into scalable structure with external CSS and JS.
-- Moved poster and video into `assets/img/` and `assets/video/`.
+- Moved poster into `assets/img/`.
 - Added SEO, social sharing and crawler metadata.
 - Added JSON-LD structured data for organization, website and services.
 - Added `site.webmanifest`, `robots.txt`, `sitemap.xml` and `llms.txt`.
@@ -234,14 +233,6 @@ To improve before final production launch:
 - Replaced the provisional SVG favicon reference with brand assets derived from `assets/img/logo_vouga.png`.
 - Updated the manifest, Apple touch icon and JSON-LD organization logo to use the official logo image.
 - Generated `assets/img/favicon.png`, a square favicon variant derived from the official logo for crisper browser-tab rendering.
-
-### 2026-06-14 - Hero video performance
-
-- Restored eager hero video loading after visual testing showed the lazy strategy could make the hero feel delayed or partially cut.
-- The video now uses direct `src`, `autoplay`, `preload="auto"` and `poster` again.
-- Kept the drifting-dots fallback for cases where playback or frame sampling fails.
-- Increased the video sampling cell size from 10px to 12px to reduce per-frame canvas work.
-- Documented that codec-level compression and a WebM variant remain a future media-pipeline task.
 
 ### 2026-06-14 - Legal, accessibility, headers and deploy hygiene
 
@@ -260,15 +251,6 @@ To improve before final production launch:
 - Changed the navigation "Agency" wordmark color to inherit the current theme text color instead of staying white.
 - Replaced the PNG logo in `privacy.html` and `terms.html` with the inline currentColor SVG mark, matching the main page light-mode branding.
 
-### 2026-06-14 - AI Knowledge System demo
-
-- Moved the demo out of the service overlay and into `ai-knowledge-demo.html`.
-- Removed the demo button from the service detail overlay. The demo is linked from the hero "See it working" CTA and as a small left-aligned flag under the AI Knowledge System service description.
-- Rebuilt the demo into a three-step management workflow: operational chaos, source convergence and a final decision packet.
-- Focused the story on a concrete manager pain: discount approval stuck across email, pricing rules, CRM and old proposals.
-- Added visual before/after metrics, cited evidence, owner/risk/deadline, draft reply and generated tasks.
-- Reduced explanatory text so the value is carried by the interface and the output, not by copy.
-- Added dedicated demo CSS and JS for glass cards, source convergence, central packet motion and progressive output actions.
 - Corrected the navigation wordmark so "Agency", "Vouga" and the logo mark transition color together.
 - Inverted the light-mode hero halftone mapping so bright source areas create the visible dots; dark-mode behavior remains unchanged.
 - Simplified the homepage to Hero, Why Vouga, Selected Work, Capabilities and footer.

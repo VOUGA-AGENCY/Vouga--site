@@ -3,9 +3,9 @@ import test from 'node:test';
 import contactHandler from '../api/contact.mjs';
 
 const originalFetch = globalThis.fetch;
-const originalUrl = process.env.SUPABASE_URL;
-const originalSecret = process.env.SUPABASE_SECRET_KEY;
-const originalLegacySecret = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const originalApiKey = process.env.RESEND_API_KEY;
+const originalFrom = process.env.CONTACT_FROM_EMAIL;
+const originalTo = process.env.CONTACT_TO_EMAIL;
 
 function request(body) {
   return new Request('https://www.vouga-agency.pt/api/contact', {
@@ -34,50 +34,69 @@ function validPayload(overrides = {}) {
 }
 
 test.beforeEach(() => {
-  process.env.SUPABASE_URL = 'https://project.supabase.co';
-  process.env.SUPABASE_SECRET_KEY = 'sb_secret_test_value';
-  delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+  process.env.RESEND_API_KEY = 're_test_value';
+  process.env.CONTACT_FROM_EMAIL = 'Vouga Website <forms@send.vouga-agency.pt>';
+  process.env.CONTACT_TO_EMAIL = 'hello@vouga-agency.pt';
 });
 
 test.after(() => {
   globalThis.fetch = originalFetch;
-  if (originalUrl === undefined) delete process.env.SUPABASE_URL;
-  else process.env.SUPABASE_URL = originalUrl;
-  if (originalSecret === undefined) delete process.env.SUPABASE_SECRET_KEY;
-  else process.env.SUPABASE_SECRET_KEY = originalSecret;
-  if (originalLegacySecret === undefined) delete process.env.SUPABASE_SERVICE_ROLE_KEY;
-  else process.env.SUPABASE_SERVICE_ROLE_KEY = originalLegacySecret;
+  if (originalApiKey === undefined) delete process.env.RESEND_API_KEY;
+  else process.env.RESEND_API_KEY = originalApiKey;
+  if (originalFrom === undefined) delete process.env.CONTACT_FROM_EMAIL;
+  else process.env.CONTACT_FROM_EMAIL = originalFrom;
+  if (originalTo === undefined) delete process.env.CONTACT_TO_EMAIL;
+  else process.env.CONTACT_TO_EMAIL = originalTo;
 });
 
-test('normalises and submits a valid contact request', async () => {
-  let inserted;
-  let headers;
-  globalThis.fetch = async (_url, options) => {
-    inserted = JSON.parse(options.body);
-    headers = options.headers;
-    return new Response(null, { status: 201 });
+test('normalises and emails a valid contact request', async () => {
+  let url;
+  let options;
+  globalThis.fetch = async (requestUrl, requestOptions) => {
+    url = requestUrl;
+    options = requestOptions;
+    return Response.json({ id: 'email_test_123' }, { status: 200 });
   };
 
   const response = await contactHandler.fetch(request(validPayload()));
   const body = await response.json();
+  const email = JSON.parse(options.body);
 
   assert.equal(response.status, 201);
   assert.equal(body.ok, true);
   assert.match(body.requestId, /^[0-9a-f-]{36}$/);
-  assert.equal(inserted.email, 'nome@exemplo.com');
-  assert.equal(inserted.phone_e164, '+351912345678');
-  assert.equal(inserted.phone_country, 'PT');
-  assert.equal(inserted.consent, true);
-  assert.match(inserted.ip_hash, /^[a-f0-9]{64}$/);
-  assert.equal(headers.apikey, 'sb_secret_test_value');
-  assert.equal(headers.Authorization, undefined);
+  assert.equal(url, 'https://api.resend.com/emails');
+  assert.equal(options.headers.Authorization, 'Bearer re_test_value');
+  assert.equal(email.from, 'Vouga Website <forms@send.vouga-agency.pt>');
+  assert.deepEqual(email.to, ['hello@vouga-agency.pt']);
+  assert.equal(email.reply_to, 'nome@exemplo.com');
+  assert.equal(email.subject, '[Vouga website] Empresa · Pedro Santos');
+  assert.match(email.text, /Phone: \+351912345678/);
+  assert.match(email.html, /Precisamos de transformar este processo interno\./);
+});
+
+test('escapes submitted HTML before building the email', async () => {
+  let email;
+  globalThis.fetch = async (_url, options) => {
+    email = JSON.parse(options.body);
+    return Response.json({ id: 'email_test_123' }, { status: 200 });
+  };
+
+  const response = await contactHandler.fetch(request(validPayload({
+    name: 'Pedro <Admin>',
+    message: 'Alterar <script>alert("x")</script> neste processo.'
+  })));
+
+  assert.equal(response.status, 201);
+  assert.doesNotMatch(email.html, /<script>/);
+  assert.match(email.html, /&lt;script&gt;alert\(&quot;x&quot;\)&lt;\/script&gt;/);
 });
 
 test('rejects a number that is invalid for its country code', async () => {
   let called = false;
   globalThis.fetch = async () => {
     called = true;
-    return new Response(null, { status: 201 });
+    return Response.json({ id: 'email_test_123' });
   };
 
   const response = await contactHandler.fetch(request(validPayload({ phone: '+351 12' })));
@@ -93,7 +112,7 @@ test('rejects an email without a valid address structure', async () => {
   let called = false;
   globalThis.fetch = async () => {
     called = true;
-    return new Response(null, { status: 201 });
+    return Response.json({ id: 'email_test_123' });
   };
 
   const response = await contactHandler.fetch(request(validPayload({ email: 'nomeexemplo.com' })));
@@ -106,7 +125,7 @@ test('rejects an email without a valid address structure', async () => {
 });
 
 test('requires every field except phone', async () => {
-  globalThis.fetch = async () => new Response(null, { status: 201 });
+  globalThis.fetch = async () => Response.json({ id: 'email_test_123' });
 
   const withoutPhone = await contactHandler.fetch(request(validPayload({ phone: '' })));
   assert.equal(withoutPhone.status, 201);
@@ -117,11 +136,11 @@ test('requires every field except phone', async () => {
   assert.equal(body.field, 'company');
 });
 
-test('silently accepts honeypot submissions without writing data', async () => {
+test('silently accepts honeypot submissions without sending email', async () => {
   let called = false;
   globalThis.fetch = async () => {
     called = true;
-    return new Response(null, { status: 201 });
+    return Response.json({ id: 'email_test_123' });
   };
 
   const response = await contactHandler.fetch(request(validPayload({ website: 'spam.example' })));
@@ -129,18 +148,28 @@ test('silently accepts honeypot submissions without writing data', async () => {
   assert.equal(called, false);
 });
 
-test('supports a legacy service role JWT only on the server request', async () => {
-  delete process.env.SUPABASE_SECRET_KEY;
-  process.env.SUPABASE_SERVICE_ROLE_KEY = 'legacy.service.role.jwt';
-  let headers;
-  globalThis.fetch = async (_url, options) => {
-    headers = options.headers;
-    return new Response(null, { status: 201 });
+test('returns unavailable when email configuration is missing', async () => {
+  delete process.env.RESEND_API_KEY;
+  let called = false;
+  globalThis.fetch = async () => {
+    called = true;
+    return Response.json({ id: 'email_test_123' });
   };
 
   const response = await contactHandler.fetch(request(validPayload()));
+  const body = await response.json();
 
-  assert.equal(response.status, 201);
-  assert.equal(headers.apikey, 'legacy.service.role.jwt');
-  assert.equal(headers.Authorization, 'Bearer legacy.service.role.jwt');
+  assert.equal(response.status, 503);
+  assert.equal(body.code, 'service_unavailable');
+  assert.equal(called, false);
+});
+
+test('returns unavailable when Resend rejects delivery', async () => {
+  globalThis.fetch = async () => Response.json({ message: 'Sender domain is not verified' }, { status: 403 });
+
+  const response = await contactHandler.fetch(request(validPayload()));
+  const body = await response.json();
+
+  assert.equal(response.status, 503);
+  assert.equal(body.code, 'service_unavailable');
 });

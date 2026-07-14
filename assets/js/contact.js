@@ -18,12 +18,25 @@
 
   var COPY = {
     pt: {
+      documentTitle:'Contactar a Vouga · Vamos conversar',
+      metaDescription:'Fale com a Vouga sobre o sistema, produto, software, IA ou decisão que precisa de avançar.',
+      socialLocale:'pt_PT',
+      socialImageAlt:'Identidade visual da Vouga Agency para transformação sistémica, software, IA e execução.',
+      logoHome:'Vouga Agency, início',
+      mainNav:'navegação principal',
+      mobileNav:'navegação mobile',
+      openMenu:'abrir menu',
+      closeMenu:'fechar menu',
+      langToggle:'Switch to English',
+      principlesLabel:'Como trabalhamos',
+      formLabel:'Formulário de contacto',
+      signatureLabel:'Desenvolvido no Porto.',
       navApproach:'Como Pensamos',
       navWork:'Casos de Uso',
       navCapabilities:'Áreas',
       talkToUs:'Falar connosco',
-      title:'Start a conversation.',
-      lead:'Bring us the problem, system or decision that needs to move. We reply with context, not an automatic proposal.',
+      title:'Vamos conversar.',
+      lead:'Traz-nos o problema, sistema ou decisão que precisa de avançar. Respondemos com contexto, não com uma proposta automática.',
       principleOne:'Contexto primeiro',
       principleTwo:'Ferramenta certa',
       principleThree:'Execução até ao resultado',
@@ -48,6 +61,19 @@
       error:'Não foi possível enviar. Tenta novamente ou escreve para hello@vouga-agency.pt.'
     },
     en: {
+      documentTitle:'Contact Vouga · Start a conversation',
+      metaDescription:'Start a conversation with Vouga about the business system, product, software or AI work that needs to move.',
+      socialLocale:'en_US',
+      socialImageAlt:'Vouga Agency visual identity for systems-led transformation, software, AI and execution.',
+      logoHome:'Vouga Agency, home',
+      mainNav:'main navigation',
+      mobileNav:'mobile navigation',
+      openMenu:'open menu',
+      closeMenu:'close menu',
+      langToggle:'Mudar para português',
+      principlesLabel:'How we work',
+      formLabel:'Contact form',
+      signatureLabel:'Engineered in Porto.',
       navApproach:'Our Approach',
       navWork:'Use Cases',
       navCapabilities:'Capabilities',
@@ -81,7 +107,21 @@
   var copy = COPY[lang] || COPY.pt;
   function applyCopy(){
     copy = COPY[lang] || COPY.pt;
+    root.setAttribute('lang', lang === 'en' ? 'en' : 'pt-PT');
     root.setAttribute('data-lang', lang);
+    document.title = copy.documentTitle;
+    function setMeta(selector, value){
+      var el = document.querySelector(selector);
+      if (el) el.setAttribute('content', value);
+    }
+    setMeta('meta[name="description"]', copy.metaDescription);
+    setMeta('meta[property="og:title"]', copy.documentTitle);
+    setMeta('meta[property="og:description"]', copy.metaDescription);
+    setMeta('meta[property="og:locale"]', copy.socialLocale);
+    setMeta('meta[property="og:image:alt"]', copy.socialImageAlt);
+    setMeta('meta[name="twitter:title"]', copy.documentTitle);
+    setMeta('meta[name="twitter:description"]', copy.metaDescription);
+    setMeta('meta[name="twitter:image:alt"]', copy.socialImageAlt);
     document.querySelectorAll('[data-contact-i18n]').forEach(function(el){
       var key = el.getAttribute('data-contact-i18n');
       if (copy[key]) el.textContent = copy[key];
@@ -106,6 +146,25 @@
       var field = document.getElementById(id);
       if (field) field.setAttribute('placeholder', placeholders[id]);
     });
+    var logo = document.querySelector('.logo');
+    if (logo) logo.setAttribute('aria-label', copy.logoHome);
+    var nav = document.querySelector('.nav nav');
+    if (nav) nav.setAttribute('aria-label', copy.mainNav);
+    var mobileNav = document.querySelector('.mobile-links');
+    if (mobileNav) mobileNav.setAttribute('aria-label', copy.mobileNav);
+    var langToggle = document.getElementById('langToggle');
+    if (langToggle) langToggle.setAttribute('aria-label', copy.langToggle);
+    var navBurger = document.getElementById('navBurger');
+    var mobileMenu = document.getElementById('mobileMenu');
+    if (navBurger) {
+      navBurger.setAttribute('aria-label', mobileMenu && mobileMenu.classList.contains('open') ? copy.closeMenu : copy.openMenu);
+    }
+    var principles = document.querySelector('.contact-principles');
+    if (principles) principles.setAttribute('aria-label', copy.principlesLabel);
+    var panel = document.querySelector('.contact-panel');
+    if (panel) panel.setAttribute('aria-label', copy.formLabel);
+    var signature = document.querySelector('.contact-signature');
+    if (signature) signature.setAttribute('aria-label', copy.signatureLabel);
   }
   applyCopy();
 
@@ -124,7 +183,7 @@
       if (!navBurger || !mobileMenu) return;
       mobileMenu.classList.toggle('open', open);
       navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      navBurger.setAttribute('aria-label', open ? 'close menu' : 'open menu');
+      navBurger.setAttribute('aria-label', open ? copy.closeMenu : copy.openMenu);
     }
     function enforceMobileNavSurface(){
       var mobile = window.matchMedia && window.matchMedia('(max-width: 820px)').matches;

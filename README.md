@@ -1,23 +1,26 @@
 # Vouga Agency Website
 
-Website for Vouga Agency, a systems-led transformation and product company. The public pages are static; `/api/contact` is a Vercel Function backed by Supabase.
+Website for Vouga Agency, a systems-led transformation and product company. The public pages are static; `/api/contact` is a Vercel Function that delivers enquiries by email through Resend.
 
 ## Structure
 
 ```text
 index.html
-ai-knowledge-demo.html
+contact.html
+intelligence.html
+foundations.html
+academy.html
 privacy.html
 terms.html
 assets/
   css/main.css
+  css/pillar-pages.css
   js/main.js
+  js/pillar-pages.js
+  js/contact.js
   img/
-  video/
 api/
   contact.mjs
-supabase/
-  migrations/
 docs/
   site-documentation.md
 _headers
@@ -43,7 +46,7 @@ http://127.0.0.1:8000/
 
 If port `8000` is busy, use another port.
 
-For the complete contact flow, configure the environment variables from `.env.example`, apply the Supabase migration and run the project with `vercel dev`. See `docs/contact-backend.md`.
+For the complete contact flow, configure the environment variables from `.env.example` and run the project with `vercel dev`. See `docs/contact-backend.md`.
 
 ## Deployment
 
@@ -57,10 +60,9 @@ Recommended production checks:
 - Test social previews with LinkedIn, X/Twitter and WhatsApp-compatible preview tools.
 - Submit `sitemap.xml` to Google Search Console and Bing Webmaster Tools.
 - Confirm contact flow works on desktop and mobile.
-- Test `ai-knowledge-demo.html` on desktop and mobile.
 
 ## Important Notes
 
 - `docs/site-documentation.md` is the living source of truth for design, content, SEO, accessibility and technical decisions.
 - Update that document after each meaningful iteration.
-- The contact form requires the Vercel and Supabase setup documented in `docs/contact-backend.md`.
+- The contact form requires the Vercel and Resend setup documented in `docs/contact-backend.md`.

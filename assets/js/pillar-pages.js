@@ -32,6 +32,63 @@
     try { localStorage.removeItem('vouga-theme'); } catch(e) {}
   })();
 
+  (function initAcademyLoadingType(){
+    var heading = document.querySelector('[data-academy-loading-title]');
+    if (!heading) return;
+    var output = heading.querySelector('[data-academy-loading-output]');
+    var copy = heading.getAttribute('data-text') || 'Still loading...';
+    if (!output) return;
+    output.textContent = '';
+    heading.classList.remove('is-typing', 'is-complete');
+
+    function showComplete(){
+      output.textContent = copy;
+      heading.classList.remove('is-typing');
+      heading.classList.add('is-complete');
+    }
+    if (reducedMotion) {
+      showComplete();
+      return;
+    }
+
+    var started = false;
+    function startTyping(){
+      if (started) return;
+      started = true;
+      heading.classList.add('is-typing');
+      var index = 0;
+
+      function typeNext(){
+        index += 1;
+        output.textContent = copy.slice(0, index);
+        if (index >= copy.length) {
+          window.setTimeout(showComplete, 180);
+          return;
+        }
+        var character = copy.charAt(index - 1);
+        var delay = character === '.' ? 250 : character === ' ' ? 155 : 88 + (index % 4) * 12;
+        window.setTimeout(typeNext, delay);
+      }
+      window.setTimeout(typeNext, 260);
+    }
+
+    function removePositionListeners(){
+      window.removeEventListener('scroll', checkPosition);
+      window.removeEventListener('resize', checkPosition);
+    }
+    function checkPosition(){
+      if (started) return;
+      var rect = heading.getBoundingClientRect();
+      var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.top > viewportHeight * 0.82 || rect.bottom < viewportHeight * 0.12) return;
+      removePositionListeners();
+      startTyping();
+    }
+    window.addEventListener('scroll', checkPosition, { passive:true });
+    window.addEventListener('resize', checkPosition);
+    requestAnimationFrame(checkPosition);
+  })();
+
   (function initMobileMenu(){
     var navBurger = document.getElementById('navBurger');
     var mobileMenu = document.getElementById('mobileMenu');
