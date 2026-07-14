@@ -1,56 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vouga.agency/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <loc>https://www.vouga-agency.pt/</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://vouga.agency/#services</loc>
-    <lastmod>2026-06-14</lastmod>
+    <loc>https://www.vouga-agency.pt/#why-vouga</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.vouga-agency.pt/#use-cases</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vouga.agency/#foundation</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://vouga.agency/ai-knowledge-demo.html</loc>
-    <lastmod>2026-06-14</lastmod>
+    <loc>https://www.vouga-agency.pt/#pillars</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vouga.agency/intelligence.html</loc>
-    <lastmod>2026-06-24</lastmod>
+    <loc>https://www.vouga-agency.pt/intelligence.html</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vouga.agency/foundations.html</loc>
-    <lastmod>2026-06-24</lastmod>
+    <loc>https://www.vouga-agency.pt/foundations.html</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vouga.agency/academy.html</loc>
-    <lastmod>2026-06-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://vouga.agency/privacy.html</loc>
-    <lastmod>2026-06-14</lastmod>
+    <loc>https://www.vouga-agency.pt/privacy.html</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://vouga.agency/terms.html</loc>
-    <lastmod>2026-06-14</lastmod>
+    <loc>https://www.vouga-agency.pt/terms.html</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

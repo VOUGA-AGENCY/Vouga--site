@@ -4,6 +4,24 @@
   var root = document.documentElement;
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var currentLang = 'en';
+  try { sessionStorage.setItem('vouga-pillars-cards-ready', '1'); } catch(e) {}
+  (function normalizeCapabilityUrl(){
+    if (!window.history || !window.history.replaceState) return;
+    var hash = document.body.classList.contains('intelligence-page') ? '#intelligence'
+      : document.body.classList.contains('foundations-page') ? '#engineering'
+      : document.body.classList.contains('academy-page') ? '#academy'
+      : '';
+    if (!hash || window.location.hash === hash) return;
+    window.history.replaceState(null, '', '/' + hash);
+  })();
+  document.addEventListener('click', function(e){
+    var link = e.target.closest ? e.target.closest('a[data-route-page]') : null;
+    if (!link) return;
+    var page = link.getAttribute('data-route-page');
+    if (!page) return;
+    e.preventDefault();
+    window.location.href = page;
+  });
   try {
     var savedLang = localStorage.getItem('vouga-lang');
     if (savedLang === 'pt' || savedLang === 'en') currentLang = savedLang;
@@ -77,18 +95,24 @@
     if (!page) return;
 
     var COMMON = {
-      pt: { contact:'Contacte-nos', theme:'alternar modo claro e escuro', logo:'Vouga Agency, início' },
-      en: { contact:'Contact us', theme:'toggle light and dark mode', logo:'Vouga Agency, home' }
+      pt: { contact:'Falar connosco', theme:'alternar modo claro e escuro', logo:'Vouga Agency, início', nav:['Como Pensamos','Casos de Uso','Áreas'], mobileTheme:'Modo claro / escuro' },
+      en: { contact:'Contact us', theme:'toggle light and dark mode', logo:'Vouga Agency, home', nav:['Our Approach','Use Cases','Capabilities'], mobileTheme:'Light / dark mode' }
     };
     var COPY = {
       intelligence: {
         pt: {
           title:'Vouga Intelligence · AI Services',
           description:'Vouga Intelligence desenha e implementa serviços de IA aplicada: inteligência de workflows, sistemas de conhecimento e agentes operacionais.',
-          kicker:'AI services · sistemas de operação',
-          lead:'Construímos IA aplicada dentro do trabalho que já move o negócio: conhecimento, decisões, operações de cliente e execução.',
-          primary:'Mapear a oportunidade <span class="arrow">→</span>',
-          secondary:'Explorar os serviços',
+          kicker:'IA aplicada · sistemas de operação',
+          lead:'Construímos sistemas de IA dentro dos workflows que já movem o negócio: conhecimento, decisões, operações de cliente e execução.',
+          primary:'Falar connosco <span class="arrow">→</span>',
+          secondary:'O que faz',
+          simpleSections:[
+            { h:'O que a Intelligence faz.', p:'A Vouga Intelligence liga contexto, decisões e execução através de sistemas de IA integrados em workflows reais.', cards:[['01 / compreender','Mapeamos onde vive o conhecimento e como as decisões acontecem.','Documentos, ferramentas, permissões, reuniões e know-how tácito tornam-se uma visão utilizável do trabalho.'],['02 / construir','Transformamos esse contexto em sistemas de IA fiáveis.','Pesquisa, retrieval, copilotos e agentes são desenhados com fontes, controlo de acessos e responsabilidade humana clara.'],['03 / operar','Colocamos inteligência onde a próxima ação precisa de acontecer.','O resultado não é um chatbot à parte. É uma camada de trabalho que ajuda equipas a decidir, preparar e executar.']] },
+            { h:'O que pode produzir.', p:'Cada construção começa pelo workflow e combina modelos, dados, UI, permissões e adoção num sistema que as pessoas conseguem usar.', cards:[['Inteligência de workflow','Encontrar a intervenção de IA com maior impacto.','Mapeamos o trabalho, localizamos fricção e definimos onde a inteligência deve entrar.'],['Sistemas de conhecimento','Tornar o contexto da empresa pesquisável e utilizável.','Construímos retrieval, citações, controlo de acessos e apoio à decisão sobre fontes reais.'],['Agentes operacionais','Transformar contexto em ação preparada.','Construímos copilotos e agentes que ajudam equipas a preparar, triagem, coordenação e execução.']] },
+            { h:'Quando é a área certa.', p:'Escolhe Intelligence quando o negócio precisa de usar o seu próprio contexto com mais rapidez, segurança e clareza de ação.', cards:[['Sinais','As pessoas fazem as mesmas perguntas, procuram os mesmos ficheiros ou reconstroem o mesmo contexto.','Criamos uma camada fiável de conhecimento e decisão para a organização reutilizar o que já sabe.'],['Resultado','As equipas recebem respostas mais rápidas, melhor preparação e próximos passos mais claros.','O sistema melhora velocidade e consistência sem retirar julgamento às pessoas responsáveis.']] }
+          ],
+          simpleCta:['Mostra-nos o trabalho que devia funcionar melhor.','Dizemos-te onde a IA faz sentido, o que construir primeiro e o que não deve ser automatizado.','Falar connosco <span class="arrow">→</span>'],
           heads:['O que entra em produção','Como pensamos IA','Métricas que queremos mover'],
           nums:['01 / sistemas','02 / lógica operacional','03 / medidas'],
           cards:[
@@ -102,15 +126,21 @@
           list:['Integração com ferramentas existentes antes de substituir processos.','Respostas com fontes, permissões e rastreabilidade.','Medição simples: tempo poupado, erros reduzidos, decisões aceleradas.'],
           stats:['tempo até encontrar uma resposta interna','mais rápido da reunião à proposta enviada','reuniões com decisões, responsáveis e prazos registados'],
           cta:'Vamos ler o teu sistema?',
-          ctaBtn:'Começar pelo diagnóstico <span class="arrow">→</span>'
+          ctaBtn:'Falar connosco <span class="arrow">→</span>'
         },
         en: {
           title:'Vouga Intelligence · AI Services',
-          description:'Vouga Intelligence designs and delivers applied AI services: workflow intelligence, knowledge systems and operational agents.',
-          kicker:'AI services · operating systems',
-          lead:'We build applied AI into the work that already moves the business: knowledge, decisions, customer operations and execution.',
-          primary:'Map the opportunity <span class="arrow">→</span>',
-          secondary:'Explore the services',
+          description:'Vouga Intelligence designs and delivers applied AI systems: workflow intelligence, knowledge systems and operational agents.',
+          kicker:'applied AI · operating systems',
+          lead:'We build AI systems into the workflows that already move the business: knowledge, decisions, customer operations and execution.',
+          primary:'Start a conversation <span class="arrow">→</span>',
+          secondary:'What it does',
+          simpleSections:[
+            { h:'Problems we enter.', p:'Vouga Intelligence connects company context, decisions and execution through AI systems that sit inside real workflows.', cards:[['01 / read','We map where knowledge lives and how decisions actually happen.','Documents, tools, permissions, meetings and tacit know-how become one usable view of the work.'],['02 / build','We turn that context into AI systems people can trust.','Search, retrieval, copilots and agents are designed with sources, access control and clear human ownership.'],['03 / operate','We put intelligence where the next action needs to happen.','The output is not a chatbot on the side. It is a working layer that helps teams decide, prepare and execute.']] },
+            { h:'What it can produce.', p:'Each build starts from the workflow, then combines models, data, UI, permissions and adoption into a system people can actually use.', cards:[['Workflow intelligence','Find the highest-leverage AI intervention.','We map the work, locate friction and define where intelligence belongs.'],['Knowledge systems','Make company context searchable and usable.','We build retrieval, citations, access control and decision support around real sources.'],['Operational agents','Turn context into prepared action.','We build copilots and agents that help teams prepare, triage, coordinate and execute.']] },
+            { h:'When it is the right pillar.', p:'Choose Intelligence when the business needs to use its own context faster, more safely and with clearer action.', cards:[['Signs','People are asking the same questions, searching the same files or rebuilding the same context.','We create a trusted knowledge and decision layer so the organisation can reuse what it already knows.'],['Outcome','Teams get faster answers, stronger preparation and clearer next actions.','The system improves speed and consistency without removing judgement from the people responsible.']] }
+          ],
+          simpleCta:['Show us the work that should work better.','We will tell you where AI belongs, what to build first and what should not be automated.','Start a conversation <span class="arrow">→</span>'],
           heads:['What goes into production','How we think about AI','Metrics we want to move'],
           nums:['01 / systems','02 / operating logic','03 / measures'],
           cards:[
@@ -124,17 +154,23 @@
           list:['Integrate with existing tools before replacing processes.','Answers with sources, permissions and traceability.','Simple measurement: time saved, errors reduced, decisions accelerated.'],
           stats:['time to find an internal answer','faster from meeting to proposal sent','meetings with decisions, owners and deadlines recorded'],
           cta:'Shall we read your system?',
-          ctaBtn:'Start with the diagnosis <span class="arrow">→</span>'
+          ctaBtn:'Start a conversation <span class="arrow">→</span>'
         }
       },
       foundations: {
         pt: {
-          title:'Vouga Foundations · I&D, POCs e MVPs',
-          description:'A Vouga Foundations valida ideias, constrói POCs e desenvolve MVPs para I&D empresarial, contratação de tecnologia e novos produtos.',
-          kicker:'I&D · POCs · MVPs',
-          lead:'Transformamos ideias incertas e requisitos complexos em evidência, protótipos funcionais e produtos prontos a lançar.',
-          primary:'Validar uma ideia <span class="arrow">→</span>',
-          secondary:'Explorar a Foundations',
+          title:'Vouga Engineering · Produto e software',
+          description:'A Vouga Engineering entrega validação, protótipos, produto, ferramentas internas, melhoria de software e execução técnica, com ou sem IA.',
+          kicker:'produto · software · execução',
+          lead:'Desenhamos, validamos e construímos software que muda a forma como o negócio trabalha, com ou sem IA.',
+          primary:'Falar connosco <span class="arrow">→</span>',
+          secondary:'O que faz',
+          simpleSections:[
+            { h:'O que a Engineering faz.', p:'A Vouga Engineering transforma mudança de negócio em software utilizável: validado, desenhado, construído e melhorado com ownership.', cards:[['01 / validar','Clarificamos o que deve ser construído antes de a construção ficar pesada.','Testamos pressupostos, enquadramos scope e reduzimos incerteza antes de comprometer orçamento e equipa.'],['02 / desenhar','Tornamos workflows complexos compreensíveis e usáveis.','Desenhamos interfaces, jornadas e decisões de produto para que as pessoas adotem a mudança com confiança.'],['03 / construir','Entregamos software que pode continuar a evoluir depois do lançamento.','Produtos, ferramentas internas, integrações e melhorias são construídos com arquitetura e ownership claros.']] },
+            { h:'O que pode produzir.', p:'Engineering cobre validação, design de produto, execução técnica e melhoria do software que já existe dentro do negócio.', cards:[['Validação de produto','Transformar oportunidades pouco claras em evidência, scope e decisões de construção.','Enquadramos o problema, testamos os pressupostos mais arriscados e definimos o que merece ser construído.'],['UX e interface','Tornar sistemas complexos compreensíveis, usáveis e prontos para adoção.','Desenhamos interfaces que ajudam pessoas a compreender o trabalho e agir com confiança.'],['Engenharia de software','Construir produtos, ferramentas internas, integrações e melhorias que continuam a evoluir.','Entregamos software funcional com a arquitetura e ownership necessários depois do lançamento.']] },
+            { h:'Quando é a área certa.', p:'Escolhe Engineering quando a organização precisa de um produto, ferramenta ou mudança de software que tem de funcionar na prática.', cards:[['Sinais','A ferramenta, produto ou workflow atual é lento, frágil ou difícil de usar.','Encontramos o que precisa de mudar e desenhamos e construímos a camada de software que faz o sistema funcionar melhor.'],['Resultado','O negócio ganha um caminho de produto mais claro e software funcional que pode assumir como seu.','O resultado pode ser um protótipo, produto, plataforma interna, integração ou melhoria de um sistema existente.']] }
+          ],
+          simpleCta:['Traz-nos o sistema que precisa de avançar.','Ajudamos a definir o que deve mudar, o que deve ser construído e como entregar.', 'Falar connosco <span class="arrow">→</span>'],
           heads:['Antes de construir, reduzimos incerteza','Roadmap de fundação','O que pode sair daqui'],
           nums:['01 / fundação','02 / caminho de construção','03 / outputs'],
           bandTitle:'A primeira versão não é pequena por falta de ambição. É pequena para aprender depressa.',
@@ -142,25 +178,31 @@
           cards:[
             ['risk','Mapa de risco','Hipóteses, dependências, dados necessários, esforço técnico e pontos onde a ideia pode falhar.'],
             ['prototype','Protótipo funcional','Não um mockup bonito: uma versão que permite testar comportamento, decisão ou venda.'],
-            ['system','MVP evolutivo','Arquitetura simples, mas preparada para crescer se a validação justificar o passo seguinte.']
+            ['system','Produto evolutivo','Arquitetura simples, mas preparada para crescer se a validação justificar o passo seguinte.']
           ],
           steps:[
             ['semana 01','Discovery de risco','Entendemos utilizador, contexto, constraints e o que precisa de ser validado antes de escrever muito código.'],
-            ['semana 02','Arquitetura mínima','Escolhemos stack, integrações, dados e superfície do MVP. O objetivo é aprender, não impressionar.'],
+            ['semana 02','Arquitetura mínima','Escolhemos stack, integrações, dados e superfície inicial do produto. O objetivo é aprender, não impressionar.'],
             ['semanas 03-06','Construção piloto','Produto funcional, testável e já com o suficiente para pôr nas mãos de utilizadores ou clientes reais.'],
             ['depois','Escalar ou matar','Com dados na mesa, decidimos: refinar, escalar, pivotar ou parar. Sem teatro de produto.']
           ],
-          stats:['MVP para testar venda, uso ou operação interna','Protótipo navegável com lógica real e dados simulados','Plano técnico para passagem a produto ou sistema interno'],
+          stats:['Produto inicial para testar venda, uso ou operação interna','Protótipo navegável com lógica real e dados simulados','Plano técnico para passagem a produto ou sistema interno'],
           cta:'Tens uma ideia que precisa de chão?',
           ctaBtn:'Construir a primeira fundação <span class="arrow">→</span>'
         },
         en: {
-          title:'Vouga Foundations · R&D, POCs and MVPs',
-          description:'Vouga Foundations validates ideas, builds POCs and delivers MVPs for corporate R&D, technology procurement and new products.',
-          kicker:'R&D · POCs · MVPs',
-          lead:'We turn uncertain ideas and complex requirements into evidence, working prototypes and products ready to launch.',
-          primary:'Validate an idea <span class="arrow">→</span>',
-          secondary:'Explore Foundations',
+          title:'Vouga Engineering · Product and software delivery',
+          description:'Vouga Engineering delivers validation, prototypes, products, internal tools, software improvement and technical execution, with or without AI.',
+          kicker:'product · software · execution',
+          lead:'We design, validate and build software that changes how the business works, with or without AI.',
+          primary:'Start a conversation <span class="arrow">→</span>',
+          secondary:'What it does',
+          simpleSections:[
+            { h:'What Engineering does.', p:'Vouga Engineering turns business change into usable software: validated, designed, built and improved with ownership.', cards:[['01 / validate','We clarify what should be built before the build gets heavy.','We test assumptions, frame scope and reduce uncertainty before budget and people are committed.'],['02 / design','We make complex workflows understandable and usable.','We shape interfaces, journeys and product decisions so people can adopt the change with confidence.'],['03 / build','We deliver software that can keep evolving after launch.','Products, internal tools, integrations and improvements are built with clear architecture and ownership.']] },
+            { h:'What it can produce.', p:'Engineering covers validation, product design, technical delivery and improvement of the software already inside the business.', cards:[['Product validation','Turn unclear opportunities into evidence, scope and build decisions.','We frame the problem, test the risky assumptions and define what deserves to be built.'],['UX and interface design','Make complex systems understandable, usable and ready for adoption.','We design interfaces that help people understand the work and act with confidence.'],['Software engineering','Build products, internal tools, integrations and improvements that can keep evolving.','We deliver working software with the architecture and ownership needed after launch.']] },
+            { h:'When it is the right pillar.', p:'Choose Engineering when the organisation needs a product, tool or software change that has to work in practice.', cards:[['Signs','The current tool, product or workflow is too slow, fragile or hard to use.','We find what needs to change, then design and build the software layer that makes the system work better.'],['Outcome','The business gets a clearer product path and working software it can own.','The result can be a prototype, product, internal platform, integration or improvement to an existing system.']] }
+          ],
+          simpleCta:['Bring us the system that needs to move.','We will help define what should change, what should be built and how to deliver it.','Start a conversation <span class="arrow">→</span>'],
           heads:['Before building, we reduce uncertainty','Foundation roadmap','What can come out of this'],
           nums:['01 / foundation','02 / build path','03 / outputs'],
           bandTitle:'The first version is not small because ambition is small. It is small so learning is fast.',
@@ -168,27 +210,28 @@
           cards:[
             ['risk','Risk map','Hypotheses, dependencies, required data, technical effort and the points where the idea can fail.'],
             ['prototype','Functional prototype','Not a pretty mockup: a version that can test behavior, decision or sales.'],
-            ['system','Evolving MVP','Simple architecture, but ready to grow if validation justifies the next step.']
+            ['system','Evolving product','Simple architecture, but ready to grow if validation justifies the next step.']
           ],
           steps:[
             ['week 01','Risk discovery','We understand user, context, constraints and what must be validated before writing too much code.'],
-            ['week 02','Minimum architecture','We choose stack, integrations, data and MVP surface. The goal is to learn, not impress.'],
+            ['week 02','Minimum architecture','We choose stack, integrations, data and the first product surface. The goal is to learn, not impress.'],
             ['weeks 03-06','Pilot build','A functional, testable product with enough substance to put in front of real users or customers.'],
             ['after','Scale or kill','With data on the table, we decide: refine, scale, pivot or stop. No product theatre.']
           ],
-          stats:['MVP to test sales, usage or internal operation','Navigable prototype with real logic and simulated data','Technical plan for moving into product or internal system'],
+          stats:['Initial product to test sales, usage or internal operation','Navigable prototype with real logic and simulated data','Technical plan for moving into product or internal system'],
           cta:'Have an idea that needs ground?',
           ctaBtn:'Build the first foundation <span class="arrow">→</span>'
         }
       },
       academy: {
         pt: {
-          title:'Vouga Academy · Inteligência Aplicada e Talento',
-          description:'A Vouga Academy ajuda equipas a aplicar inteligência no trabalho real e liga instituições de ensino superior e talento jovem a desafios reais.',
+          title:'Vouga Academy · Still loading',
+          description:'A Vouga Academy está em desenvolvimento: uma futura capacidade para aprendizagem aplicada, talento e as pessoas que vão construir o que vem a seguir.',
           kicker:'',
-          lead:'Ajudamos equipas a aplicar inteligência no trabalho real e damos ao talento jovem espaço para praticar, construir e crescer em contexto real.',
-          primary:'Desenhar um programa <span class="arrow">→</span>',
-          secondary:'Explorar a Academy',
+          lead:'A Academy vai ajudar equipas e talento emergente a desenvolver capacidade através de trabalho real, não de formação genérica.',
+          primary:'Falar connosco <span class="arrow">→</span>',
+          secondary:'Voltar às capacidades',
+          academyBlur:{ heading:'O que a Academy vai fazer.', body:'A Academy será a camada de aprendizagem futura da Vouga: programas práticos, contextos reais de negócio e desenvolvimento de talento em torno de sistemas, software e IA.', cards:[['01','Treinar equipas no seu trabalho real.','Programas construídos sobre workflows, documentos, ferramentas e decisões existentes.'],['02','Transformar aprendizagem em artefactos úteis.','Workshops e studios devem deixar playbooks, protótipos ou hábitos operacionais.'],['03','Ligar talento emergente a responsabilidade real.','Uma ponte entre educação, projetos aplicados e o standard necessário dentro das empresas.']], loading:'Vouga Academy está em desenvolvimento.'},
           heads:['A ponte que queremos construir','Formatos possíveis','Princípios da Academy','Indicadores de sucesso'],
           nums:['01 / ponte','02 / formatos','03 / princípios','04 / medidas'],
           cards:[
@@ -210,12 +253,13 @@
           ctaBtn:'Abrir conversa <span class="arrow">→</span>'
         },
         en: {
-          title:'Vouga Academy · Applied Intelligence and Talent',
-          description:'Vouga Academy helps teams apply intelligence in real work and connects higher education and young talent with real challenges.',
+          title:'Vouga Academy · Still loading',
+          description:'Vouga Academy is in development: a future capability for applied learning, talent and the people who will build what comes next.',
           kicker:'',
-          lead:'We help teams use intelligence in real work and give young talent a place to practise, build and grow through real application.',
-          primary:'Build a programme <span class="arrow">→</span>',
-          secondary:'Explore Academy',
+          lead:'Academy will help teams and emerging talent build capability through real work, not generic training.',
+          primary:'Start a conversation <span class="arrow">→</span>',
+          secondary:'Back to capabilities',
+          academyBlur:{ heading:'What Academy will do.', body:'Academy is the future learning layer of Vouga: practical programmes, real business contexts and talent development around systems, software and AI.', cards:[['01','Train teams on their actual work.','Programmes built around existing workflows, documents, tools and decisions.'],['02','Turn learning into useful artefacts.','Workshops and studios should leave behind playbooks, prototypes or operational habits.'],['03','Connect emerging talent to real responsibility.','A bridge between education, applied projects and the standard needed inside companies.']], loading:'Vouga Academy is in development.'},
           heads:['The bridge we want to build','Possible formats','Academy principles','Success indicators'],
           nums:['01 / bridge','02 / formats','03 / principles','04 / measures'],
           cards:[
@@ -285,7 +329,7 @@
 
     var FOUNDATION_PT = {
       thesisLabel:'01 / REDUZIR A INCERTEZA',thesisTitle:'Construir o suficiente para aprender. Aprender o suficiente para investir.',
-      thesisCopy:'Na Foundations, transformamos pressupostos em evidência antes de a empresa comprometer orçamento, tempo de contratação ou uma equipa completa.',
+      thesisCopy:'Na Engineering, transformamos pressupostos em evidência antes de a empresa comprometer orçamento, tempo de contratação ou uma equipa completa.',
       proof1Title:'Definir o que tem de ser verdade',proof1Copy:'Clarificar quem tem o problema, que valor existe, quais são os limites e como será tomada a decisão.',
       proof2Title:'Testar primeiro o maior risco',proof2Copy:'Usar investigação, protótipos e sinais do mercado antes de aprofundar a construção.',
       proof3Title:'Investir com dados',proof3Copy:'Avançar para a implementação com âmbito, arquitetura e lógica comercial mais claros.',
@@ -299,7 +343,7 @@
       service2Copy:'Depois da reunião de requisitos, transformamos a ambiguidade numa POC funcional, com critérios de aceitação, prova técnica e um âmbito de implementação preciso.',
       service2Item1:'Requisitos convertidos em resultados testáveis',service2Item2:'Validação de integrações e viabilidade',service2Item3:'Âmbito partilhado entre cliente e fornecedor',
       service2Result:'Menos desperdício, menos pressupostos e uma contratação mais segura para ambas as partes.',
-      service3Tag:'MVP E NOVOS PRODUTOS',service3Title:'A tua ideia, a nossa equipa de produto',
+      service3Tag:'PRODUTO E SOFTWARE',service3Title:'A tua ideia, a nossa equipa de produto',
       service3Copy:'Quando a ideia existe, mas falta equipa ou tempo, assumimos o caminho desde a definição do produto até ao desenvolvimento, lançamento e aprendizagem.',
       service3Item1:'Estratégia de produto e experiência',service3Item2:'Desenvolvimento Web, iOS e Android',service3Item3:'Lançamento, medição e evolução',
       service3Result:'Um produto no mercado, com o código fonte e a propriedade nas tuas mãos.',
@@ -392,6 +436,39 @@
       qa('.detail-section-head h2').forEach(function(el, i){ if (copy.heads[i]) el.textContent = copy.heads[i]; });
       qa('.detail-section-head .detail-num').forEach(function(el, i){ if (copy.nums[i]) el.textContent = copy.nums[i]; });
     }
+    function setSimpleSections(sections){
+      if (!sections) return;
+      qa('.detail-simple-section').forEach(function(section, i){
+        var data = sections[i];
+        if (!data) return;
+        textNode(section.querySelector('.detail-simple-head h2'), data.h);
+        textNode(section.querySelector('.detail-simple-head p'), data.p);
+        Array.prototype.slice.call(section.querySelectorAll('.detail-simple-card,.detail-work-card')).forEach(function(card, j){
+          if (!data.cards || !data.cards[j]) return;
+          textNode(card.querySelector('span'), data.cards[j][0]);
+          textNode(card.querySelector('h3'), data.cards[j][1]);
+          textNode(card.querySelector('p'), data.cards[j][2]);
+        });
+      });
+    }
+    function setSimpleCta(data){
+      if (!data) return;
+      text('.detail-cta-simple h2', data[0]);
+      text('.detail-cta-simple p', data[1]);
+      html('.detail-cta-simple .btn-primary', data[2]);
+    }
+    function setAcademyBlur(data){
+      if (!data) return;
+      text('.academy-blur-head h2', data.heading);
+      text('.academy-blur-head p', data.body);
+      qa('.academy-blur-grid article').forEach(function(card, i){
+        if (!data.cards || !data.cards[i]) return;
+        textNode(card.querySelector('span'), data.cards[i][0]);
+        textNode(card.querySelector('h3'), data.cards[i][1]);
+        textNode(card.querySelector('p'), data.cards[i][2]);
+      });
+      text('.academy-loading-overlay p', data.loading);
+    }
     function apply(lang){
       lang = lang === 'en' ? 'en' : 'pt';
       currentLang = lang;
@@ -401,12 +478,18 @@
       document.title = copy.title;
       meta('meta[name="description"]', copy.description);
       qa('.nav .btn-primary').forEach(function(btn){ btn.textContent = common.contact; });
+      qa('.nav-links a,.mobile-links a').forEach(function(a, i){ a.textContent = common.nav[i % common.nav.length]; });
+      qa('.mobile-theme span').forEach(function(span){ span.textContent = common.mobileTheme; });
       var logo = q('.logo'); if (logo) logo.setAttribute('aria-label', common.logo);
       var theme = q('#themeToggle'); if (theme) theme.setAttribute('aria-label', common.theme);
+      var mobileTheme = q('#themeToggleMobile'); if (mobileTheme) mobileTheme.setAttribute('aria-label', common.theme);
       text('.detail-kicker', copy.kicker);
       text('.detail-lead', copy.lead);
       html('.detail-actions .btn-primary', copy.primary);
       text('.detail-actions .btn-ghost', copy.secondary);
+      setSimpleSections(copy.simpleSections);
+      setSimpleCta(copy.simpleCta);
+      setAcademyBlur(copy.academyBlur);
       setHeads(copy);
       setCards(copy.cards || []);
       if (page === 'intelligence') {

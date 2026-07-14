@@ -1,6 +1,14 @@
 (function(){
   'use strict';
 
+  (function normalizeVisibleUrl(){
+    if (!window.history || !window.history.replaceState) return;
+    var path = window.location.pathname || '';
+    if (!/\/index\.html$/i.test(path)) return;
+    var cleanPath = path.replace(/\/index\.html$/i, '/') || '/';
+    window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
+  })();
+
   /* ===== theme ===== */
   var root = document.documentElement;
 
@@ -127,6 +135,15 @@
   var themeBtnMobile = document.getElementById('themeToggleMobile');
   if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
 
+  document.addEventListener('click', function(e){
+    var link = e.target.closest ? e.target.closest('a[data-route-page]') : null;
+    if (!link) return;
+    var page = link.getAttribute('data-route-page');
+    if (!page) return;
+    e.preventDefault();
+    window.location.href = page;
+  });
+
   /* ===== mobile menu (hamburger) ===== */
   var navBurger = document.getElementById('navBurger');
   var mobileMenu = document.getElementById('mobileMenu');
@@ -171,39 +188,37 @@
       logoHome: 'Vouga Agency, início',
       mainNav: 'navegação principal',
       navContact: 'contacto',
+      navApproach: 'Como Pensamos',
+      navWork: 'Casos de Uso',
+      navCapabilities: 'Áreas',
       themeToggle: 'alternar modo claro e escuro',
       themeLabel: 'Modo claro / escuro',
-      talkToUs: 'Contacte-nos',
-      heroTitle: '<span class="hero-line"><span class="grad">Inteligência</span>, desenhada</span><br><span class="hero-line">em torno <em>do negócio</em></span>',
-      heroSub: 'A maioria das empresas trata o sintoma. Nós encontramos a <span class="grad hero-origin-word">origem</span><span class="hero-sub-normal"> e aplicamos a ferramenta certa, da IA ao protótipo.</span>',
-      heroSubMobile: 'Não tratamos sintomas.<br>Encontramos a origem e aplicamos<br>a ferramenta certa.',
-      heroDiagnose: 'Ver onde o sistema perde valor <span class="arrow">→</span>',
-      heroPillars: 'Ver os pilares',
+      talkToUs: 'Falar connosco',
+      heroTitle: '<span class="hero-line"><span class="grad">Visão sistémica</span> para</span><br><span class="hero-line"><em>transformar negócios.</em></span>',
+      heroSub: 'Encontramos o que realmente está a travar o negócio e construímos o que gera impacto.',
+      heroSubMobile: 'Encontramos o que realmente está a travar o negócio<br>e construímos o que gera impacto.',
+      heroDiagnose: 'Falar connosco <span class="arrow">→</span>',
+      heroPillars: 'Porquê a Vouga',
       navMethod: 'método',
-      pillarsKicker: 'os pilares · um sistema',
-      pillarIntelDesc: 'IA integrada no trabalho que já move o negócio.',
-      pillarFoundDesc: 'Da ideia à validação, sem construir no escuro.',
-      pillarAcademyDesc: 'Preparamos quem vai trabalhar e construir com inteligência.',
+      capabilitiesLabel: 'capacidades',
+      pillarsKicker: 'capabilities',
+      pillarIntelDesc: 'IA aplicada ao trabalho que já move o negócio.',
+      pillarFoundDesc: 'Da validação e protótipos a produto, software e melhoria contínua.',
+      pillarAcademyDesc: 'A preparar quem vai construir o que vem a seguir.',
       explore: 'explorar →',
       seeWorking: 'Descubra o seu sistema <span class="arrow">→</span>',
       whatWeBuild: 'O que construímos',
       whyStoryLabel: 'why vouga',
-      whyTitle: '<span class="why-title-line">Olhamos para o todo.</span><span class="why-title-line">Executamos o que realmente importa.</span>',
-      whyCopy: 'A Vouga entra antes de se escolher a solução. Olhamos para o negócio como um sistema, encontramos o problema que realmente bloqueia e acompanhamos o caminho até à entrega.',
-      whySymptom: 'Diagnosticar',
-      whySymptomCopy: 'Mapeamos como o trabalho acontece e onde se perde tempo, contexto ou capacidade de decisão.',
-      whyOrigin: 'Desenhar',
-      whyOriginCopy: 'Definimos a intervenção certa para o problema real, seja um processo, um serviço ou uma solução digital.',
-      whySystem: 'Executar',
-      whySystemCopy: 'Construímos, implementamos e melhoramos com a equipa até a solução funcionar no dia a dia.',
-      whyPrinciple1: 'Visão sistémica',
-      whyPrinciple1Copy: 'Lemos decisões, pessoas, processos e tecnologia como um só sistema antes de propor uma solução.',
-      whyPrinciple2: 'Proatividade operacional',
-      whyPrinciple2Copy: 'Não esperamos por um briefing perfeito. Entramos no trabalho real, encontramos bloqueios e puxamos o próximo passo.',
-      whyPrinciple3: 'IA como acelerador',
-      whyPrinciple3Copy: 'Usamos IA para chegar mais depressa à prova, ao protótipo e à entrega, sem abdicar de critério.',
-      whyPrinciple4: 'AI-native, negócio primeiro',
-      whyPrinciple4Copy: 'Construímos com ferramentas atuais, mas medimos valor em operação, decisão e capacidade que fica.',
+      whyTitle: '<span class="why-title-line">Contexto antes da solução.</span><span class="why-title-line">Compromisso até ao resultado.</span>',
+      whyCopy: 'Entramos antes da solução estar decidida. Compreendemos o negócio como um sistema, identificamos o que realmente bloqueia o progresso e acompanhamos a execução até ao resultado.',
+      whyPrinciple1: '<span>Pensamento</span><span>Sistémico</span>',
+      whyPrinciple1Copy: 'Olhamos para pessoas, processos, decisões e tecnologia como partes do mesmo sistema.',
+      whyPrinciple2: '<span>Execução</span><span>Proativa</span>',
+      whyPrinciple2Copy: 'Fazemos o trabalho avançar sem esperar por um briefing perfeito nem por mais uma passagem de testemunho.',
+      whyPrinciple3: '<span>IA como</span><span>Motor</span>',
+      whyPrinciple3Copy: 'Usamos IA quando melhora velocidade, qualidade ou capacidade. Não partimos dela por defeito.',
+      whyPrinciple4: '<span>Clareza por</span><span>Definição</span>',
+      whyPrinciple4Copy: 'Com bom UI e UX, tornamos sistemas complexos mais claros, mais usáveis e prontos para adoção.',
       servicesLabel: 'sistemas para operação',
       servicesTitle: 'O que construímos',
       servicesNum: '01 / agency',
@@ -236,30 +251,58 @@
       step3Duration: 'Mensal',
       step3Title: '<span>Parceiro</span><span>Operacional</span>',
       step3Copy: 'Melhoramos o que está em produção e avançamos para o próximo problema.',
-      useCasesLabel: 'casos de aplicação',
-      useCasesTitle: 'Sistemas construídos para problemas reais.',
-      useCasesIntro: 'IA aplicada, produto e sistemas internos, do MVP à operação.',
-      useCasesControlsLabel: 'Filtros dos casos de aplicação',
-      useCasesMvp: 'MVPs',
-      useCasesAi: 'Applied AI',
+      useCasesLabel: 'casos de uso',
+      useCasesTitle: '<span>Problemas reais.</span><span>Intervenções concretas.</span>',
+      useCasesIntro: 'Projetos e conceitos que mostram como transformamos contexto complexo em sistemas claros e operacionais.',
+      useCasesNavLabel: 'Navegação dos casos de uso',
       useCasesPrev: 'Caso anterior',
       useCasesNext: 'Caso seguinte',
-      useCasesRailLabel: 'Casos de aplicação',
-      useCase1Tags: 'People Analytics · RAG',
-      useCase1Title: 'Sistema interno de avaliação de desempenho',
-      useCase1Desc: 'Plataforma de avaliação com uma camada RAG para consulta contextual de critérios, feedback e documentação interna.',
-      useCase2Tags: 'Energy Analytics · MVP',
-      useCase2Title: 'MVP de otimização do consumo energético',
-      useCase2Desc: 'Aplicação para análise de padrões de consumo elétrico, deteção de anomalias e suporte a recomendações de eficiência energética.',
-      useCase3Tags: 'Internal Operations · RAG',
-      useCase3Title: 'Sistema interno de informação estratégica',
-      useCase3Desc: 'Sistema de gestão e consulta de informação estratégica, com arquitetura RAG para recuperação contextual e apoio à decisão.',
-      useCase4Tags: 'Conversational AI · RAG',
-      useCase4Title: 'Agente conversacional com memória contextual',
-      useCase4Desc: 'Agente de IA com RAG para recuperar conversas anteriores, preservar contexto longitudinal e preparar temas de continuidade.',
-      useCase5Tags: 'Employee Experience · RAG Copilot',
-      useCase5Title: 'Portal interno do colaborador com copiloto',
-      useCase5Desc: 'Portal para centralização e gestão de dados de colaboradores, integrado com um RAG Copilot para pesquisa e acesso contextual à informação.',
+      useCasesRailLabel: 'Trabalho selecionado',
+      useCaseLearnMore: 'Saber mais',
+      useCaseProblemLabel: 'Problema',
+      useCaseInterventionLabel: 'Intervenção',
+      useCaseResultLabel: 'Resultado esperado',
+      useCaseTargetLabel: 'Impacto-alvo',
+      useCase1CardLabel: 'Saber mais sobre Workspace de avaliação de desempenho',
+      useCase1Tags: 'Conceito · People Operations',
+      useCase1Title: 'Workspace de avaliação de desempenho',
+      useCase1Problem: 'O contexto das avaliações está disperso entre critérios, feedback e documentação interna.',
+      useCase1Intervention: 'Um fluxo unificado com consulta contextual de dados de pessoas e políticas.',
+      useCase1Result: 'Preparação mais rápida e avaliações mais consistentes.',
+      useCase1Metric: '30–50%',
+      useCase1MetricCopy: 'menos tempo de preparação',
+      useCase2CardLabel: 'Saber mais sobre Sistema de conhecimento estratégico',
+      useCase2Tags: 'Conceito · Operações estratégicas',
+      useCase2Title: 'Sistema de conhecimento estratégico',
+      useCase2Problem: 'As decisões dependem de contexto espalhado por documentos, iniciativas e equipas.',
+      useCase2Intervention: 'Conhecimento estruturado com consulta contextual e respostas suportadas por fontes.',
+      useCase2Result: 'Acesso mais rápido a contexto pronto para decisão.',
+      useCase2Metric: '40–60%',
+      useCase2MetricCopy: 'menos tempo à procura de contexto',
+      useCase3CardLabel: 'Saber mais sobre Produto de otimização energética',
+      useCase3Tags: 'Conceito · Produto energético',
+      useCase3Title: 'Produto de otimização energética',
+      useCase3Problem: 'Padrões de consumo e anomalias são difíceis de interpretar ao nível doméstico.',
+      useCase3Intervention: 'Produto móvel que combina monitorização, deteção de anomalias e recomendações.',
+      useCase3Result: 'Decisões de eficiência mais claras e rápidas.',
+      useCase3Metric: '8–15%',
+      useCase3MetricCopy: 'menos consumo evitável',
+      useCase4CardLabel: 'Saber mais sobre Portal do colaborador com copiloto',
+      useCase4Tags: 'Conceito · Experiência do colaborador',
+      useCase4Title: 'Portal do colaborador com copiloto',
+      useCase4Problem: 'Dados, políticas e benefícios obrigam os colaboradores a saltar entre sistemas.',
+      useCase4Intervention: 'Portal unificado com pesquisa contextual e respostas baseadas em fontes internas.',
+      useCase4Result: 'Mais autonomia e acesso mais simples à informação.',
+      useCase4Metric: '30–50%',
+      useCase4MetricCopy: 'menos pedidos repetitivos a RH',
+      useCase5CardLabel: 'Saber mais sobre Agente de voz com memória contextual',
+      useCase5Tags: 'Conceito · IA conversacional',
+      useCase5Title: 'Agente de voz com memória contextual',
+      useCase5Problem: 'O contexto perde-se entre conversas, criando preparação repetida e passagens incompletas.',
+      useCase5Intervention: 'Agente de voz com memória longitudinal e preparação automática de continuidade.',
+      useCase5Result: 'Conversas mais contínuas e acompanhamentos mais consistentes.',
+      useCase5Metric: '20–35%',
+      useCase5MetricCopy: 'menos tempo de preparação de follow-up',
       foundationLabel: 'para além dos serviços',
       foundationSubLabel: 'construções chave-na-mão',
       foundationHeadline: 'Algumas ideias precisam de mais do que aconselhamento. Precisam de ser <em>construídas</em>.',
@@ -271,37 +314,29 @@
       foundationHandover: 'entrega',
       foundationHandoverCopy: 'Código claro, infraestrutura clara, propriedade clara.',
       bringIdea: 'Traz-nos uma ideia <span class="arrow">→</span>',
-      aboutLabel: '05 / COMO TRABALHAMOS',
-      aboutTitle: 'Do problema à operação.',
-      aboutNum: '05 / sobre',
-      aboutCopy1: 'Combinamos produto, software e IA aplicada para transformar contexto em sistemas que funcionam no trabalho diário.',
-      aboutPrinciple: '<span>Contexto antes</span><span>da tecnologia.</span><span>Responsabilidade</span><span>até à entrega.</span>',
-      aboutPrinciple1: '<span class="grad">Contexto</span> antes',
-      aboutPrinciple2: 'da tecnologia.',
-      aboutPrinciple3: '<span class="grad">Responsabilidade</span>',
-      aboutPrinciple4: 'até à entrega.',
-      aboutMapLabel: 'Mapa do método Vouga, do contexto à entrega',
-      aboutMapSystem: 'forma de operar',
-      aboutMapContext: 'contexto',
-      aboutMapOrigin: 'construção',
-      aboutMapDelivery: 'entrega',
+      systemsChangeTitle: 'Como os Sistemas Evoluem',
+      systemsChangeIntro: 'Todas as empresas são sistemas. O crescimento sustentável começa por compreendê-los antes de os transformar.',
+      systemsStep1Title: 'Ver o Sistema',
+      systemsStep1Copy: 'Nunca otimizamos partes isoladas antes de compreender como tudo se relaciona.',
+      systemsStep2Title: 'Encontrar o Impacto',
+      systemsStep2Copy: 'A maioria dos problemas é consequência. Procuramos os pontos onde uma pequena mudança gera um grande resultado.',
+      systemsStep3Title: 'Aplicar a Ferramenta Certa',
+      systemsStep3Copy: 'Por vezes é IA. Outras vezes software, processos ou nenhuma dessas opções. A tecnologia vem sempre depois da compreensão.',
+      systemsStep4Title: 'Evoluir Continuamente',
+      systemsStep4Copy: 'Cada implementação gera novo conhecimento. Os sistemas evoluem continuamente. A forma de trabalhar também.',
       contactLabel: 'contacto',
       contactTitle: 'Vamos <em>falar</em>',
       contactCopy: 'Manda-nos o processo mais lento, confuso ou dependente de uma só pessoa. Dizemos-te se vale a pena, mesmo que a resposta seja não.',
       contactDirect: 'Escreve-nos com uma frase sobre o sistema, processo ou ideia que queres desbloquear. Respondemos com o próximo passo mais honesto.',
       contactEmailCta: 'Abrir email <span class="arrow">→</span>',
-      footerTalkTitle: 'Vamos <em>falar</em>',
-      methodLead: 'Três etapas. Uma equipa responsável do início ao fim.',
-      diagBandLabel: 'diagnóstico',
-      diagBandTitle: 'Não prometemos respostas fáceis. Em poucos minutos, mapeamos onde o sistema perde contexto, velocidade ou capacidade de decisão.',
-      diagBandCta: 'Fazer o diagnóstico <span class="arrow">→</span>',
+      footerTalkTitle: 'Vamos <em>conversar</em>',
       nameLabel: 'nome',
       companyLabel: 'empresa',
       messageLabel: 'mensagem',
       consentCopy: 'Aceito que a Vouga use os meus dados para responder a este pedido. Lê a <a href="privacy.html">Política de Privacidade</a>.',
       formNote: 'Usamos os dados do formulário apenas para responder ao teu pedido e avaliar se podemos ajudar. Não envies dados confidenciais de clientes através deste formulário.',
       sendButton: 'Enviar <span class="arrow">→</span>',
-      footerTag: 'Inteligência para trabalho real.',
+      footerTag: 'Inteligência para problemas reais.',
       rights: 'Copyright © 2026 Vouga Agency',
       legalLinks: '<a href="privacy.html">Privacidade</a> · <a href="terms.html">Termos</a>'
     },
@@ -309,39 +344,37 @@
       logoHome: 'Vouga Agency, home',
       mainNav: 'main navigation',
       navContact: 'contact',
+      navApproach: 'Our Approach',
+      navWork: 'Use Cases',
+      navCapabilities: 'Capabilities',
       themeToggle: 'toggle light and dark mode',
       themeLabel: 'Light / dark mode',
       talkToUs: 'Contact us',
-      heroTitle: '<span class="hero-line"><span class="grad">Intelligence</span>, built</span><br><span class="hero-line">around <em>the business</em></span>',
-      heroSub: 'Most companies fix the symptom. We find the <span class="grad hero-origin-word">origin</span><span class="hero-sub-normal"> and solve it with the right tool, from AI to a prototype.</span>',
-      heroSubMobile: 'We don\'t treat symptoms.<br>We find the origin and apply<br>the right tool.',
-      heroDiagnose: 'See where you\'re losing money <span class="arrow">→</span>',
-      heroPillars: 'See the pillars',
+      heroTitle: '<span class="hero-line"><span class="grad">Systemic view</span> for</span><br><span class="hero-line"><em>scaling businesses</em></span>',
+      heroSub: 'We find what is really holding the business back, then design and build what changes it.',
+      heroSubMobile: 'We find what is really holding the business back,<br>then design and build what changes it.',
+      heroDiagnose: 'Start a conversation <span class="arrow">→</span>',
+      heroPillars: 'Why Vouga',
       navMethod: 'method',
-      pillarsKicker: 'the pillars · one system',
+      capabilitiesLabel: 'capabilities',
+      pillarsKicker: 'capabilities',
       pillarIntelDesc: 'AI built into the work that already moves the business.',
-      pillarFoundDesc: 'From idea to a validated system, without building in the dark.',
-      pillarAcademyDesc: 'We train the people who will build with intelligence.',
+      pillarFoundDesc: 'From validation and POCs to products and software built to keep evolving.',
+      pillarAcademyDesc: 'Developing the people who will build what comes next.',
       explore: 'explore →',
       seeWorking: 'Find your system <span class="arrow">→</span>',
       whatWeBuild: 'What we build',
       whyStoryLabel: 'why vouga',
-      whyTitle: '<span class="why-title-line">We see the whole system.</span><span class="why-title-line">We execute what truly matters.</span>',
+      whyTitle: '<span class="why-title-line">Context before solutions.</span><span class="why-title-line">Ownership through delivery.</span>',
       whyCopy: 'Vouga enters before the solution has been decided. We read the business as a system, find what is truly blocking progress and own the path through delivery.',
-      whySymptom: 'Diagnose',
-      whySymptomCopy: 'We map how work happens and where time, context or decision-making capacity is lost.',
-      whyOrigin: 'Design',
-      whyOriginCopy: 'We define the right intervention for the real problem, whether it is a process, a service or a digital solution.',
-      whySystem: 'Execute',
-      whySystemCopy: 'We build, implement and improve with the team until the solution works in everyday operations.',
-      whyPrinciple1: 'Systemic view',
-      whyPrinciple1Copy: 'We read decisions, people, processes and technology as one system before proposing a solution.',
-      whyPrinciple2: 'Operational proactivity',
-      whyPrinciple2Copy: 'We do not wait for a perfect brief. We enter the real work, find blockers and pull the next step forward.',
-      whyPrinciple3: 'AI as an accelerator',
-      whyPrinciple3Copy: 'We use AI to reach proof, prototype and delivery faster, without giving up judgment.',
-      whyPrinciple4: 'AI-native, business first',
-      whyPrinciple4Copy: 'We build with current tools, but measure value in operations, decisions and capability that remains.',
+      whyPrinciple1: '<span>Systems</span><span>Thinking</span>',
+      whyPrinciple1Copy: 'We see people, processes, decisions and technology as one connected system.',
+      whyPrinciple2: '<span>Proactive</span><span>Ownership</span>',
+      whyPrinciple2Copy: 'We move the work forward without waiting for a perfect brief or another handoff.',
+      whyPrinciple3: '<span>AI as</span><span>Leverage</span>',
+      whyPrinciple3Copy: 'We use AI where it improves speed, quality or capacity, never as the starting assumption.',
+      whyPrinciple4: '<span>Clarity by</span><span>Design</span>',
+      whyPrinciple4Copy: 'Through thoughtful UI and UX, we make complex systems understandable, usable and ready for adoption.',
       servicesLabel: 'operating systems',
       servicesTitle: 'What we build',
       servicesNum: '01 / services',
@@ -374,30 +407,58 @@
       step3Duration: 'Monthly',
       step3Title: '<span>Operating</span><span>Partner</span>',
       step3Copy: 'We improve what is live and move to the next problem.',
-      useCasesLabel: 'use cases',
-      useCasesTitle: 'Systems built for real operational problems.',
-      useCasesIntro: 'Applied AI, product and internal systems, from MVP to live operations.',
-      useCasesControlsLabel: 'Use case filters',
-      useCasesMvp: 'MVPs',
-      useCasesAi: 'Applied AI',
+      useCasesLabel: 'selected work',
+      useCasesTitle: '<span>Real problems.</span><span>Concrete interventions.</span>',
+      useCasesIntro: 'Product concepts showing how we turn complex context into clear, operational systems.',
+      useCasesNavLabel: 'Selected work navigation',
       useCasesPrev: 'Previous case',
       useCasesNext: 'Next case',
-      useCasesRailLabel: 'Use cases',
-      useCase1Tags: 'People Analytics · RAG',
-      useCase1Title: 'Internal performance review system',
-      useCase1Desc: 'Performance review platform with a RAG layer for contextual retrieval across criteria, feedback and internal documentation.',
-      useCase2Tags: 'Energy Analytics · MVP',
-      useCase2Title: 'Energy consumption optimization MVP',
-      useCase2Desc: 'Application for electrical consumption pattern analysis, anomaly detection and decision support for energy-efficiency recommendations.',
-      useCase3Tags: 'Internal Operations · RAG',
-      useCase3Title: 'Internal strategic information system',
-      useCase3Desc: 'Management and retrieval system for strategic information, using a RAG architecture for contextual retrieval and decision support.',
-      useCase4Tags: 'Conversational AI · RAG',
-      useCase4Title: 'Conversational AI agent with contextual memory',
-      useCase4Desc: 'AI agent using RAG to retrieve previous conversations, preserve longitudinal context and prepare follow-up topics.',
-      useCase5Tags: 'Employee Experience · RAG Copilot',
-      useCase5Title: 'Employee portal with an internal copilot',
-      useCase5Desc: 'Portal for centralizing and managing employee data, integrated with a RAG Copilot for contextual search and information access.',
+      useCasesRailLabel: 'Selected work',
+      useCaseLearnMore: 'Learn more',
+      useCaseProblemLabel: 'Problem',
+      useCaseInterventionLabel: 'Intervention',
+      useCaseResultLabel: 'Expected result',
+      useCaseTargetLabel: 'Target impact',
+      useCase1CardLabel: 'Learn more about Performance review workspace',
+      useCase1Tags: 'Concept · People Operations',
+      useCase1Title: 'Performance review workspace',
+      useCase1Problem: 'Review context is scattered across criteria, feedback and internal documentation.',
+      useCase1Intervention: 'A unified workflow with contextual retrieval across people and policy data.',
+      useCase1Result: 'Faster preparation and more consistent reviews.',
+      useCase1Metric: '30–50%',
+      useCase1MetricCopy: 'less preparation time',
+      useCase2CardLabel: 'Learn more about Strategic knowledge system',
+      useCase2Tags: 'Concept · Strategic Operations',
+      useCase2Title: 'Strategic knowledge system',
+      useCase2Problem: 'Decisions depend on context spread across documents, initiatives and teams.',
+      useCase2Intervention: 'Structured knowledge with contextual retrieval and source-backed answers.',
+      useCase2Result: 'Faster access to decision-ready context.',
+      useCase2Metric: '40–60%',
+      useCase2MetricCopy: 'less time searching for context',
+      useCase3CardLabel: 'Learn more about Energy optimization product',
+      useCase3Tags: 'Concept · Energy Product',
+      useCase3Title: 'Energy optimization product',
+      useCase3Problem: 'Consumption patterns and anomalies are difficult to interpret at household level.',
+      useCase3Intervention: 'A mobile product combining monitoring, anomaly detection and recommendations.',
+      useCase3Result: 'Clearer, faster efficiency decisions.',
+      useCase3Metric: '8–15%',
+      useCase3MetricCopy: 'lower avoidable consumption',
+      useCase4CardLabel: 'Learn more about Employee portal with a copilot',
+      useCase4Tags: 'Concept · Employee Experience',
+      useCase4Title: 'Employee portal with a copilot',
+      useCase4Problem: 'Employees jump between systems to find their data, policies and benefits.',
+      useCase4Intervention: 'A unified portal with contextual search and answers grounded in internal sources.',
+      useCase4Result: 'More autonomy and simpler access to information.',
+      useCase4Metric: '30–50%',
+      useCase4MetricCopy: 'fewer repetitive HR requests',
+      useCase5CardLabel: 'Learn more about Voice agent with contextual memory',
+      useCase5Tags: 'Concept · Conversational AI',
+      useCase5Title: 'Voice agent with contextual memory',
+      useCase5Problem: 'Context is lost between conversations, creating repeated preparation and incomplete handoffs.',
+      useCase5Intervention: 'A voice agent with longitudinal memory and automatic follow-up preparation.',
+      useCase5Result: 'More continuous conversations and more consistent follow-up.',
+      useCase5Metric: '20–35%',
+      useCase5MetricCopy: 'less follow-up preparation time',
       foundationLabel: 'beyond services',
       foundationSubLabel: 'turnkey builds',
       foundationHeadline: 'Some ideas deserve more than advice. They need to be <em>built</em>.',
@@ -409,30 +470,22 @@
       foundationHandover: 'handover',
       foundationHandoverCopy: 'Clear code, clear infrastructure, clear ownership.',
       bringIdea: 'Bring us an idea <span class="arrow">→</span>',
-      aboutLabel: '05 / HOW WE WORK',
-      aboutTitle: 'From problem to operation.',
-      aboutNum: '05 / about',
-      aboutCopy1: 'We combine product, software and applied AI to turn context into systems that work day to day.',
-      aboutPrinciple: '<span>Context before</span><span>technology.</span><span>Ownership</span><span>through delivery.</span>',
-      aboutPrinciple1: '<span class="grad">Context</span> before',
-      aboutPrinciple2: 'technology.',
-      aboutPrinciple3: '<span class="grad">Ownership</span>',
-      aboutPrinciple4: 'through delivery.',
-      aboutMapLabel: 'Map of the Vouga method, from context to delivery',
-      aboutMapSystem: 'how we operate',
-      aboutMapContext: 'context',
-      aboutMapOrigin: 'build',
-      aboutMapDelivery: 'delivery',
+      systemsChangeTitle: 'How Systems Change',
+      systemsChangeIntro: 'Every company is a system. Sustainable growth comes from understanding it before changing it.',
+      systemsStep1Title: 'See the System',
+      systemsStep1Copy: 'We never optimise isolated parts before understanding the relationships between them.',
+      systemsStep2Title: 'Find the Leverage',
+      systemsStep2Copy: 'Most problems are consequences.<br><br>We identify the few interventions that create the greatest impact.',
+      systemsStep3Title: 'Apply the Right Tool',
+      systemsStep3Copy: "Sometimes that's AI.<br>Sometimes software.<br>Sometimes process.<br>Sometimes none of them.<br><br>Technology follows understanding.",
+      systemsStep4Title: 'Keep Improving',
+      systemsStep4Copy: 'Every implementation creates new knowledge.<br><br>Systems evolve continuously.<br>So should the way they operate.',
       contactLabel: 'contact',
       contactTitle: "Let's <em>talk</em>",
       contactCopy: 'Send us your slowest, messiest, most one-person-dependent process. We\'ll tell you if it\'s worth it, even if the answer is no.',
       contactDirect: 'Write us one sentence about the system, process or idea you want to unlock. We will reply with the most honest next step.',
       contactEmailCta: 'Open email <span class="arrow">→</span>',
       footerTalkTitle: 'Let’s <em>talk</em>',
-      methodLead: 'Three stages. One accountable team from start to finish.',
-      diagBandLabel: 'diagnosis',
-      diagBandTitle: 'We do not promise easy answers. In a few minutes, we map where the system loses context, speed and decision capacity.',
-      diagBandCta: 'Take the diagnosis <span class="arrow">→</span>',
       nameLabel: 'name',
       companyLabel: 'company',
       messageLabel: 'message',
@@ -446,21 +499,21 @@
   };
   var META_COPY = {
     pt: {
-      title: 'Vouga Agency · Serviços de IA, MVPs e Automação Empresarial',
-      description: 'A Vouga Agency cria sistemas de IA para empresas, automação de workflows, copilotos de IA, MVPs, protótipos e produtos go-to-market para transformar ideias em software real.',
-      keywords: 'serviços de IA para empresas, agência de IA, automação com IA, sistemas de conhecimento com IA, copiloto comercial de IA, auditoria de governação de IA, desenvolvimento de MVP, desenvolvimento de protótipos, produto go-to-market, automação empresarial, AI services for companies, enterprise AI agency, MVP development, Porto AI agency, Portugal AI company',
-      socialTitle: 'Vouga Agency · Serviços de IA, MVPs e Automação Empresarial',
-      socialDescription: 'Sistemas de IA para empresas, automação de workflows, copilotos, MVPs, protótipos e desenvolvimento go-to-market.',
-      imageAlt: 'Identidade visual da Vouga Agency para serviços de IA empresarial e desenvolvimento de MVPs.',
+      title: 'Vouga Agency · Transformação sistémica e produto',
+      description: 'A Vouga é uma empresa de transformação sistémica e produto. Encontramos a origem de problemas complexos de negócio e entregamos a mudança certa através de estratégia, software, IA e execução.',
+      keywords: 'transformação sistémica, empresa de produto, transformação de negócio, estratégia de produto, desenvolvimento de software, IA aplicada, sistemas de IA, sistemas empresariais, execução, Vouga Agency, Porto, Portugal',
+      socialTitle: 'Vouga Agency · Transformação sistémica e produto',
+      socialDescription: 'Encontramos a origem de problemas complexos de negócio e entregamos a mudança certa através de estratégia, software, IA e execução.',
+      imageAlt: 'Identidade visual da Vouga Agency para transformação sistémica, software, IA e execução.',
       locale: 'pt_PT'
     },
     en: {
-      title: 'Vouga Agency · AI Services, MVP Development and Business Automation',
-      description: 'Vouga Agency builds enterprise AI systems, workflow automation, AI copilots, MVPs, prototypes and go-to-market products for companies turning ideas into working software.',
-      keywords: 'AI services for companies, enterprise AI agency, AI workflow automation, AI knowledge systems, AI sales copilot, AI governance audit, MVP development, prototype development, go-to-market product development, business automation, Porto AI agency, Portugal AI company',
-      socialTitle: 'Vouga Agency · AI Services, MVP Development and Business Automation',
-      socialDescription: 'Enterprise AI systems, workflow automation, AI copilots, MVPs, prototypes and go-to-market product development for companies.',
-      imageAlt: 'Vouga Agency visual identity for enterprise AI and MVP development services.',
+      title: 'Vouga Agency · Systems-led transformation and product company',
+      description: 'Vouga is a systems-led transformation and product company. We find the source of complex business problems and deliver the right change through strategy, software, AI and execution.',
+      keywords: 'systems-led transformation, product company, business transformation, product strategy, software delivery, applied AI, AI systems, business systems, operational transformation, Portugal product company, Porto product company, Vouga Agency',
+      socialTitle: 'Vouga Agency · Systems-led transformation and product company',
+      socialDescription: 'We find the source of complex business problems and deliver the right change through strategy, software, AI and execution.',
+      imageAlt: 'Vouga Agency visual identity for systems-led transformation, software, AI and execution.',
       locale: 'en_US'
     }
   };
@@ -560,6 +613,40 @@
 
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  (function initSystemsAsciiMutation(){
+    var nodes = Array.prototype.slice.call(document.querySelectorAll('.systems-ascii'));
+    if (!nodes.length || reducedMotion) return;
+    var palettes = [
+      ['%','#','@','&','*','+','=',':','.'],
+      ['#','@','%','+','*','-','=',':','.'],
+      ['@','%','#','&','+','=','*','/','.'],
+      ['%','@','#','*','+','=','.',':','-']
+    ];
+    var timers = [];
+    function mutate(base, palette, seed, tick){
+      var out = '';
+      for (var i = 0; i < base.length; i += 1) {
+        var ch = base.charAt(i);
+        if (/\s/.test(ch)) { out += ch; continue; }
+        var idx = (i * 11 + tick * 7 + seed * 5 + Math.floor(Math.random() * palette.length)) % palette.length;
+        out += palette[idx];
+      }
+      return out;
+    }
+    nodes.forEach(function(node, i){
+      var base = node.textContent;
+      var palette = palettes[i % palettes.length];
+      var tick = 0;
+      timers.push(window.setInterval(function(){
+        tick += 1;
+        node.textContent = mutate(base, palette, i + 1, tick);
+      }, 180 + (i * 25)));
+    });
+    window.addEventListener('pagehide', function(){
+      timers.forEach(function(timer){ window.clearInterval(timer); });
+    });
+  })();
+
   /* ===== scroll progress ===== */
   var progress = document.getElementById('progress');
   var ticking = false;
@@ -586,21 +673,18 @@
     reveals.forEach(function(el){ el.classList.add('in'); });
   }
 
-  /* ===== use cases: MVP / Applied AI filters ===== */
+  /* ===== selected work rail ===== */
   (function(){
     var rail = document.getElementById('useCasesRail');
-    var buttons = [].slice.call(document.querySelectorAll('.use-case-filter'));
     var cards = rail ? [].slice.call(rail.querySelectorAll('.use-case-card')) : [];
     var prev = document.getElementById('useCasesPrev');
     var next = document.getElementById('useCasesNext');
-    if (!rail || buttons.length !== 2 || !cards.length || !prev || !next) return;
+    if (!rail || !cards.length || !prev || !next) return;
 
-    var active = new Set(['mvp','applied-ai']);
-    var hideTimers = new Map();
     var updateQueued = false;
 
     function cardStep(){
-      var card = rail.querySelector('.use-case-card:not([hidden])');
+      var card = rail.querySelector('.use-case-card');
       if (!card) return rail.clientWidth;
       var gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
       return card.getBoundingClientRect().width + gap;
@@ -619,49 +703,18 @@
     function move(direction){
       rail.scrollBy({ left:direction * cardStep(), behavior:reducedMotion ? 'auto' : 'smooth' });
     }
-
-    function syncButtons(){
-      buttons.forEach(function(button){
-        var selected = active.has(button.getAttribute('data-filter'));
-        button.classList.toggle('is-active', selected);
-        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    function setCardOpen(card, open){
+      card.classList.toggle('is-flipped', open);
+      card.setAttribute('aria-pressed', open ? 'true' : 'false');
+    }
+    cards.forEach(function(card){
+      card.addEventListener('click', function(){
+        setCardOpen(card, !card.classList.contains('is-flipped'));
       });
-    }
-    function showCard(card){
-      var timer = hideTimers.get(card);
-      if (timer) window.clearTimeout(timer);
-      hideTimers.delete(card);
-      card.hidden = false;
-      card.classList.add('is-filtering-out');
-      requestAnimationFrame(function(){ requestAnimationFrame(function(){ card.classList.remove('is-filtering-out'); }); });
-    }
-    function hideCard(card){
-      card.classList.add('is-filtering-out');
-      var timer = window.setTimeout(function(){ card.hidden = true; hideTimers.delete(card); }, reducedMotion ? 0 : 240);
-      hideTimers.set(card, timer);
-    }
-    function applyFilter(){
-      var showAll = active.size === 2;
-      cards.forEach(function(card){
-        var categories = (card.getAttribute('data-category') || '').split(/\s+/);
-        var visible = showAll || categories.some(function(category){ return active.has(category); });
-        if (visible) showCard(card); else hideCard(card);
-      });
-      syncButtons();
-      rail.scrollTo({ left:0, behavior:reducedMotion ? 'auto' : 'smooth' });
-      window.setTimeout(queueUpdate, reducedMotion ? 0 : 260);
-    }
-    buttons.forEach(function(button){
-      button.addEventListener('click', function(){
-        var filter = button.getAttribute('data-filter');
-        if (active.size === 2){
-          active = new Set([filter]);
-        } else if (active.has(filter)){
-          active = new Set(['mvp','applied-ai']);
-        } else {
-          active = new Set([filter]);
-        }
-        applyFilter();
+      card.addEventListener('keydown', function(event){
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        setCardOpen(card, !card.classList.contains('is-flipped'));
       });
     });
     prev.addEventListener('click', function(){ move(-1); });
@@ -673,73 +726,7 @@
       move(event.key === 'ArrowLeft' ? -1 : 1);
     });
     window.addEventListener('resize', queueUpdate);
-    syncButtons();
     updateControls();
-  })();
-
-  /* ===== services: one card at a time, auto-cycling ===== */
-  (function(){
-    var stage = document.getElementById('svcStage');
-    if (!stage) return;
-    var cardsEl = stage.querySelector('.svc-cards');
-    var cards = [].slice.call(stage.querySelectorAll('.svc-card'));
-    var dots = [].slice.call(stage.querySelectorAll('.svc-dot'));
-    if (cards.length < 2 || reducedMotion) return; /* fallback: all cards visible */
-
-    stage.classList.add('is-enhanced');
-    var DWELL = 4200, idx = 0, paused = false, inView = false, last = 0, elapsed = 0;
-
-    function sizeStage(){
-      cardsEl.style.minHeight = '';
-      var max = 0;
-      cards.forEach(function(c){ if (c.offsetHeight > max) max = c.offsetHeight; });
-      cardsEl.style.minHeight = max + 'px';
-    }
-    function render(){
-      cards.forEach(function(c, k){
-        var on = k === idx;
-        c.classList.toggle('is-active', on);
-        c.setAttribute('aria-hidden', on ? 'false' : 'true');
-        c.tabIndex = on ? 0 : -1;
-      });
-      dots.forEach(function(d, k){
-        d.classList.toggle('is-active', k === idx);
-        var bar = d.querySelector('.svc-bar');
-        if (bar && k !== idx) bar.style.width = '0%';
-      });
-    }
-    function frame(ts){
-      if (last === 0) last = ts;
-      var dt = ts - last; last = ts;
-      if (inView && !paused){
-        elapsed += dt;
-        if (elapsed >= DWELL){ elapsed = 0; idx = (idx + 1) % cards.length; render(); }
-      }
-      var bar = dots[idx] && dots[idx].querySelector('.svc-bar');
-      if (bar) bar.style.width = (Math.min(elapsed / DWELL, 1) * 100) + '%';
-      requestAnimationFrame(frame);
-    }
-    function goTo(i){ idx = i; elapsed = 0; render(); }
-
-    dots.forEach(function(d, k){ d.addEventListener('click', function(){ goTo(k); }); });
-    stage.addEventListener('mouseenter', function(){ paused = true; });
-    stage.addEventListener('mouseleave', function(){ paused = false; });
-    stage.addEventListener('focusin', function(){ paused = true; });
-    stage.addEventListener('focusout', function(){ paused = false; });
-
-    render();
-    sizeStage();
-    window.addEventListener('resize', sizeStage);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeStage);
-    var lt = document.getElementById('langToggle');
-    if (lt) lt.addEventListener('click', function(){ setTimeout(sizeStage, 80); });
-
-    if ('IntersectionObserver' in window){
-      new IntersectionObserver(function(es){
-        es.forEach(function(e){ inView = e.isIntersecting; });
-      }, { threshold: 0.25 }).observe(stage);
-    } else { inView = true; }
-    requestAnimationFrame(frame);
   })();
 
   /* ===== pillars orbit: play-once scroll choreography (intro -> three -> pillar cards) ===== */
@@ -757,9 +744,26 @@
     var blobs = orbit ? [].slice.call(orbit.querySelectorAll('.orbit-blob')) : [];
     if (nodes.length < 3) return;
 
+    var CARDS_READY_KEY = 'vouga-pillars-cards-ready';
     var ANG = [180, 60, 300];           /* ellipse angles (deg): intelligence, foundations, academy */
     var enabled = false, running = false, done = false;
     var dispP = 0, targetP = 0, W = 0, Hh = 0;
+
+    function markCardsReady(){
+      try { sessionStorage.setItem(CARDS_READY_KEY, '1'); } catch(e){}
+    }
+    function hasCardsReady(){
+      try { return sessionStorage.getItem(CARDS_READY_KEY) === '1'; } catch(e){ return false; }
+    }
+    function isCapabilityLink(link){
+      if (!link) return false;
+      var href = link.getAttribute('href') || '';
+      return /(?:^|\/)(?:intelligence|foundations|academy)\.html(?:$|[#?])/.test(href);
+    }
+    orbit.addEventListener('click', function(e){
+      var link = e.target.closest ? e.target.closest('a') : null;
+      if (isCapabilityLink(link)) markCardsReady();
+    });
 
     function size(){ W = orbit.clientWidth; Hh = orbit.clientHeight; if (svg) svg.setAttribute('viewBox', '0 0 ' + W + ' ' + Hh); }
     function geom(){ return { cx: W * 0.5, cy: Hh * 0.5, rx: W * 0.34, ry: Hh * 0.40 }; }
@@ -874,6 +878,7 @@
     function kick(){ if (enabled && !running){ running = true; requestAnimationFrame(loop); } }
     function finalizeCards(){
       enabled = false; running = false; done = true;
+      markCardsReady();
       dispP = 1; targetP = 1;
       var cardsAnchorTop = getCardsAnchorTop();
       var releaseScrollGuard = guardCardsHandoff();
@@ -895,6 +900,25 @@
       if (systemWord){ systemWord.style.opacity = ''; systemWord.style.filter = ''; systemWord.style.transform = ''; }
       keepCardsInView(releaseScrollGuard, cardsAnchorTop);
       window.setTimeout(function(){ section.classList.remove('is-blur-in'); }, 1400);
+    }
+    function showCardsImmediately(){
+      enabled = false; running = false; done = true;
+      dispP = 1; targetP = 1;
+      section.classList.remove('is-orbit', 'is-blur-in');
+      section.classList.add('is-cards');
+      window.removeEventListener('scroll', kick);
+      nodes.forEach(function(n){
+        n.classList.remove('is-active');
+        n.style.removeProperty('--desc-open');
+        n.style.transform = '';
+        n.style.opacity = '';
+        n.style.filter = '';
+      });
+      blobs.forEach(function(b){ b.style.opacity = '0'; });
+      if (svg) svg.style.opacity = '0';
+      pulls.forEach(function(p){ p.style.opacity = '0'; });
+      if (kicker) kicker.style.opacity = '';
+      if (systemWord){ systemWord.style.opacity = ''; systemWord.style.filter = ''; systemWord.style.transform = ''; }
     }
     function getCardsAnchorTop(){
       var offset = window.innerWidth <= 820 ? 66 : 82;
@@ -962,6 +986,10 @@
       if (systemWord){ systemWord.style.opacity = ''; systemWord.style.filter = ''; systemWord.style.transform = ''; }
     }
     function evaluate(){
+      if (hasCardsReady() && (window.location.hash === '#pillars' || window.location.hash === '#capabilities')) {
+        showCardsImmediately();
+        return;
+      }
       if (!reducedMotion && window.innerWidth > 820) enable();
       else disable();
     }
@@ -1077,64 +1105,6 @@
     if (!reducedMotion) {
       window.setInterval(function(){ studies.forEach(tick); }, 140);
     }
-  })();
-
-  /* ===== diagnosis ASCII: expanding system topography ===== */
-  (function(){
-    var el = document.getElementById('diagAscii');
-    if (!el) return;
-
-    var phase = 0;
-    var active = true;
-    var resizeTimer = null;
-    var glyphs = '.:-=+*#%@';
-
-    function dimensions(){
-      return window.innerWidth > 920 ? { cols:58, rows:32 } : { cols:48, rows:22 };
-    }
-    function draw(){
-      var dim = dimensions();
-      var lines = [];
-      for (var y = 0; y < dim.rows; y++){
-        var row = '';
-        for (var x = 0; x < dim.cols; x++){
-          var nx = ((x / (dim.cols - 1)) * 2 - 1) + Math.sin(phase * .7 + y * .16) * .035;
-          var ny = ((y / (dim.rows - 1)) * 2 - 1) + Math.cos(phase * .55 + x * .11) * .045;
-          var box = Math.max(Math.abs(nx), Math.abs(ny));
-          var ring = Math.abs(Math.sin((box * 5.2 - phase) * Math.PI));
-          var inside = box < 1.08;
-          var node = inside && ((x * 17 + y * 29) % 83 === 0);
-          var axis = inside && (Math.abs(nx) < .018 || Math.abs(ny) < .025) && ring > .42;
-
-          if (node) row += '@';
-          else if (inside && ring > .84) {
-            var shade = Math.min(glyphs.length - 1, Math.floor((ring - .84) / .16 * glyphs.length));
-            row += glyphs[shade];
-          } else if (axis) row += Math.abs(nx) < .018 ? '|' : '-';
-          else row += ' ';
-        }
-        lines.push(row);
-      }
-      el.textContent = lines.join('\n');
-    }
-
-    draw();
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){ active = entry.isIntersecting; });
-      }, { threshold:.05 }).observe(el);
-    }
-    if (!reducedMotion) {
-      window.setInterval(function(){
-        if (!active || document.hidden) return;
-        phase = (phase + .022) % 2;
-        draw();
-      }, 90);
-    }
-    window.addEventListener('resize', function(){
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(draw, 120);
-    });
   })();
 
   /* ===== hero canvas: video halftone, with drifting-dots fallback ===== */
@@ -1600,7 +1570,7 @@
       deploy: 'o que implementamos',
       measured: 'medido nos nossos clientes',
       kpisNote: 'implementações iniciais, primeiros 90 dias',
-      talk: 'Contacte-nos <span class="arrow">→</span>'
+      talk: 'Falar connosco <span class="arrow">→</span>'
     },
     en: {
       service: 'service',
@@ -1621,6 +1591,7 @@
   var inertTargets = [];
   var focusableSel = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+  if (svcOverlay && ovBody && ovNum && ovBack) {
   function statBlock(items){
     var h = '<div class="ov-stats">';
     items.forEach(function(s){
@@ -1645,7 +1616,7 @@
     });
     h += '</ul></div>';
     h += '<div class="ov-sec ov-kpis"><span class="label">' + esc(oc.measured) + '</span>' + statBlock(s.kpis) + '<p class="ov-note">' + esc(oc.kpisNote) + '</p></div>';
-    h += '<div class="ov-ctas"><a class="btn btn-primary" href="mailto:hello@vouga-agency.pt" data-ov-close>' + oc.talk + '</a>';
+    h += '<div class="ov-ctas"><a class="btn btn-primary" href="#contact" data-route-page="contact.html" data-ov-close>' + oc.talk + '</a>';
     h += '</div>';
     ovBody.innerHTML = h;
     svcOverlay.hidden = false;
@@ -1731,6 +1702,7 @@
     var t = e.target.closest('[data-ov-close]');
     if (t) closeService();
   });
+  }
 
   /* ===== utils ===== */
   function esc(s){

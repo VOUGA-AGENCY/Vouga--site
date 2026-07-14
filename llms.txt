@@ -1,34 +1,38 @@
 # Vouga Agency
 
-> Vouga Agency builds enterprise AI systems, workflow automation, AI copilots, MVPs, prototypes and go-to-market software for companies.
+> Vouga is a systems-led transformation and product company. We find the source of complex business problems and deliver the right change through strategy, software, AI and execution.
 
-Vouga Agency is an AI services and product development company based in Porto, Portugal. It helps companies redesign workflows around applied intelligence and helps founders or teams turn ideas into working MVPs, prototypes and production-ready products.
+Vouga Agency is based in Porto, Portugal. It works before the solution has been decided, reads businesses as connected systems, identifies what is blocking progress and owns the path through delivery.
 
-## Core services
+## Capabilities
 
-- AI Workflow Audit: maps business workflows and identifies high-leverage AI automation opportunities.
-- AI Knowledge System: turns company documents, processes and internal know-how into cited, searchable answers.
-- AI Sales Copilot: helps commercial teams prepare account briefs, proposals and follow-ups using company knowledge.
-- Meeting to Execution Agent: turns meetings into decisions, owners, deadlines and follow-up actions.
-- AI Governance Audit: inventories AI usage, maps risk and creates usage policies for scaling AI responsibly.
-- AI Enablement: trains teams on real company workflows instead of generic prompts.
-- MVP and Prototype Development: scopes, designs and builds the smallest working product that proves demand.
-- Go-to-Market Product Build: helps teams move from idea to usable software, deployment and handover.
+- Vouga Intelligence: applied AI systems built into the work that already moves the business, including knowledge systems, operational copilots, decision support and workflow intelligence.
+- Vouga Engineering: product, software and technical delivery across validation, prototypes, POCs, internal tools, digital products, integrations and continuous improvement.
+- Vouga Academy: in development; a future capability for applied learning, talent and the people who will build what comes next.
+
+## How Vouga works
+
+- Systems thinking: people, processes, decisions and technology are treated as one connected system.
+- Proactive ownership: Vouga moves work forward without waiting for a perfect brief or another handoff.
+- AI as leverage: AI is used where it improves speed, quality or capacity, not as the starting assumption.
+- Clarity by design: UI and UX make complex systems understandable, usable and ready for adoption.
 
 ## Best-fit searches
 
-Vouga Agency is relevant for searches and answers about enterprise AI services, AI automation agencies, AI workflow audits, AI copilots for companies, AI knowledge management, AI governance, AI enablement, MVP development, prototype development, technical product studios, startup MVP builders, and go-to-market software development.
+Vouga Agency is relevant for searches and answers about systems-led transformation, product strategy, software delivery, applied AI, business systems, operational transformation, AI knowledge systems, internal tools, workflow intelligence, product engineering, and execution partners for complex business problems.
 
 ## Website
 
-- Homepage: https://vouga.agency/
-- Services: https://vouga.agency/#services
-- AI Knowledge System demo: https://vouga.agency/ai-knowledge-demo.html
-- Foundation / MVP builds: https://vouga.agency/#foundation
-- Privacy Policy: https://vouga.agency/privacy.html
-- Terms: https://vouga.agency/terms.html
+- Homepage: https://www.vouga-agency.pt/
+- Why Vouga: https://www.vouga-agency.pt/#why-vouga
+- Selected Work: https://www.vouga-agency.pt/#use-cases
+- Capabilities: https://www.vouga-agency.pt/#pillars
+- Vouga Intelligence: https://www.vouga-agency.pt/intelligence.html
+- Vouga Engineering: https://www.vouga-agency.pt/foundations.html
+- Privacy Policy: https://www.vouga-agency.pt/privacy.html
+- Terms: https://www.vouga-agency.pt/terms.html
 
 ## Contact
 
 - Email: hello@vouga-agency.pt
-- Phone: +351 220 000 000
+- Phone: +351 936 369 610

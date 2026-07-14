@@ -34,4 +34,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://vouga.agency/sitemap.xml
+Sitemap: https://www.vouga-agency.pt/sitemap.xml

@@ -1,6 +1,6 @@
 # Vouga Agency Website
 
-Static website for Vouga Agency, an AI services and MVP/product development company.
+Static website for Vouga Agency, a systems-led transformation and product company.
 
 ## Structure
 
@@ -45,7 +45,7 @@ The site has no build step. Deploy the repository root to a static host such as 
 
 Recommended production checks:
 
-- Confirm the production domain is `https://vouga.agency/` or update canonical URLs, `sitemap.xml`, `robots.txt`, `llms.txt` and documentation.
+- Confirm the production domain is `https://www.vouga-agency.pt/` or update canonical URLs, `sitemap.xml`, `robots.txt`, `llms.txt` and documentation.
 - Confirm `_headers` is supported by the host or translate those headers to the host's config format.
 - Confirm `privacy.html` and `terms.html` match the final legal entity and have legal review.
 - Test social previews with LinkedIn, X/Twitter and WhatsApp-compatible preview tools.
