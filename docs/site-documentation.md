@@ -279,7 +279,7 @@ The implementation currently includes:
 - Canonical domain `www.vouga-agency.pt`.
 - English-first homepage title and description.
 - Open Graph and Twitter Card metadata on primary acquisition pages.
-- `poster.jpg` as the social preview image.
+- `vouga_logos_canva.png` as the social preview image.
 - Homepage JSON-LD for `Organization`, `WebSite`, `ProfessionalService` and `ItemList`.
 - `robots.txt` for search and named AI crawlers.
 - `sitemap.xml` for the homepage, primary anchors, Intelligence, Engineering and legal pages.

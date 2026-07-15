@@ -83,7 +83,7 @@ See `docs/contact-backend.md` for the full contract and troubleshooting steps.
 - [ ] Review title and meta description on every indexable page.
 - [ ] Confirm canonical tags match the approved URL contract.
 - [ ] Confirm Open Graph and Twitter Card values and image URLs.
-- [ ] Test `assets/img/poster.jpg` with LinkedIn and other relevant preview validators.
+- [ ] Test `assets/img/vouga_logos_canva.png` with LinkedIn, WhatsApp and other relevant preview validators.
 - [ ] Validate homepage JSON-LD and confirm company email, phone, LinkedIn and capabilities are current.
 - [ ] Review heading hierarchy and ensure every page has one clear H1.
 - [ ] Confirm decorative images/ASCII are hidden from assistive technology and meaningful imagery has appropriate alternatives.
