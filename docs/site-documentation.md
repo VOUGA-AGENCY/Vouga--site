@@ -1,95 +1,203 @@
-# Vouga Agency Site Documentation
+# Vouga Agency Website
 
 Last updated: 2026-07-14
 
-This document is the living reference for the Vouga Agency website. Every meaningful iteration on copy, design, SEO, performance, accessibility, deployment or technical structure should update this file.
+This document describes the current public website. It is a reference for content, design, URLs, frontend behaviour, SEO and deployment. Historical changes belong in Git and in the active Vouga build loop, not in this file.
 
-## Company Positioning
+## Product status
 
-Vouga Agency is positioned as a systems-led transformation and product company.
+The website is the first public version of Vouga Agency. It presents Vouga as a systems-led transformation and product company, shows selected concepts, explains the active capabilities and routes commercial enquiries to a dedicated contact form.
 
-Primary market:
-- Companies facing complex business problems with unclear root causes.
-- Business teams whose progress is blocked by people, process, decision or technology friction.
-- Leaders who need strategy, software, applied AI and execution owned through delivery.
+The website is independent from Vouga OS. Changes here must not alter Vouga OS product code or documentation.
 
-Primary offer:
-- Systems-led transformation.
-- Vouga Intelligence for applied AI systems.
-- Vouga Engineering for product, software and technical delivery.
-- Vouga Academy as an in-development future capability.
+## Positioning
 
-Core message:
-Vouga does not start from a tool or a predetermined solution. Vouga reads the business as a system, finds what is blocking progress and delivers the right change through strategy, software, AI and execution.
+Primary positioning:
 
-## Site Content
+> Vouga is a systems-led transformation and product company. We find the source of complex business problems and deliver the right change through strategy, software, AI and execution.
 
-The site is a single-page company website with anchored sections:
+The site should communicate four ideas consistently:
 
-- Hero: introduces a systemic view for helping businesses scale.
-- Why Vouga: explains the systems-led approach and operating principles.
-- Selected Work: presents proof-oriented examples with problem, intervention, result and target impact.
-- Capabilities: introduces Vouga Intelligence, Vouga Engineering and Vouga Academy.
-- Vouga Intelligence: detail page for applied AI systems.
-- Vouga Engineering: detail page for product, software and technical delivery.
-- Vouga Academy: temporary intentional placeholder while the capability is in development.
-- Contact: email and lightweight contact form.
-- Privacy Policy: explains enquiry data, purposes, retention, rights and contact details.
-- Terms: basic website terms, confidentiality warning and no automatic engagement language.
-- Footer: office, contact, social links, NIF and brand mark.
+- The business is read as a connected system before a solution is chosen.
+- Vouga owns progress through delivery instead of stopping at recommendations.
+- AI is used when it creates leverage, not as the default answer.
+- UI and UX make complex systems understandable, usable and adoptable.
 
-## Design System
+The three capability names are:
 
-The site is intentionally minimal, editorial and high-trust. It avoids generic SaaS cards and heavy decoration. The visual language should feel like a focused AI/product studio rather than a loud marketing page.
+- **Vouga Intelligence:** AI systems integrated into real operational work.
+- **Vouga Engineering:** validation, product design, software engineering, internal tools and integrations, with or without AI.
+- **Vouga Academy:** a future applied-learning capability currently in development.
 
-Principles:
-- Minimal layout with strong typography.
-- Large editorial headings.
-- Restrained color palette.
-- High whitespace.
-- Thin dividers.
-- Motion used as atmosphere, not distraction.
-- No decorative clutter.
-- Business-first copy.
+Do not reintroduce the former `Foundations` name, a standalone diagnosis offer, the former `How We Work` section or positioning centred on generic AI services and MVP development.
 
-Colors:
-- Light background: `#ded2bd`
-- Light surface: `#d4c6ae`
-- Primary text: `#1a1813`
-- Dim text: `#5f5749`
-- Divider: `#c8bba4`
-- Accent amber: `#c97800`
-- Dark background: `#15140f`
-- Dark surface: `#1d1b16`
-- Foundation green light/dark: `#0d4a1a`, `#1d8a35`, `#3db85a`, `#90e8a0`
+## Information architecture
+
+### Homepage
+
+The homepage order is:
+
+1. Hero
+2. Why Vouga
+3. Selected Work
+4. Capabilities
+5. How Systems Change
+6. Footer
+
+The primary navigation is:
+
+- `Our Approach` / `Como Pensamos` -> `#why-vouga`
+- `Use Cases` / `Casos de Uso` -> `#use-cases`
+- `Capabilities` / `Áreas` -> `#pillars`
+- `Contact us` / `Falar connosco` -> the contact page
+
+`How Systems Change` is intentionally not present in the navbar.
+
+### Selected Work
+
+The rail contains five concept cards, ordered as follows:
+
+1. Strategic knowledge system
+2. Energy optimization product
+3. Employee portal with a copilot
+4. Voice agent with contextual memory
+5. Performance review workspace
+
+The front of each card shows the visual, title and classification. Hover introduces `Learn more`; click or keyboard activation flips the card. The back contains problem, intervention, expected result, capability signature and target impact.
+
+All five current entries are explicitly classified as `Concept`. Their figures are target impacts, not verified client results. Never rewrite them as measured outcomes without evidence.
+
+### Capability pages
+
+`intelligence.html` contains:
+
+- Hero and Vouga Intelligence identity
+- What we build
+- How it works
+- Solutions
+- When to choose Intelligence
+
+`foundations.html` is the physical source file for **Vouga Engineering** and contains:
+
+- Hero and Vouga Engineering identity
+- What we build
+- How it works
+- Solutions
+- When to choose Engineering
+- Final contact CTA
+
+`academy.html` is intentionally incomplete. It keeps the Academy hero, blurred future content and a `Still loading...` message that types when the lower stage enters the viewport.
+
+### Contact and legal pages
+
+`contact.html` contains a bilingual contact form. It sends enquiries to the same-origin `/api/contact` endpoint; it does not open the visitor's email client and does not store submissions in a website database.
+
+`privacy.html` and `terms.html` are English-only legal pages. They must be reviewed whenever the contact flow, tracking, providers, legal entity or data-retention practice changes.
+
+## URL behaviour
+
+The production domain is:
+
+```text
+https://www.vouga-agency.pt/
+```
+
+The physical static files remain part of the implementation:
+
+```text
+/intelligence.html
+/foundations.html
+/academy.html
+/contact.html
+```
+
+Client-side navigation loads those files and then normalises the visible browser URL with `history.replaceState`:
+
+```text
+/#intelligence
+/#engineering
+/#academy
+/#contact
+```
+
+The logo always returns to `/#top`. Intelligence, Engineering and Contact also include a fixed minimal back control. It uses browser history when a referrer exists and falls back to `/#top` for direct entry.
+
+Current canonical behaviour is not identical for every page:
+
+- Homepage: `/`
+- Contact: `/#contact`
+- Intelligence: `/intelligence.html`
+- Engineering: `/foundations.html`
+- Academy: `/academy.html`
+- Privacy: `/privacy.html`
+- Terms: `/terms.html`
+
+Do not change file names, visible aliases, canonical tags, structured data, sitemap entries or internal route interception independently. They form one URL contract and must be reviewed together.
+
+## Language
+
+The public homepage and capability pages use English as the default language. Portuguese is available through the `PT/EN` segmented control. The selected value is stored under `vouga-lang` in `localStorage` and is shared across pages.
+
+Current exceptions:
+
+- A direct visit to `contact.html` starts in Portuguese when no preference exists.
+- Privacy and Terms are English only.
+- Search engines receive the static metadata in the HTML; runtime language changes update metadata only on pages that implement that behaviour.
+
+Visible copy changes must be made in both languages. Keep `data-i18n`, `data-en` / `data-pt` and `data-contact-i18n` values aligned with their JavaScript dictionaries.
+
+## Visual system
+
+The website is dark-only. Theme switching and the stored `vouga-theme` preference were removed. `site-preferences.js` enforces `data-theme="dark"` and clears any obsolete theme value.
+
+Core tokens from `assets/css/main.css`:
+
+```text
+Background          #141412
+Surface             #1d1b16
+Selected-work tail  #0c0c0a
+Primary text        #ece8de
+Dim text            #a9a496
+Faint text          #6b665b
+Divider             #2c2a23
+Primary accent      #c97800
+```
+
+Capability accents:
+
+- Intelligence: amber, orange and purple.
+- Engineering: green gradient.
+- Academy: blue gradient.
+
+Contact uses a darker dedicated surface based on `#070808`.
 
 Typography:
-- Display font: Instrument Serif from Google Fonts.
-- Sans font: system UI stack.
-- Mono font: system monospace stack.
 
-Visual assets:
-- `assets/img/poster.jpg`: 1920x1080 poster and social preview image.
-- `assets/img/logo_vouga.png`: official Vouga logo used as the structured-data organization logo and source brand asset.
-- `assets/img/favicon.png`: 512x512 favicon derived from the official logo for browser tabs, bookmarks and Apple touch icons.
-- Navigation wordmark: the inline SVG logo inherits `currentColor`; in light mode the logo and "Agency" text render black.
-- Navigation color behavior: the symbol, "Vouga" and "Agency" all inherit the same `.logo` color and transition together when the theme changes.
-- Primary navigation labels: Our Approach, Use Cases, Capabilities and a visual Contact CTA.
-- Language toggle: a compact segmented `PT/EN` control persists the selected language in `localStorage`; the AI Knowledge demo reads the same preference.
+- Display: Instrument Serif.
+- Interface and body: Inter, with system fallbacks.
+- Technical labels and ASCII: system monospace stack.
 
-Motion and effects:
-- The hero uses static imagery plus a canvas ASCII overlay generated from `assets/img/heroascii.png` and `assets/img/heroascii-mobile.png`.
-- The ASCII overlay is disabled when `prefers-reduced-motion` is active.
-- The why section uses canvas-drawn guide lines around the Vouga mark.
-- Content reveals on scroll through IntersectionObserver.
-- On mobile, the `why` section drops the decorative Vouga frame and becomes a clean editorial stack with a small animated accent line.
-- On mobile, `how we enter` becomes a vertical step timeline with a subtle gradient progress line and staggered step reveal.
-- On mobile, `how we think` becomes a numbered editorial manifesto with a compact system mark and staggered copy reveal.
-- Motion respects `prefers-reduced-motion`.
-- Theme preference is stored in `localStorage`.
-## Technical Structure
+The site supports viewports from 320 px upward and uses `clamp()`, grid, safe-area insets and dedicated mobile compositions. Font sizes do not scale directly with viewport width outside bounded `clamp()` rules.
 
-Current structure:
+## Motion and interaction
+
+Active motion includes:
+
+- First-load homepage preloader.
+- Hero image with a sparse, animated ASCII contour canvas.
+- Gradual blur transition between Hero and Why Vouga.
+- IntersectionObserver content reveals.
+- Horizontal Selected Work rail with controls, keyboard access and card flips.
+- Play-once Capabilities orbit choreography that resolves into three cards.
+- `sessionStorage` key `vouga-pillars-cards-ready` so returning from a capability page shows the cards without replaying the orbit.
+- Mutating ASCII symbols in How Systems Change, capability cards, detail heroes and footer signatures.
+- Academy `Still loading...` typing sequence.
+
+Motion must respect `prefers-reduced-motion`. Essential content must remain visible and usable when animation is disabled or JavaScript is unavailable.
+
+## Technical structure
+
+There is no general frontend build step. HTML, CSS, JavaScript and images are committed as deployable assets. The only server runtime is the Vercel Function used by the contact form.
 
 ```text
 index.html
@@ -99,6 +207,8 @@ foundations.html
 academy.html
 privacy.html
 terms.html
+api/
+  contact.mjs
 assets/
   css/
     main.css
@@ -108,162 +218,124 @@ assets/
     pillar-pages.js
     contact.js
     contact-phone.js
+    gradual-blur.js
+    site-back.js
+    site-preferences.js
   img/
-    poster.jpg
-api/
-  contact.mjs
+src/
+  contact-phone.js
+tests/
+  contact-api.test.mjs
 docs/
   site-documentation.md
+  contact-backend.md
+  deploy-checklist.md
+_headers
+.env.example
 llms.txt
 robots.txt
-site.webmanifest
 sitemap.xml
+site.webmanifest
+package.json
 ```
 
-Responsibilities:
-- `index.html`: page structure, Portuguese default semantic content, metadata, JSON-LD structured data and external asset references.
-- `contact.html`: premium contact page and form surface, canonically represented as `/#contact`.
-- `intelligence.html`, `foundations.html`, `academy.html`: capability pages for Vouga Intelligence, Vouga Engineering and the Academy placeholder.
-- `privacy.html`: privacy policy for enquiry and website data.
-- `terms.html`: basic website terms.
-- `assets/css/main.css`: visual system, responsive layout, themes and motion styling.
-- `assets/js/main.js`: homepage language switching, scroll progress, reveal animation, canvas effects, use case interactions and ASCII footer mark.
-- `assets/js/contact.js`: contact page language switching, ASCII signature and form submission.
-- `assets/img/`: image assets and social preview assets.
-- `api/contact.mjs`: Vercel contact endpoint that validates enquiries and delivers them by email through Resend.
-- `docs/`: project documentation and iteration history.
-- `_headers`: production security and cache headers for hosts that support Netlify-style headers.
-- CSS and JS are referenced with a manual `?v=` query version because the site has no build step or hashed filenames.
+Key responsibilities:
 
-The public pages are static, with a Vercel Function used for the contact form.
+- `main.js`: homepage language, preloader, navigation, hero ASCII, reveal effects, Selected Work, Capabilities choreography, systems ASCII and footer behaviour.
+- `pillar-pages.js`: capability-page language, navigation, Academy typing and detail ASCII rendering.
+- `contact.js`: contact-page language, navigation, client validation, submission and contact ASCII signature.
+- `contact-phone.js`: browser bundle for international phone parsing.
+- `src/contact-phone.js`: editable source for the phone helper.
+- `site-preferences.js`: dark-only and persisted-language bootstrapping before render.
+- `site-back.js`: history-based back control for selected internal pages.
+- `gradual-blur.js`: reusable layered backdrop blur used at page transitions.
+- `api/contact.mjs`: validation and Resend delivery for contact enquiries.
 
-## SEO Strategy
+CSS and JavaScript references use manual `?v=` query strings for cache invalidation. Update the query when changing an asset that may otherwise remain cached.
 
-Primary SEO intent:
-- serviços de IA para empresas.
-- agência de IA para empresas.
-- automação empresarial com IA.
-- sistemas de conhecimento com IA.
-- desenvolvimento de MVPs.
-- desenvolvimento de protótipos.
-- AI services for companies.
-- Enterprise AI agency.
-- AI workflow automation.
-- AI knowledge systems.
-- AI sales copilot.
-- AI governance audit.
-- AI enablement.
-- MVP development.
-- Prototype development.
-- Go-to-market product development.
+## Contact architecture
 
-Implemented in this iteration:
-- Stronger `<title>` and meta description.
-- Portuguese default metadata, `lang="pt-PT"` and `og:locale="pt_PT"`.
-- Runtime English metadata swap when the visitor selects `EN`.
-- Search-oriented keywords meta tag.
-- Canonical URL: `https://www.vouga-agency.pt/`.
-- Open Graph tags for LinkedIn, WhatsApp and social previews.
-- Twitter card metadata.
-- Large social image using `assets/img/poster.jpg`.
-- Robots directives for normal search crawlers.
-- `robots.txt` with access for search and AI crawlers.
-- `sitemap.xml` with homepage and primary anchored sections.
-- `llms.txt` to summarize the business, services and best-fit searches for LLM-oriented retrieval.
-- JSON-LD structured data using `Organization`, `WebSite`, `ProfessionalService` and `ItemList`.
-- Portuguese default JSON-LD service names and descriptions, while retaining English search terms in keywords for discoverability.
+The contact path is:
 
-Important assumption:
-The canonical domain is currently assumed to be `https://www.vouga-agency.pt/`. If the production domain changes, update it in:
-- `index.html`
-- `robots.txt`
-- `sitemap.xml`
-- `llms.txt`
-- this documentation
+```text
+Browser form -> POST /api/contact -> Vercel Function -> Resend -> hello@vouga-agency.pt
+```
 
-## LLM and Chatbot Discoverability
+No Supabase project, contact table or migration is required. Resend and the destination mailbox are the operational records. See `docs/contact-backend.md` for validation rules, environment variables and production verification.
 
-The site is prepared for AI search and answer engines through:
-- Clear company positioning in natural language.
-- Structured data aligned to the homepage architecture and core capabilities.
-- `llms.txt` with concise positioning, capabilities and best-fit search context.
-- Robots access for common search and AI crawlers.
-- Repeated but natural terms around systems-led transformation, product strategy, software delivery, applied AI and execution.
+## SEO and discoverability
 
-Editorial rule:
-Do not stuff invisible keywords or add spammy copy. LLM and search visibility should come from clear, specific, crawlable descriptions of what Vouga does.
+Primary search themes are:
 
-## Deployment Notes
+- Systems-led business transformation
+- Product strategy and product engineering
+- Software engineering and internal tools
+- Applied AI systems and workflow intelligence
+- Knowledge systems, operational copilots and decision support
+- Business process redesign and execution
 
-The site can be deployed as a static site to:
-- Netlify
-- Vercel
-- Cloudflare Pages
-- GitHub Pages
-- Any static host or CDN
+The implementation currently includes:
 
-Recommended next production files:
-- If a build pipeline is added later, replace manual query versions with hashed filenames and restore long immutable caching for CSS/JS.
+- Canonical domain `www.vouga-agency.pt`.
+- English-first homepage title and description.
+- Open Graph and Twitter Card metadata on primary acquisition pages.
+- `poster.jpg` as the social preview image.
+- Homepage JSON-LD for `Organization`, `WebSite`, `ProfessionalService` and `ItemList`.
+- `robots.txt` for search and named AI crawlers.
+- `sitemap.xml` for the homepage, primary anchors, Intelligence, Engineering and legal pages.
+- `llms.txt` for concise business and capability context.
 
-## Known Gaps
+Academy and Contact are currently omitted from the sitemap. Academy is intentionally in development; Contact is canonically represented by the homepage hash.
 
-To improve before final production launch:
-- Consider dedicated `/en/` URLs with `hreflang` if English SEO becomes a primary acquisition channel; the current English version is a client-side toggle on the homepage.
-- Translate or duplicate legal pages for full site-wide bilingual parity if Privacy and Terms need the same EN/PT toggle.
-- Verify the Resend sending domain and contact-email delivery after the production deploy.
-- Review privacy/legal pages with legal counsel before final launch.
-- Confirm production host applies `_headers` or port them to host-specific configuration.
-- Avoid `immutable` caching on un-hashed CSS/JS filenames; otherwise deployed HTML can load stale styles/scripts while local looks correct.
-- Add analytics only if privacy-conscious and legally documented.
-- Validate final domain and social preview image after deployment.
+Do not return to keyword lists focused on being an “AI agency” or “MVP agency”. SEO copy and structured data must remain aligned with the systems-led positioning.
 
-## Iteration Log
+## Security and privacy
 
-### 2026-06-14
+- The public site currently includes no analytics, advertising pixels or behavioural tracking.
+- Contact submissions are validated in the browser and again on the server.
+- The contact endpoint accepts same-origin JSON POST requests only, limits the body to 16 KB and includes a honeypot.
+- Submitted HTML is escaped before email rendering.
+- No website contact database is used.
+- `_headers` contains security and caching rules for hosts that support Netlify-style header files. Vercel does not automatically guarantee that format; equivalent production headers must be configured and verified on the selected host.
 
-- Split single-file site into scalable structure with external CSS and JS.
-- Moved poster into `assets/img/`.
-- Added SEO, social sharing and crawler metadata.
-- Added JSON-LD structured data for organization, website and services.
-- Added `site.webmanifest`, `robots.txt`, `sitemap.xml` and `llms.txt`.
-- Created this living documentation file.
+## Local development
 
-### 2026-06-14 - Brand asset correction
+Static page work:
 
-- Replaced the provisional SVG favicon reference with brand assets derived from `assets/img/logo_vouga.png`.
-- Updated the manifest, Apple touch icon and JSON-LD organization logo to use the official logo image.
-- Generated `assets/img/favicon.png`, a square favicon variant derived from the official logo for crisper browser-tab rendering.
+```sh
+python3 -m http.server 8765 --bind 127.0.0.1
+```
 
-### 2026-06-14 - Legal, accessibility, headers and deploy hygiene
+Open `http://127.0.0.1:8765/`. The static server cannot execute `/api/contact`.
 
-- Added `privacy.html` with controller, enquiry data, purpose, legal basis, retention, rights, security and contact sections.
-- Added `terms.html` with basic website terms, confidentiality guidance and no automatic client-engagement language.
-- Added required name, email, message and privacy acknowledgement fields to the contact form.
-- Added footer links to Privacy and Terms.
-- Improved the service overlay with `aria-labelledby`, dynamic title id, focus trapping, Escape handling and background inerting for keyboard users.
-- Added `_headers` with security headers, CSP, permissions policy and cache-control rules for static hosting.
-- Added `.gitignore`, `README.md` and `docs/deploy-checklist.md`.
-- Updated `sitemap.xml` and `llms.txt` with legal pages.
+Full contact flow:
 
-### 2026-06-14 - Light theme and legal page branding
+```sh
+bun install
+vercel dev
+```
 
-- Adjusted the light theme to a warmer, slightly darker beige: `#ded2bd`, with surface `#d4c6ae`.
-- Changed the navigation "Agency" wordmark color to inherit the current theme text color instead of staying white.
-- Replaced the PNG logo in `privacy.html` and `terms.html` with the inline currentColor SVG mark, matching the main page light-mode branding.
+Create a local `.env.local` from `.env.example` when testing real delivery. Environment files are ignored by Git; never commit a Resend key.
 
-- Corrected the navigation wordmark so "Agency", "Vouga" and the logo mark transition color together.
-- Inverted the light-mode hero halftone mapping so bright source areas create the visible dots; dark-mode behavior remains unchanged.
-- Simplified the homepage to Hero, Why Vouga, Selected Work, Capabilities and footer.
+Commands:
 
-### 2026-06-16
+```sh
+bun test
+bun run build:phone
+```
 
-- Split the hero subcopy into two deliberate lines so "We build it into the work that moves the business." always appears below the opening sentence.
-- Changed the homepage default language to Portuguese with `lang="pt-PT"`, Portuguese SEO/social metadata and Portuguese JSON-LD service names.
-- Added a compact `EN/PT` language toggle beside the theme switcher, persisted in `localStorage`.
-- Added frontend translations for the homepage, service list, dynamic service overlay, metadata and generated contact-form mailto body.
-- Updated the AI Knowledge System demo to Portuguese by default and made it respect the same persisted PT/EN preference.
-- Fixed the language toggle initialization so it no longer calls the `why` canvas redraw before the canvas elements are ready.
-- Reworked the language control into a minimalist segmented `PT/EN` button with the active language highlighted.
-- Refined the mobile-only design for `how we enter` and `how we think`: added a minimal step timeline, staggered motion, numbered thought blocks and a lighter mobile composition while leaving desktop unchanged.
-- Fixed deploy cache risk by versioning CSS/JS asset URLs with `?v=20260616-3` and changing `_headers` so CSS/JS use `max-age=0, must-revalidate` instead of one-year immutable cache.
-- Warmed and darkened the light theme from dirty white into a beige palette, including matching surface, divider and dim-text tokens.
+Run `build:phone` only after changing `src/contact-phone.js`.
+
+## Launch dependencies and known gaps
+
+- Verify `send.vouga-agency.pt` in Resend with the required SPF and DKIM records.
+- Configure the three contact environment variables in Vercel and perform real PT and EN submissions.
+- Decide whether Contact should also default to English on direct entry.
+- Review the visible hash aliases against canonical and reload behaviour before final URL freeze.
+- Port and verify `_headers` rules in the actual Vercel configuration.
+- Review Privacy and Terms with legal counsel and confirm the final legal entity details.
+- Validate navigation, card interaction, animation and layout on current Chrome, Safari, Firefox, Edge, iOS and Android.
+- Run Lighthouse against production and optimise large imagery only when quality can be preserved.
+- Validate the final social preview and submit the sitemap after production DNS is active.
+
+Use `docs/deploy-checklist.md` for release sign-off.
