@@ -34,7 +34,7 @@
       signatureLabel:'Desenvolvido no Porto.',
       navApproach:'Como Pensamos',
       navWork:'Casos de Uso',
-      navCapabilities:'Foundations',
+      navCapabilities:'Fundações',
       navServices:'Serviços',
       talkToUs:'Falar connosco',
       title:'Vamos conversar.',
