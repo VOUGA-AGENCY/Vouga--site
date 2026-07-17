@@ -40,7 +40,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="assets/js/site-preferences.js?v=20260714-w029-dark-only-v1"></script>
 <style>@media (max-width:820px){.nav .nav-links,.nav .nav-right>.btn-primary,.nav .nav-right>a[href^="mailto"]{display:none!important}.nav .nav-burger{display:inline-flex!important}}</style>
-<link rel="stylesheet" href="assets/css/main.css?v=20260714-w071-pillars-scroll-collapse-v1">
+<link rel="stylesheet" href="assets/css/main.css?v=20260717-w089-normal-wave-height-v1">
 <noscript><style>.site-preloader{display:none!important}body.is-preloading{overflow:auto!important}</style></noscript>
 <script type="application/ld+json">
 {
@@ -73,7 +73,7 @@
     {
       "@type": "ProfessionalService",
       "@id": "https://www.vouga-agency.pt/#capabilities",
-      "name": "Vouga Agency capabilities",
+      "name": "Vouga Agency foundations",
       "url": "https://www.vouga-agency.pt/#pillars",
       "provider": {
         "@id": "https://www.vouga-agency.pt/#organization"
@@ -96,7 +96,7 @@
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Why Vouga", "url": "https://www.vouga-agency.pt/#why-vouga" },
         { "@type": "ListItem", "position": 2, "name": "Selected Work", "url": "https://www.vouga-agency.pt/#use-cases" },
-        { "@type": "ListItem", "position": 3, "name": "Capabilities", "url": "https://www.vouga-agency.pt/#pillars" },
+        { "@type": "ListItem", "position": 3, "name": "Foundations", "url": "https://www.vouga-agency.pt/#pillars" },
         { "@type": "ListItem", "position": 4, "name": "Vouga Intelligence", "url": "https://www.vouga-agency.pt/intelligence.html" },
         { "@type": "ListItem", "position": 5, "name": "Vouga Engineering", "url": "https://www.vouga-agency.pt/foundations.html" }
       ]
@@ -131,7 +131,8 @@
       <ul class="nav-links">
         <li><a href="#why-vouga" data-i18n="navApproach">Our Approach</a></li>
         <li><a href="#use-cases" data-i18n="navWork">Use Cases</a></li>
-        <li><a href="#pillars" data-i18n="navCapabilities">Capabilities</a></li>
+        <li><a href="#pillars" data-i18n="navCapabilities">Foundations</a></li>
+        <li><a href="#services" data-i18n="navServices">Services</a></li>
       </ul>
     </nav>
     <div class="nav-right">
@@ -149,7 +150,8 @@
     <nav class="mobile-links" aria-label="mobile navigation">
       <a href="#why-vouga" data-i18n="navApproach">Our Approach</a>
       <a href="#use-cases" data-i18n="navWork">Use Cases</a>
-      <a href="#pillars" data-i18n="navCapabilities">Capabilities</a>
+      <a href="#pillars" data-i18n="navCapabilities">Foundations</a>
+      <a href="#services" data-i18n="navServices">Services</a>
     </nav>
     <div class="mobile-actions">
       <a class="btn btn-primary" href="#contact" data-route-page="contact.html" data-i18n="talkToUs">Contact us</a>
@@ -378,12 +380,12 @@
     </div>
   </section>
 
-  <!-- capabilities (orbit) -->
-  <section class="pillars" id="pillars" aria-label="capabilities" data-i18n-aria="capabilitiesLabel">
+  <!-- foundations (orbit) -->
+  <section class="pillars" id="pillars" aria-label="foundations" data-i18n-aria="capabilitiesLabel">
     <div class="pillars-scroll" id="pillarsScroll">
       <div class="pillars-stage">
         <div class="wrap">
-          <span class="label pillars-kicker" data-i18n="pillarsKicker">capabilities</span>
+          <span class="label pillars-kicker" data-i18n="pillarsKicker">foundations</span>
           <div class="orbit" id="orbit">
             <span class="orbit-system" id="orbitSystem" aria-hidden="true">the system</span>
             <svg class="orbit-svg" id="orbitSvg" aria-hidden="true">
@@ -414,6 +416,52 @@
               <a class="orbit-explore" href="#academy" data-route-page="academy.html" data-i18n="explore">explore →</a>
             </article>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-services" id="services" aria-labelledby="servicesTitle">
+    <div class="wrap">
+      <header class="home-services-head reveal">
+        <span class="label home-services-label" data-i18n="homeServicesLabel">services</span>
+        <h2 class="h2 home-services-title" id="servicesTitle" data-i18n="homeServicesTitle">Meet our services</h2>
+        <p class="body-text home-services-intro" data-i18n="homeServicesIntro">A compact view of the service areas that sit inside Vouga Intelligence and Vouga Engineering.</p>
+      </header>
+      <div class="home-services-grid reveal d1">
+        <article class="home-services-card">
+          <div class="home-services-heading-link">
+            <span class="home-services-kicker">Vouga <span class="grad">Intelligence</span></span>
+            <h3 class="home-services-title-link" data-i18n="homeServicesIntelTitle">Operational AI systems</h3>
+          </div>
+          <ul>
+            <li data-i18n="homeServicesIntel1">AI copilots</li>
+            <li data-i18n="homeServicesIntel2">Knowledge platforms</li>
+            <li data-i18n="homeServicesIntel3">Internal search</li>
+            <li data-i18n="homeServicesIntel4">Decision assistants</li>
+            <li data-i18n="homeServicesIntel5">Workflow automation</li>
+            <li data-i18n="homeServicesIntel6">Operational agents</li>
+          </ul>
+          <a class="home-services-read-more" href="#intelligence" data-route-page="intelligence.html" data-i18n="homeServicesReadMore">Read more</a>
+        </article>
+        <article class="home-services-card">
+          <div class="home-services-heading-link">
+            <span class="home-services-kicker">Vouga <span class="grad-v">Engineering</span></span>
+            <h3 class="home-services-title-link" data-i18n="homeServicesEngTitle">Product and software delivery</h3>
+          </div>
+          <ul>
+            <li data-i18n="homeServicesEng1">Internal platforms</li>
+            <li data-i18n="homeServicesEng2">Business software</li>
+            <li data-i18n="homeServicesEng3">Customer portals</li>
+            <li data-i18n="homeServicesEng4">Operational dashboards</li>
+            <li data-i18n="homeServicesEng5">Product MVPs</li>
+            <li data-i18n="homeServicesEng6">CRM systems</li>
+          </ul>
+          <a class="home-services-read-more" href="#engineering" data-route-page="foundations.html" data-i18n="homeServicesReadMore">Read more</a>
+        </article>
+        <div class="home-services-contact-bar">
+          <p data-i18n="homeServicesCustom">Need help with a custom service?</p>
+          <a class="btn home-services-cta" href="#contact" data-route-page="contact.html" data-i18n="homeServicesTalk">Talk to us</a>
         </div>
       </div>
     </div>

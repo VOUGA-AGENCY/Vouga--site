@@ -138,8 +138,8 @@
     if (!page) return;
 
     var COMMON = {
-      pt: { contact:'Falar connosco', logo:'Vouga Agency, início', nav:['Como Pensamos','Casos de Uso','Áreas'] },
-      en: { contact:'Contact us', logo:'Vouga Agency, home', nav:['Our Approach','Use Cases','Capabilities'] }
+      pt: { contact:'Falar connosco', logo:'Vouga Agency, início', nav:['Como Pensamos','Casos de Uso','Foundations','Serviços'] },
+      en: { contact:'Contact us', logo:'Vouga Agency, home', nav:['Our Approach','Use Cases','Foundations','Services'] }
     };
     if (document.body.hasAttribute('data-static-detail')) {
       function applyStatic(lang){
@@ -314,7 +314,7 @@
           kicker:'',
           lead:'A Academy vai ajudar equipas e talento emergente a desenvolver capacidade através de trabalho real, não de formação genérica.',
           primary:'Falar connosco <span class="arrow">→</span>',
-          secondary:'Voltar às capacidades',
+          secondary:'Voltar a Foundations',
           academyBlur:{ heading:'O que a Academy vai fazer.', body:'A Academy será a camada de aprendizagem futura da Vouga: programas práticos, contextos reais de negócio e desenvolvimento de talento em torno de sistemas, software e IA.', cards:[['01','Treinar equipas no seu trabalho real.','Programas construídos sobre workflows, documentos, ferramentas e decisões existentes.'],['02','Transformar aprendizagem em artefactos úteis.','Workshops e studios devem deixar playbooks, protótipos ou hábitos operacionais.'],['03','Ligar talento emergente a responsabilidade real.','Uma ponte entre educação, projetos aplicados e o standard necessário dentro das empresas.']], loading:'Vouga Academy está em desenvolvimento.'},
           heads:['A ponte que queremos construir','Formatos possíveis','Princípios da Academy','Indicadores de sucesso'],
           nums:['01 / ponte','02 / formatos','03 / princípios','04 / medidas'],
@@ -342,7 +342,7 @@
           kicker:'',
           lead:'Academy will help teams and emerging talent build capability through real work, not generic training.',
           primary:'Start a conversation <span class="arrow">→</span>',
-          secondary:'Back to capabilities',
+          secondary:'Back to foundations',
           academyBlur:{ heading:'What Academy will do.', body:'Academy is the future learning layer of Vouga: practical programmes, real business contexts and talent development around systems, software and AI.', cards:[['01','Train teams on their actual work.','Programmes built around existing workflows, documents, tools and decisions.'],['02','Turn learning into useful artefacts.','Workshops and studios should leave behind playbooks, prototypes or operational habits.'],['03','Connect emerging talent to real responsibility.','A bridge between education, applied projects and the standard needed inside companies.']], loading:'Vouga Academy is in development.'},
           heads:['The bridge we want to build','Possible formats','Academy principles','Success indicators'],
           nums:['01 / bridge','02 / formats','03 / principles','04 / measures'],

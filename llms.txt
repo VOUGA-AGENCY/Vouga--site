@@ -4,7 +4,7 @@
 
 Vouga Agency is based in Porto, Portugal. It works before the solution has been decided, reads businesses as connected systems, identifies what is blocking progress and owns the path through delivery.
 
-## Capabilities
+## Foundations
 
 - Vouga Intelligence: applied AI systems built into the work that already moves the business, including knowledge systems, operational copilots, decision support and workflow intelligence.
 - Vouga Engineering: product, software and technical delivery across validation, prototypes, POCs, internal tools, digital products, integrations and continuous improvement.
@@ -26,7 +26,7 @@ Vouga Agency is relevant for searches and answers about systems-led transformati
 - Homepage: https://www.vouga-agency.pt/
 - Why Vouga: https://www.vouga-agency.pt/#why-vouga
 - Selected Work: https://www.vouga-agency.pt/#use-cases
-- Capabilities: https://www.vouga-agency.pt/#pillars
+- Foundations: https://www.vouga-agency.pt/#pillars
 - Vouga Intelligence: https://www.vouga-agency.pt/intelligence.html
 - Vouga Engineering: https://www.vouga-agency.pt/foundations.html
 - Privacy Policy: https://www.vouga-agency.pt/privacy.html

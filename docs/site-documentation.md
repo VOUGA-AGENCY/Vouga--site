@@ -6,7 +6,7 @@ This document describes the current public website. It is a reference for conten
 
 ## Product status
 
-The website is the first public version of Vouga Agency. It presents Vouga as a systems-led transformation and product company, shows selected concepts, explains the active capabilities and routes commercial enquiries to a dedicated contact form.
+The website is the first public version of Vouga Agency. It presents Vouga as a systems-led transformation and product company, shows selected concepts, explains the active foundations and routes commercial enquiries to a dedicated contact form.
 
 The website is independent from Vouga OS. Changes here must not alter Vouga OS product code or documentation.
 
@@ -40,7 +40,7 @@ The homepage order is:
 1. Hero
 2. Why Vouga
 3. Selected Work
-4. Capabilities
+4. Foundations
 5. How Systems Change
 6. Footer
 
@@ -48,7 +48,7 @@ The primary navigation is:
 
 - `Our Approach` / `Como Pensamos` -> `#why-vouga`
 - `Use Cases` / `Casos de Uso` -> `#use-cases`
-- `Capabilities` / `Áreas` -> `#pillars`
+- `Foundations` -> `#pillars`
 - `Contact us` / `Falar connosco` -> the contact page
 
 `How Systems Change` is intentionally not present in the navbar.
@@ -188,7 +188,7 @@ Active motion includes:
 - Gradual blur transition between Hero and Why Vouga.
 - IntersectionObserver content reveals.
 - Horizontal Selected Work rail with controls, keyboard access and card flips.
-- Play-once Capabilities orbit choreography that resolves into three cards.
+- Play-once Foundations orbit choreography that resolves into three cards.
 - `sessionStorage` key `vouga-pillars-cards-ready` so returning from a capability page shows the cards without replaying the orbit.
 - Mutating ASCII symbols in How Systems Change, capability cards, detail heroes and footer signatures.
 - Academy `Still loading...` typing sequence.
@@ -241,7 +241,7 @@ package.json
 
 Key responsibilities:
 
-- `main.js`: homepage language, preloader, navigation, hero ASCII, reveal effects, Selected Work, Capabilities choreography, systems ASCII and footer behaviour.
+- `main.js`: homepage language, preloader, navigation, hero ASCII, reveal effects, Selected Work, Foundations choreography, systems ASCII and footer behaviour.
 - `pillar-pages.js`: capability-page language, navigation, Academy typing and detail ASCII rendering.
 - `contact.js`: contact-page language, navigation, client validation, submission and contact ASCII signature.
 - `contact-phone.js`: browser bundle for international phone parsing.

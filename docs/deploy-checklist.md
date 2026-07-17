@@ -26,7 +26,7 @@ Use this checklist for the first public release and subsequent production deploy
 
 ## 3. Content and positioning
 
-- [ ] Confirm the homepage order is Hero -> Why Vouga -> Selected Work -> Capabilities -> How Systems Change -> Footer.
+- [ ] Confirm the homepage order is Hero -> Why Vouga -> Selected Work -> Foundations -> Services -> How Systems Change -> Footer.
 - [ ] Confirm there is no standalone Diagnosis or former How We Work section.
 - [ ] Confirm `Vouga Engineering` is used publicly; `Foundations` appears only in the physical filename and implementation identifiers where still necessary.
 - [ ] Confirm Academy is clearly presented as in development on its page.
@@ -84,7 +84,7 @@ See `docs/contact-backend.md` for the full contract and troubleshooting steps.
 - [ ] Confirm canonical tags match the approved URL contract.
 - [ ] Confirm Open Graph and Twitter Card values and image URLs.
 - [ ] Test `assets/img/vouga_logos_canva.png` with LinkedIn, WhatsApp and other relevant preview validators.
-- [ ] Validate homepage JSON-LD and confirm company email, phone, LinkedIn and capabilities are current.
+- [ ] Validate homepage JSON-LD and confirm company email, phone, LinkedIn and foundations are current.
 - [ ] Review heading hierarchy and ensure every page has one clear H1.
 - [ ] Confirm decorative images/ASCII are hidden from assistive technology and meaningful imagery has appropriate alternatives.
 - [ ] Validate `robots.txt` and its sitemap URL.
@@ -114,7 +114,7 @@ See `docs/contact-backend.md` for the full contract and troubleshooting steps.
 - [ ] Confirm the Hero image and ASCII contour remain aligned on desktop and mobile.
 - [ ] Confirm the Hero-to-Why gradual blur has no hard edge on Windows/Edge.
 - [ ] Confirm Selected Work flips without clipping or showing the mirrored front face.
-- [ ] Confirm Capabilities completes smoothly, collapses excess scroll and does not replay after returning from a capability page.
+- [ ] Confirm Foundations completes smoothly, collapses excess scroll and does not replay after returning from a foundation page.
 - [ ] Confirm Intelligence and Engineering hero ASCII stays within its column and remains readable on mobile.
 - [ ] Confirm Academy typing starts when `Still loading...` enters the viewport.
 - [ ] Confirm Contact principles, form and Porto signature remain compact and aligned on mobile.
