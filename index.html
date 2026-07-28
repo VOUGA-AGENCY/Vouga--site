@@ -40,7 +40,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="assets/js/site-preferences.js?v=20260714-w029-dark-only-v1"></script>
 <style>@media (max-width:820px){.nav .nav-links,.nav .nav-right>.btn-primary,.nav .nav-right>a[href^="mailto"]{display:none!important}.nav .nav-burger{display:inline-flex!important}}</style>
-<link rel="stylesheet" href="assets/css/main.css?v=20260727-v80">
+<link rel="stylesheet" href="assets/css/main.css?v=20260728-v98">
 <noscript><style>.site-preloader{display:none!important}body.is-preloading{overflow:auto!important}</style></noscript>
 <script type="application/ld+json">
 {
@@ -222,104 +222,157 @@
       <header class="approach-head reveal">
         <span class="approach-label" data-i18n="approachLabel">OUR APPROACH</span>
         <h2 id="approachTitle" data-i18n-html="approachTitle"><span class="approach-title-line">Understand the system. </span><span class="approach-title-line">Build what <span class="grad"><em>evolves</em></span>.</span></h2>
+        <p class="approach-sub" data-i18n-html="approachSub">At Vouga, a system-first approach means understanding the system<br>before introducing software, automation or AI.<span class="sub-motto">Understand. Simplify. Build. Measure. Evolve.</span></p>
       </header>
 
       <div class="approach-diagram-wrap reveal">
-        <div class="approach-diagram-grid">
-
-          <!-- Left Column (Step Numbers + Bracket Lines: 03 at top, 01 at bottom) -->
-          <div class="approach-col-left">
-            <div class="approach-layer-left layer-03">
-              <span class="bracket-num">03</span>
-              <div class="bracket-line-left"></div>
-            </div>
-            <div class="approach-layer-left layer-02">
-              <span class="bracket-num">02</span>
-              <div class="bracket-line-left"></div>
-            </div>
-            <div class="approach-layer-left layer-01">
-              <span class="bracket-num">01</span>
-              <div class="bracket-line-left"></div>
-            </div>
+        
+        <!-- PC Horizontal Layout (Desktop Only: > 820px) -->
+        <div class="approach-pc-layout">
+          <div class="approach-pc-image-wrap">
+            <img src="assets/img/horizontal.png" alt="Vouga Approach System Diagram" class="approach-pc-img" loading="lazy">
+            <canvas class="approach-ascii-overlay" data-hero-ascii data-src="assets/img/horizontal.png" data-first-third-only="true" data-ascii-color="#a1a1aa" data-font-size="28" data-step-mult="1.5" data-min-detail="18"></canvas>
           </div>
 
-          <!-- Center Column (Diagram Image) -->
-          <div class="approach-col-center">
-            <picture>
-              <source media="(max-width: 820px)" srcset="assets/img/mobile.png">
-              <img src="assets/img/approach.png" alt="Vouga Approach System Diagram" class="approach-img" loading="lazy">
-            </picture>
+          <div class="approach-pc-grid">
+            <!-- COLUMN 01: UNDERSTAND -->
+            <article class="approach-pc-col layer-01">
+              <div class="h-bracket" aria-hidden="true"></div>
+              <div class="approach-pc-head">
+                <span class="bracket-num">01/</span>
+                <h3 class="phase-title" data-i18n="approachPhase1Title">UNDERSTAND</h3>
+              </div>
+              <ul class="phase-list">
+                <li data-i18n="approachP1Item1">PEOPLE</li>
+                <li data-i18n="approachP1Item2">PROCESSES</li>
+                <li data-i18n="approachP1Item3">INFORMATION</li>
+                <li data-i18n="approachP1Item4">TECHNOLOGY</li>
+              </ul>
+              <p class="phase-subtext" data-i18n="approachP1Subtext">See the system as it is.</p>
+            </article>
+
+            <!-- COLUMN 02: DESIGN & BUILD -->
+            <article class="approach-pc-col layer-02">
+              <div class="h-bracket" aria-hidden="true"></div>
+              <div class="approach-pc-head">
+                <span class="bracket-num">02/</span>
+                <h3 class="phase-title" data-i18n="approachPhase2Title">DESIGN &amp; BUILD</h3>
+              </div>
+              <ul class="phase-list">
+                <li data-i18n="approachP2Item1">REMOVE FRICTION</li>
+                <li data-i18n="approachP2Item2">FIND LEVERAGE</li>
+                <li data-i18n="approachP2Item3">BUILD IN LAYERS</li>
+              </ul>
+              <div class="phase-tags">
+                <span class="tag-label" data-i18n="approachP2LayersLabel">LAYERS:</span>
+                <span class="tag-item">PROCESS</span>
+                <span class="tag-item">DATA</span>
+                <span class="tag-item">SOFTWARE</span>
+                <span class="tag-item">AUTOMATION</span>
+                <span class="tag-item">AI</span>
+              </div>
+              <p class="phase-subtext" data-i18n="approachP2Subtext">Build around the system.</p>
+            </article>
+
+            <!-- COLUMN 03: EVOLVE -->
+            <article class="approach-pc-col layer-03">
+              <div class="h-bracket" aria-hidden="true"></div>
+              <div class="approach-pc-head">
+                <span class="bracket-num">03/</span>
+                <h3 class="phase-title" data-i18n="approachPhase3Title">EVOLVE</h3>
+              </div>
+              <ul class="phase-list">
+                <li data-i18n="approachP3Item1">MEASURE</li>
+                <li data-i18n="approachP3Item2">LEARN</li>
+                <li data-i18n="approachP3Item3">ADAPT</li>
+                <li data-i18n="approachP3Item4">SCALE</li>
+              </ul>
+              <p class="phase-subtext" data-i18n="approachP3Subtext">Improve as the system changes.</p>
+            </article>
           </div>
+        </div>
 
-          <!-- Right Column (Phase Content + Bracket Lines) -->
-          <div class="approach-col-right">
+        <!-- Mobile Layout (Mobile Only: <= 820px) -->
+        <div class="approach-mobile-layout">
+          <div class="approach-diagram-grid">
 
-            <!-- LAYER 03: EVOLVE (Top) -->
-            <div class="approach-layer-right layer-03">
-              <div class="bracket-line-right"></div>
-              <div class="phase-body">
-                <div class="phase-header">
-                  <h3 class="phase-title" data-i18n="approachPhase3Title">EVOLVE</h3>
-                </div>
-                <div class="phase-content">
-                  <ul class="phase-list">
-                    <li data-i18n="approachP3Item1">MEASURE</li>
-                    <li data-i18n="approachP3Item2">LEARN</li>
-                    <li data-i18n="approachP3Item3">ADAPT</li>
-                    <li data-i18n="approachP3Item4">SCALE</li>
-                  </ul>
-                  <p class="phase-subtext" data-i18n="approachP3Subtext">Improve as the system changes.</p>
-                </div>
+            <!-- Left Column (Step Numbers + Bracket Lines: 03 at top, 01 at bottom) -->
+            <div class="approach-col-left">
+              <div class="approach-layer-left layer-03">
+                <span class="bracket-num">03</span>
+                <div class="bracket-line-left"></div>
+              </div>
+              <div class="approach-layer-left layer-02">
+                <span class="bracket-num">02</span>
+                <div class="bracket-line-left"></div>
+              </div>
+              <div class="approach-layer-left layer-01">
+                <span class="bracket-num">01</span>
+                <div class="bracket-line-left"></div>
               </div>
             </div>
 
-            <!-- LAYER 02: DESIGN & BUILD (Middle) -->
-            <div class="approach-layer-right layer-02">
-              <div class="bracket-line-right"></div>
-              <div class="phase-body">
-                <div class="phase-header">
-                  <h3 class="phase-title" data-i18n="approachPhase2Title">DESIGN &amp; BUILD</h3>
-                </div>
-                <div class="phase-content">
-                  <ul class="phase-list">
-                    <li data-i18n="approachP2Item1">REMOVE FRICTION</li>
-                    <li data-i18n="approachP2Item2">FIND LEVERAGE</li>
-                    <li data-i18n="approachP2Item3">BUILD IN LAYERS</li>
-                  </ul>
-                  <div class="phase-tags">
-                    <span class="tag-label" data-i18n="approachP2LayersLabel">LAYERS:</span>
-                    <span class="tag-item">PROCESS</span>
-                    <span class="tag-item">DATA</span>
-                    <span class="tag-item">SOFTWARE</span>
-                    <span class="tag-item">AUTOMATION</span>
-                    <span class="tag-item">AI</span>
+            <!-- Right Column (Phase Content) -->
+            <div class="approach-col-right">
+
+              <!-- LAYER 03: EVOLVE (Top) -->
+              <div class="approach-layer-right layer-03">
+                <div class="phase-body">
+                  <div class="phase-header">
+                    <h3 class="phase-title" data-i18n="approachPhase3Title">EVOLVE</h3>
                   </div>
-                  <p class="phase-subtext" data-i18n="approachP2Subtext">Build around the system.</p>
+                  <div class="phase-content">
+                    <ul class="phase-list">
+                      <li data-i18n="approachP3Item1">MEASURE</li>
+                      <li data-i18n="approachP3Item2">LEARN</li>
+                      <li data-i18n="approachP3Item3">ADAPT</li>
+                      <li data-i18n="approachP3Item4">SCALE</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
+
+              <!-- LAYER 02: DESIGN & BUILD (Middle) -->
+              <div class="approach-layer-right layer-02">
+                <div class="phase-body">
+                  <div class="phase-header">
+                    <h3 class="phase-title" data-i18n="approachPhase2Title">DESIGN &amp; BUILD</h3>
+                  </div>
+                  <div class="phase-content">
+                    <ul class="phase-list">
+                      <li data-i18n="approachP2Item1">REMOVE FRICTION</li>
+                      <li data-i18n="approachP2Item2">FIND LEVERAGE</li>
+                      <li data-i18n="approachP2Item3">BUILD IN LAYERS</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LAYER 01: UNDERSTAND (Bottom) -->
+              <div class="approach-layer-right layer-01">
+                <div class="phase-body">
+                  <div class="phase-header">
+                    <h3 class="phase-title" data-i18n="approachPhase1Title">UNDERSTAND</h3>
+                  </div>
+                  <div class="phase-content">
+                    <ul class="phase-list">
+                      <li data-i18n="approachP1Item1">PEOPLE</li>
+                      <li data-i18n="approachP1Item2">PROCESSES</li>
+                      <li data-i18n="approachP1Item3">INFORMATION</li>
+                      <li data-i18n="approachP1Item4">TECHNOLOGY</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
-            <!-- LAYER 01: UNDERSTAND (Bottom) -->
-            <div class="approach-layer-right layer-01">
-              <div class="bracket-line-right"></div>
-              <div class="phase-body">
-                <div class="phase-header">
-                  <h3 class="phase-title" data-i18n="approachPhase1Title">UNDERSTAND</h3>
-                </div>
-                <div class="phase-content">
-                  <ul class="phase-list">
-                    <li data-i18n="approachP1Item1">PEOPLE</li>
-                    <li data-i18n="approachP1Item2">PROCESSES</li>
-                    <li data-i18n="approachP1Item3">INFORMATION</li>
-                    <li data-i18n="approachP1Item4">TECHNOLOGY</li>
-                  </ul>
-                  <p class="phase-subtext" data-i18n="approachP1Subtext">See the system as it is.</p>
-                </div>
-              </div>
+            <!-- Center Column (Diagram Image) -->
+            <div class="approach-col-center">
+              <img src="assets/img/mobile.png" alt="Vouga Approach System Diagram" class="approach-img" loading="lazy">
             </div>
 
           </div>
-
         </div>
 
       </div>
@@ -679,7 +732,7 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20260728-v67" defer></script>
-<script src="assets/js/gradual-blur.js?v=20260616-3" defer></script>
+<script src="assets/js/main.js?v=20260728-v81" defer></script>
+<script src="assets/js/gradual-blur.js?v=20260728-4" defer></script>
 </body>
 </html>

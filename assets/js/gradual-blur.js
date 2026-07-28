@@ -93,6 +93,11 @@
   }
 
   function init(){
+    /* iOS Safari can mispaint unrelated text while a fixed, masked
+       backdrop-filter is composited during scroll. Keep this decorative
+       viewport blur on larger screens only. */
+    if (window.matchMedia && window.matchMedia('(max-width: 820px)').matches) return;
+
     injectStyles();
     /* site-wide scroll blur: a soft veil at the bottom edge of the viewport */
     var blur = build({

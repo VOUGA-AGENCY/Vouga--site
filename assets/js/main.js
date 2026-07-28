@@ -206,6 +206,7 @@
       whyCard3Source: 'NBER · 2025',
       approachLabel: 'A NOSSA ABORDAGEM',
       approachTitle: '<span class="approach-title-line">Compreender o sistema. </span><span class="approach-title-line">Construir para <span class="grad"><em>evoluir</em></span>.</span>',
+      approachSub: 'Na Vouga, system-first significa compreender o sistema<br>antes de introduzir software, automação ou IA.<span class="sub-motto">Compreender. Simplificar. Construir. Medir. Evoluir.</span>',
       approachPhase1Title: 'COMPREENDER',
       approachP1Item1: 'PESSOAS',
       approachP1Item2: 'PROCESSOS',
@@ -446,6 +447,7 @@
       whyCard3Source: 'NBER · 2025',
       approachLabel: 'OUR APPROACH',
       approachTitle: '<span class="approach-title-line">Understand the system. </span><span class="approach-title-line">Build what <span class="grad"><em>evolves</em></span>.</span>',
+      approachSub: 'At Vouga, a system-first approach means understanding the system<br>before introducing software, automation or AI.<span class="sub-motto">Understand. Simplify. Build. Measure. Evolve.</span>',
       approachPhase1Title: 'UNDERSTAND',
       approachP1Item1: 'PEOPLE',
       approachP1Item2: 'PROCESSES',
@@ -768,133 +770,151 @@
 
   /* ===== hero: sparse ASCII contours aligned to the desktop image ===== */
   (function initHeroAsciiOverlay(){
-    var canvas = document.querySelector('[data-hero-ascii]');
-    if (!canvas) return;
+    var canvases = Array.prototype.slice.call(document.querySelectorAll('[data-hero-ascii]'));
+    if (!canvases.length) return;
 
-    var ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    canvases.forEach(function(canvas){
+      var ctx = canvas.getContext('2d');
+      if (!ctx) return;
 
-    var mobileMedia = window.matchMedia('(max-width: 820px)');
-    var source = new Image();
-    var cells = [];
-    var palette = '.:+*%V#A@';
-    var mutators = '.:%#@&V+=*A';
-    var timer = 0;
-    var visible = true;
+      var mobileMedia = window.matchMedia('(max-width: 820px)');
+      var source = new Image();
+      var cells = [];
+      var palette = '.:+*%V#A@';
+      var mutators = '.:%#@&V+=*A';
+      var timer = 0;
+      var visible = true;
 
-    function clamp(value, min, max){ return Math.max(min, Math.min(max, value)); }
-    function luminance(r, g, b){ return .2126 * r + .7152 * g + .0722 * b; }
-    function hash(x, y){
-      var value = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
-      return value - Math.floor(value);
-    }
-    function pixel(data, width, height, x, y){
-      x = clamp(Math.round(x), 0, width - 1);
-      y = clamp(Math.round(y), 0, height - 1);
-      var index = (y * width + x) * 4;
-      return [data[index], data[index + 1], data[index + 2], data[index + 3]];
-    }
-    function draw(){
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-      ctx.font = '700 12px "SFMono-Regular", Consolas, "Liberation Mono", monospace';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#fff';
-      for (var i = 0; i < cells.length; i += 1){
-        var cell = cells[i];
-        ctx.fillText(cell.char, cell.x, cell.y);
+      function clamp(value, min, max){ return Math.max(min, Math.min(max, value)); }
+      function luminance(r, g, b){ return .2126 * r + .7152 * g + .0722 * b; }
+      function hash(x, y){
+        var value = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+        return value - Math.floor(value);
       }
-    }
-    function build(){
-      var width = source.naturalWidth;
-      var height = source.naturalHeight;
-      if (!width || !height) return;
-
-      canvas.width = width;
-      canvas.height = height;
-      var sample = document.createElement('canvas');
-      sample.width = width;
-      sample.height = height;
-      var sampleCtx = sample.getContext('2d', { willReadFrequently:true });
-      sampleCtx.drawImage(source, 0, 0, width, height);
-      var data = sampleCtx.getImageData(0, 0, width, height).data;
-      var mobile = mobileMedia.matches;
-      var stepX = mobile ? 10 : 9;
-      var stepY = mobile ? 14 : 13;
-      cells = [];
-
-      for (var y = Math.floor(stepY / 2); y < height; y += stepY){
-        for (var x = Math.floor(stepX / 2); x < width; x += stepX){
-          var center = pixel(data, width, height, x, y);
-          if (center[3] < 28) continue;
-
-          var left = pixel(data, width, height, x - stepX, y);
-          var right = pixel(data, width, height, x + stepX, y);
-          var up = pixel(data, width, height, x, y - stepY);
-          var down = pixel(data, width, height, x, y + stepY);
-          var horizontal = Math.abs(luminance(left[0], left[1], left[2]) - luminance(right[0], right[1], right[2]));
-          var vertical = Math.abs(luminance(up[0], up[1], up[2]) - luminance(down[0], down[1], down[2]));
-          var alphaEdge = Math.max(
-            Math.abs(center[3] - left[3]),
-            Math.abs(center[3] - right[3]),
-            Math.abs(center[3] - up[3]),
-            Math.abs(center[3] - down[3])
-          );
-          var detail = Math.sqrt(horizontal * horizontal + vertical * vertical) + alphaEdge * .42;
-          if (detail < (mobile ? 30 : 28)) continue;
-
-          var density = mobile
-            ? clamp((detail - 28) / 110, .08, .55)
-            : clamp((detail - 25) / 102, .1, .65);
-          if (hash(x, y) > density) continue;
-
-          var strength = clamp((detail - 20) / 110, 0, 1);
-          var shade = clamp(Math.round(strength * (palette.length - 1)), 0, palette.length - 1);
-          cells.push({
-            x:x,
-            y:y,
-            char:palette.charAt(shade)
-          });
+      function pixel(data, width, height, x, y){
+        x = clamp(Math.round(x), 0, width - 1);
+        y = clamp(Math.round(y), 0, height - 1);
+        var index = (y * width + x) * 4;
+        return [data[index], data[index + 1], data[index + 2], data[index + 3]];
+      }
+      function draw(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        var fontSize = parseInt(canvas.getAttribute('data-font-size'), 10) || 12;
+        ctx.font = '700 ' + fontSize + 'px "SFMono-Regular", Consolas, "Liberation Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        var defaultColor = canvas.getAttribute('data-ascii-color') || '#fff';
+        for (var i = 0; i < cells.length; i += 1){
+          var cell = cells[i];
+          ctx.fillStyle = cell.color || defaultColor;
+          ctx.fillText(cell.char, cell.x, cell.y);
         }
       }
-      draw();
-    }
-    function mutate(){
-      if (document.hidden || !visible || !cells.length) return;
-      var changes = Math.max(12, Math.floor(cells.length * .045));
-      for (var i = 0; i < changes; i += 1){
-        var cell = cells[Math.floor(Math.random() * cells.length)];
-        cell.char = mutators.charAt(Math.floor(Math.random() * mutators.length));
-      }
-      draw();
-    }
+      function build(){
+        var width = source.naturalWidth;
+        var height = source.naturalHeight;
+        if (!width || !height) return;
 
-    function loadSource(){
-      var nextSource = mobileMedia.matches ? canvas.getAttribute('data-mobile-src') : canvas.getAttribute('data-src');
-      if (nextSource && source.getAttribute('data-current-src') !== nextSource){
-        source.setAttribute('data-current-src', nextSource);
-        source.src = nextSource;
-      }
-    }
-    source.onload = function(){
-      build();
-      if (!reducedMotion && !timer) timer = window.setInterval(mutate, 150);
-    };
-    loadSource();
-    if (mobileMedia.addEventListener) mobileMedia.addEventListener('change', loadSource);
-    else if (mobileMedia.addListener) mobileMedia.addListener(loadSource);
+        canvas.width = width;
+        canvas.height = height;
+        var sample = document.createElement('canvas');
+        sample.width = width;
+        sample.height = height;
+        var sampleCtx = sample.getContext('2d', { willReadFrequently:true });
+        sampleCtx.drawImage(source, 0, 0, width, height);
+        var data = sampleCtx.getImageData(0, 0, width, height).data;
+        var mobile = mobileMedia.matches;
+        var fontSize = parseInt(canvas.getAttribute('data-font-size'), 10) || 12;
+        var scaleFactor = fontSize / 12;
+        var stepMult = parseFloat(canvas.getAttribute('data-step-mult')) || 1;
+        var stepX = Math.max(12, Math.round((mobile ? 10 : 9) * scaleFactor * stepMult));
+        var stepY = Math.max(14, Math.round((mobile ? 14 : 13) * scaleFactor * stepMult));
+        var firstThird = canvas.hasAttribute('data-first-third-only') || canvas.hasAttribute('data-first-third');
+        var maxAllowedX = firstThird ? width * 0.38 : width;
+        var minDetail = canvas.hasAttribute('data-min-detail') ? parseFloat(canvas.getAttribute('data-min-detail')) : (mobile ? 30 : 28);
+        var forceDense = canvas.hasAttribute('data-force-dense');
+        var pastelAccent = canvas.getAttribute('data-pastel-accent') || canvas.getAttribute('data-accent-color');
+        var defaultColor = canvas.getAttribute('data-ascii-color') || '#fff';
+        cells = [];
 
-    if ('IntersectionObserver' in window){
-      new IntersectionObserver(function(entries){
-        visible = entries[0] ? entries[0].isIntersecting : true;
-      }, { threshold:0 }).observe(canvas);
-    }
-    window.addEventListener('pagehide', function(){
-      if (timer) window.clearInterval(timer);
-      if (mobileMedia.removeEventListener) mobileMedia.removeEventListener('change', loadSource);
-      else if (mobileMedia.removeListener) mobileMedia.removeListener(loadSource);
+        for (var y = Math.floor(stepY / 2); y < height; y += stepY){
+          for (var x = Math.floor(stepX / 2); x < maxAllowedX; x += stepX){
+            var center = pixel(data, width, height, x, y);
+            if (center[3] < 28) continue;
+
+            var left = pixel(data, width, height, x - stepX, y);
+            var right = pixel(data, width, height, x + stepX, y);
+            var up = pixel(data, width, height, x, y - stepY);
+            var down = pixel(data, width, height, x, y + stepY);
+            var horizontal = Math.abs(luminance(left[0], left[1], left[2]) - luminance(right[0], right[1], right[2]));
+            var vertical = Math.abs(luminance(up[0], up[1], up[2]) - luminance(down[0], down[1], down[2]));
+            var alphaEdge = Math.max(
+              Math.abs(center[3] - left[3]),
+              Math.abs(center[3] - right[3]),
+              Math.abs(center[3] - up[3]),
+              Math.abs(center[3] - down[3])
+            );
+            var detail = Math.sqrt(horizontal * horizontal + vertical * vertical) + alphaEdge * .42;
+            if (detail < minDetail) continue;
+
+            var density = forceDense ? 0.95 : (mobile
+              ? clamp((detail - 28) / 110, .08, .55)
+              : clamp((detail - 25) / 102, .1, .65));
+            if (!forceDense && hash(x, y) > density) continue;
+
+            var strength = clamp((detail - 10) / 110, 0, 1);
+            var shade = clamp(Math.round(strength * (palette.length - 1)), 0, palette.length - 1);
+            var isAccent = pastelAccent && (hash(x * 3.1, y * 7.7) < 0.38);
+            cells.push({
+              x:x,
+              y:y,
+              char:palette.charAt(shade),
+              color:isAccent ? pastelAccent : defaultColor
+            });
+          }
+        }
+        draw();
+      }
+      function mutate(){
+        if (document.hidden || !visible || !cells.length) return;
+        var changes = Math.max(12, Math.floor(cells.length * .045));
+        var pastelAccent = canvas.getAttribute('data-pastel-accent') || canvas.getAttribute('data-accent-color');
+        var defaultColor = canvas.getAttribute('data-ascii-color') || '#fff';
+        for (var i = 0; i < changes; i += 1){
+          var cell = cells[Math.floor(Math.random() * cells.length)];
+          cell.char = mutators.charAt(Math.floor(Math.random() * mutators.length));
+          if (pastelAccent) {
+            cell.color = (Math.random() < 0.38) ? pastelAccent : defaultColor;
+          }
+        }
+        draw();
+      }
+
+      function loadSource(){
+        var nextSource = mobileMedia.matches ? (canvas.getAttribute('data-mobile-src') || canvas.getAttribute('data-src')) : canvas.getAttribute('data-src');
+        if (nextSource && source.getAttribute('data-current-src') !== nextSource){
+          source.setAttribute('data-current-src', nextSource);
+          source.src = nextSource;
+        }
+      }
+      source.onload = function(){
+        build();
+        if (!reducedMotion && !timer) timer = window.setInterval(mutate, 150);
+      };
+      loadSource();
+      if (mobileMedia.addEventListener) mobileMedia.addEventListener('change', loadSource);
+      else if (mobileMedia.addListener) mobileMedia.addListener(loadSource);
+
+      if ('IntersectionObserver' in window){
+        new IntersectionObserver(function(entries){
+          visible = entries[0] ? entries[0].isIntersecting : true;
+        }, { threshold:0 }).observe(canvas);
+      }
+      window.addEventListener('pagehide', function(){
+        if (timer) window.clearInterval(timer);
+      });
     });
   })();
 
@@ -1904,8 +1924,9 @@
       currentAngle += rotationSpeed;
 
       var isMobile = window.innerWidth <= 640;
-      var Rx = isMobile ? 138 : 420;
-      var Rz = isMobile ? 105 : 250;
+      var mobileRadius = Math.max(82, Math.min(108, window.innerWidth * 0.27));
+      var Rx = isMobile ? mobileRadius : 420;
+      var Rz = isMobile ? 82 : 250;
 
       cards.forEach(function(card, i){
         var cardAngle = currentAngle + (i * 2 * Math.PI / count);
@@ -1916,15 +1937,15 @@
 
         var x = sin * Rx;
         var z = (cos - 1) * Rz; // 0 at front, -2*Rz at back
-        var rotY = -sin * (isMobile ? 18 : 26);
-        var scale = 0.7 + 0.3 * normCos;
-        var opacity = 0.25 + 0.75 * normCos;
+        var rotY = -sin * (isMobile ? 12 : 26);
+        var scale = (isMobile ? 0.76 : 0.7) + (isMobile ? 0.24 : 0.3) * normCos;
+        var opacity = (isMobile ? 0.4 : 0.25) + (isMobile ? 0.6 : 0.75) * normCos;
         var brightness = 0.45 + 0.55 * normCos;
         var zIndex = Math.round((cos + 1) * 500);
 
         card.style.transform = 'translate3d(' + x.toFixed(2) + 'px, 0, ' + z.toFixed(2) + 'px) rotateY(' + rotY.toFixed(2) + 'deg) scale(' + scale.toFixed(3) + ')';
         card.style.opacity = opacity.toFixed(3);
-        card.style.filter = 'brightness(' + brightness.toFixed(2) + ')';
+        card.style.filter = isMobile ? 'none' : 'brightness(' + brightness.toFixed(2) + ')';
         card.style.zIndex = zIndex.toString();
         card.style.pointerEvents = 'none';
       });
