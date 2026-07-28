@@ -179,7 +179,7 @@
       talkToUs: 'Falar connosco',
       heroTitle: '<span class="hero-line"><span class="grad">Systems thinking</span> for</span><br><span class="hero-line"><em>business growth</em></span>',
       heroSub: 'Adotamos uma abordagem System-first para identificar onde o software, a automação e a IA podem gerar maior impacto operacional.',
-      heroSubMobile: 'Adotamos uma abordagem System-first para identificar<br>onde o software, a automação e a IA<br>podem gerar maior impacto operacional.',
+      heroSubMobile: 'Adotamos uma abordagem System-first para identificar onde o software, a automação e a IA podem gerar maior impacto operacional.',
       heroDiagnose: 'Explorar uma oportunidade <span class="arrow">→</span>',
       heroPillars: 'A nossa abordagem',
       navMethod: 'método',
@@ -206,7 +206,7 @@
       whyCard3Source: 'NBER · 2025',
       approachLabel: 'A NOSSA ABORDAGEM',
       approachTitle: '<span class="approach-title-line">Compreender o sistema. </span><span class="approach-title-line">Construir para <span class="grad"><em>evoluir</em></span>.</span>',
-      approachSub: 'Na Vouga, system-first significa compreender o sistema<br>antes de introduzir software, automação ou IA.<span class="sub-motto">Compreender. Simplificar. Construir. Medir. Evoluir.</span>',
+      approachSub: 'Na Vouga, system-first significa compreender o sistema <br>antes de introduzir software, automação ou IA.<span class="sub-motto">Compreender. Simplificar. Construir. Medir. Evoluir.</span>',
       approachPhase1Title: 'COMPREENDER',
       approachP1Item1: 'PESSOAS',
       approachP1Item2: 'PROCESSOS',
@@ -297,7 +297,7 @@
       step3Title: '<span>Parceiro</span><span>Operacional</span>',
       step3Copy: 'Melhoramos o que está em produção e avançamos para o próximo problema.',
       useCasesLabel: 'TRABALHOS',
-      useCasesTitle: 'Construídos à volta de problemas reais.',
+      useCasesTitle: 'Construídos à volta de <br class="br-mobile">problemas reais.',
       useCasesIntro: 'Sistemas e produtos selecionados que desenhámos<br>ou construímos em operações, conhecimento e IA.',
       useCasesNavLabel: 'Navegação dos casos de uso',
       useCasesPrev: 'Caso anterior',
@@ -363,7 +363,7 @@
       aboutLabel: 'SOBRE',
       aboutTitle: 'De uma região industrial. <span class="about-title-mobile-break">Para o seu <span class="grad"><em>próximo capítulo</em></span>.</span>',
       aboutBody: 'Nascidos entre os rios Douro e Vouga, crescemos rodeados de fábricas, produtores e empresas industriais que moldaram a região. Hoje, trabalhamos ao seu lado para modernizar operações através de pensamento sistémico, software e IA.',
-      aboutTagline: 'ajudando a próxima geração da indústria a crescer sobre fundações mais sólidas.',
+      aboutTagline: 'A ajudar a próxima geração da indústria a crescer sobre fundações mais sólidas.',
       indTextile: 'Têxtil',
       indFootwear: 'Calçado',
       indMetalworking: 'Metalomecânica',
@@ -447,7 +447,7 @@
       whyCard3Source: 'NBER · 2025',
       approachLabel: 'OUR APPROACH',
       approachTitle: '<span class="approach-title-line">Understand the system. </span><span class="approach-title-line">Build what <span class="grad"><em>evolves</em></span>.</span>',
-      approachSub: 'At Vouga, a system-first approach means understanding the system<br>before introducing software, automation or AI.<span class="sub-motto">Understand. Simplify. Build. Measure. Evolve.</span>',
+      approachSub: 'At Vouga, a system-first approach means understanding the system <br>before introducing software, automation or AI.<span class="sub-motto">Understand. Simplify. Build. Measure. Evolve.</span>',
       approachPhase1Title: 'UNDERSTAND',
       approachP1Item1: 'PEOPLE',
       approachP1Item2: 'PROCESSES',
@@ -538,7 +538,7 @@
       step3Copy: 'We improve what is live and move to the next problem.',
       useCasesLabel: 'WORK',
       useCasesTitle: 'Built around real problems.',
-      useCasesIntro: 'Selected systems and products we have<br>designed or built across operations, knowledge and AI.',
+      useCasesIntro: 'Selected systems and products we have<br>designed or built across operations, <br class="br-mobile">knowledge and AI.',
       useCasesNavLabel: 'Selected work navigation',
       useCasesPrev: 'Previous case',
       useCasesNext: 'Next case',
@@ -678,6 +678,7 @@
     options.forEach(function(option){
       var active = option.getAttribute('data-lang-option') === lang;
       option.classList.toggle('is-active', active);
+      option.classList.toggle('active', active);
       option.setAttribute('aria-hidden', active ? 'false' : 'true');
     });
     langToggle.setAttribute('aria-label', lang === 'pt' ? 'Switch to English' : 'Mudar para português');

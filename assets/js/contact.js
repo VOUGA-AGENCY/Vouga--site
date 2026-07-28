@@ -131,7 +131,9 @@
       if (copy[key]) el.textContent = copy[key];
     });
     document.querySelectorAll('[data-lang-option]').forEach(function(el){
-      el.classList.toggle('is-active', el.getAttribute('data-lang-option') === lang);
+      var active = el.getAttribute('data-lang-option') === lang;
+      el.classList.toggle('is-active', active);
+      el.classList.toggle('active', active);
     });
     var placeholders = lang === 'pt' ? {
       contactName:'Pedro Santos',
