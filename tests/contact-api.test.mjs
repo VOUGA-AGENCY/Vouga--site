@@ -7,13 +7,15 @@ const originalApiKey = process.env.RESEND_API_KEY;
 const originalFrom = process.env.CONTACT_FROM_EMAIL;
 const originalTo = process.env.CONTACT_TO_EMAIL;
 
-function request(body) {
+let requestSequence = 0;
+
+function request(body, ip = `203.0.113.${++requestSequence}`) {
   return new Request('https://www.vouga-agency.pt/api/contact', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'User-Agent': 'Vouga contact test',
-      'X-Forwarded-For': '203.0.113.10'
+      'X-Forwarded-For': ip
     },
     body: JSON.stringify(body)
   });
@@ -172,4 +174,20 @@ test('returns unavailable when Resend rejects delivery', async () => {
 
   assert.equal(response.status, 503);
   assert.equal(body.code, 'service_unavailable');
+});
+
+test('rate limits repeated submissions from the same IP', async () => {
+  globalThis.fetch = async () => Response.json({ id: 'email_test_123' });
+  const ip = '198.51.100.50';
+
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const response = await contactHandler.fetch(request(validPayload(), ip));
+    assert.equal(response.status, 201);
+  }
+
+  const response = await contactHandler.fetch(request(validPayload(), ip));
+  const body = await response.json();
+  assert.equal(response.status, 429);
+  assert.equal(body.code, 'rate_limited');
+  assert.ok(Number(response.headers.get('retry-after')) > 0);
 });

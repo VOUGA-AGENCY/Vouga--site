@@ -1,0 +1,8 @@
+docs/
+_headers
+tests/
+src/
+.env.example
+README.md
+.DS_Store
+assets/.DS_Store

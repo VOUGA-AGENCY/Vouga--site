@@ -2,8 +2,11 @@ import { randomUUID } from 'node:crypto';
 import { parsePhoneNumberFromString } from 'libphonenumber-js/max';
 
 const MAX_BODY_BYTES = 16_000;
+const RATE_LIMIT_MAX_REQUESTS = 5;
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const RESEND_ENDPOINT = 'https://api.resend.com/emails';
+const rateLimits = new Map();
 
 function json(body, status = 200, headers = {}) {
   return Response.json(body, {
@@ -34,6 +37,43 @@ function escapeHtml(value) {
 
 function invalid(field, code) {
   return json({ ok: false, field, code }, 422);
+}
+
+function clientIp(request) {
+  const forwarded = request.headers.get('x-forwarded-for');
+  return cleanSingleLine(
+    request.headers.get('cf-connecting-ip') ||
+    request.headers.get('x-real-ip') ||
+    (forwarded && forwarded.split(',')[0]) ||
+    'unknown'
+  );
+}
+
+function enforceRateLimit(request) {
+  const now = Date.now();
+  const key = clientIp(request);
+  let entry = rateLimits.get(key);
+
+  if (!entry || now >= entry.resetAt) {
+    entry = { count: 0, resetAt: now + RATE_LIMIT_WINDOW_MS };
+  }
+
+  entry.count += 1;
+  rateLimits.set(key, entry);
+
+  if (rateLimits.size > 10_000) {
+    for (const [ip, value] of rateLimits) {
+      if (now >= value.resetAt) rateLimits.delete(ip);
+    }
+  }
+
+  if (entry.count <= RATE_LIMIT_MAX_REQUESTS) return null;
+
+  return json(
+    { ok: false, code: 'rate_limited' },
+    429,
+    { 'Retry-After': String(Math.max(1, Math.ceil((entry.resetAt - now) / 1000))) }
+  );
 }
 
 function validatePhone(raw) {
@@ -122,6 +162,9 @@ export default {
     if (request.method !== 'POST') {
       return json({ ok: false, code: 'method_not_allowed' }, 405, { Allow: 'POST' });
     }
+
+    const rateLimitResponse = enforceRateLimit(request);
+    if (rateLimitResponse) return rateLimitResponse;
 
     const requestOrigin = new URL(request.url).origin;
     const origin = request.headers.get('origin');
