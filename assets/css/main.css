@@ -3223,12 +3223,12 @@ body.home .footer .f-social a:hover{border-color:#fff;color:#fff}
   body.home .logo{font-size:16.8px;gap:7.2px}
   body.home .logo-mark{width:27.2px;height:27.2px}
 
-  body.home .hero{min-height:100svh}
+  body.home .hero{min-height:760px !important}
   body.home .hero-inner{
-    min-height:100svh;
-    padding:clamp(120px,17.6vh,164px) 17.6px 57.6px;
+    min-height:760px !important;
+    padding:108px 17.6px 72px;
   }
-  body.home .hero-content{max-width:448px;transform:translateY(19.2px)}
+  body.home .hero-content{max-width:448px;transform:none;margin:0 auto}
   body.home .hero-content .h-hero{font-size:clamp(40px,10.5vw,54px)}
   body.home .hero-sub{
     width:84%;
@@ -3396,11 +3396,10 @@ body.home .footer .f-social a:hover{border-color:#fff;color:#fff}
     justify-self: auto !important;
   }
 
-  /* Mobile Hero Contact Button positioned at bottom-right of hero */
   body.home .mobile-hero-contact {
     display: inline-flex !important;
     position: absolute;
-    bottom: calc(54px + 1.5cm);
+    bottom: 24px !important;
     right: 18px;
     z-index: 10;
     width: 175px;
