@@ -32,10 +32,11 @@
       principlesLabel:'Como trabalhamos',
       formLabel:'Formulário de contacto',
       signatureLabel:'Desenvolvido no Porto.',
-      navApproach:'A Nossa Abordagem',
-      navIntervene:'Modelo Operacional',
-      navWork:'Trabalho',
-      navAbout:'Sobre',
+      navApproach:'approach',
+      navIntervene:'model',
+      navWork:'work',
+      navAbout:'about',
+      navContact:'contactar',
       talkToUs:'Falar connosco',
       title:'Vamos conversar.',
       lead:'Traz-nos o problema, sistema ou decisão que precisa de avançar. Respondemos com contexto, não com uma proposta automática.',
@@ -77,10 +78,11 @@
       principlesLabel:'How we work',
       formLabel:'Contact form',
       signatureLabel:'Engineered in Porto.',
-      navApproach:'Our Approach',
-      navIntervene:'Operating Model',
-      navWork:'Work',
-      navAbout:'About',
+      navApproach:'approach',
+      navIntervene:'model',
+      navWork:'work',
+      navAbout:'about',
+      navContact:'contact',
       talkToUs:'Contact us',
       title:'Start a conversation.',
       lead:'Bring us the problem, system or decision that needs to move. We reply with context, not an automatic proposal.',
@@ -175,6 +177,20 @@
   applyCopy();
 
   (function initNav(){
+    var siteNav = document.querySelector('.nav');
+    var navTicking = false;
+    function syncScrolledNav(){
+      if (siteNav) siteNav.classList.toggle('is-scrolled', window.scrollY > 24);
+    }
+    syncScrolledNav();
+    window.addEventListener('scroll', function(){
+      if (navTicking) return;
+      navTicking = true;
+      requestAnimationFrame(function(){
+        syncScrolledNav();
+        navTicking = false;
+      });
+    }, { passive:true });
     var langToggle = document.getElementById('langToggle');
     if (langToggle) {
       langToggle.addEventListener('click', function(){

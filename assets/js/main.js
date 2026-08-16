@@ -131,6 +131,7 @@
   function setMenu(open){
     if (!navBurger || !mobileMenu) return;
     mobileMenu.classList.toggle('open', open);
+    document.body.classList.toggle('mobile-menu-open', open);
     navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
     navBurger.setAttribute('aria-label', currentLang === 'en'
       ? (open ? 'close menu' : 'open menu')
@@ -170,9 +171,9 @@
     pt: {
       logoHome: 'Vouga Agency, início',
       mainNav: 'navegação principal',
-      navContact: 'contacto',
-      navApproach: 'A Nossa Abordagem',
-      navIntervene: 'Modelo Operacional',
+      navContact: 'contactar',
+      navApproach: 'Abordagem',
+      navIntervene: 'Modelo',
       navWork: 'Trabalho',
       navCapabilities: 'Capabilities',
       navServices: 'Serviços',
@@ -182,6 +183,8 @@
       heroSubMobile: 'Adotamos uma abordagem System-first para identificar onde o software, a automação e a IA podem gerar maior impacto operacional.',
       heroDiagnose: 'Explorar uma oportunidade <span class="arrow">→</span>',
       heroPillars: 'A nossa abordagem',
+      heroApproachCta: '&gt;&nbsp; a nossa&nbsp;<strong>abordagem</strong>',
+      heroModelCta: '&gt;&nbsp; <strong>o que fazemos</strong>',
       navMethod: 'método',
       capabilitiesLabel: 'fundações',
       pillarsKicker: 'fundações',
@@ -298,7 +301,7 @@
       step3Copy: 'Melhoramos o que está em produção e avançamos para o próximo problema.',
       useCasesLabel: 'TRABALHOS',
       useCasesTitle: 'Construídos à volta de <br class="br-mobile">problemas reais.',
-      useCasesIntro: 'Sistemas e produtos selecionados que desenhámos<br>ou construímos em operações, conhecimento e IA.',
+      useCasesIntro: 'Vê como transformamos problemas operacionais em vantagem mensurável.',
       useCasesNavLabel: 'Navegação dos casos de uso',
       useCasesPrev: 'Caso anterior',
       useCasesNext: 'Caso seguinte',
@@ -308,36 +311,42 @@
       useCaseInterventionLabel: 'Intervenção',
       useCaseResultLabel: 'Resultado esperado',
       useCaseTargetLabel: 'Impacto-alvo',
-      useCase1CardLabel: 'Saber mais sobre Sistema de Conhecimento Estratégico',
-      useCase1Tags: 'Sistemas de Conhecimento · Projeto Interno',
-      useCase1Title: 'Strategic Knowledge System',
-      useCase1Problem: 'O contexto para a tomada de decisão estava disperso por documentos, iniciativas e equipas.',
-      useCase1Intervention: 'Um sistema de conhecimento estruturado com pesquisa contextual e respostas fundamentadas em fontes.',
-      useCase1Result: 'Acesso mais rápido a contexto pronto para a tomada de decisão.',
-      useCase2CardLabel: 'Saber mais sobre Produto de Otimização Energética',
-      useCase2Tags: 'Dados & Produto · Projeto de Cliente',
-      useCase2Title: 'Energy Optimisation Product',
-      useCase2Problem: 'Padrões de consumo e anomalias eram difíceis de compreender ao nível do lar.',
-      useCase2Intervention: 'Um produto mobile combinando monitorização, deteção de anomalias e recomendações personalizadas.',
-      useCase2Result: 'Decisões de eficiência energética mais claras e rápidas.',
-      useCase3CardLabel: 'Saber mais sobre Portal do Colaborador com Copiloto',
-      useCase3Tags: 'Operações Internas · Conceito',
-      useCase3Title: 'Employee Portal with Copilot',
-      useCase3Problem: 'Os colaboradores alternam entre diferentes sistemas para aceder a dados, políticas e benefícios.',
-      useCase3Intervention: 'Um portal unificado para colaboradores com pesquisa contextual baseada em informação interna.',
-      useCase3Result: 'Mais autonomia e menos pedidos repetitivos.',
-      useCase4CardLabel: 'Saber mais sobre Agente de Voz com Memória Contextual',
-      useCase4Tags: 'IA Conversacional · Projeto de Cliente',
-      useCase4Title: 'Voice Agent with Contextual Memory',
-      useCase4Problem: 'O contexto perdia-se entre conversas, gerando preparação repetida e acompanhamento inconsistente.',
-      useCase4Intervention: 'Um agente de voz com memória longitudinal e preparação automática para interações futuras.',
-      useCase4Result: 'Conversas mais contínuas e acompanhamento mais consistente.',
-      useCase5CardLabel: 'Saber mais sobre Workspace de Avaliação de Desempenho',
-      useCase5Tags: 'People Operations · Conceito',
-      useCase5Title: 'Performance Review Workspace',
-      useCase5Problem: 'As avaliações de desempenho dependem de informação fragmentada e processos inconsistentes.',
-      useCase5Intervention: 'Um espaço de trabalho partilhado que estrutura evidências, feedback e decisões de avaliação.',
-      useCase5Result: 'Avaliações mais consistentes e transparentes.',
+      useCase1CardLabel: 'Saber mais sobre Industrial Operations Hub',
+      useCase1Tags: 'Sistemas Operacionais · Dashboards · Integrações',
+      useCase1Title: 'Industrial Operations Hub',
+      useCase1Problem: 'A informação de produção, manutenção e qualidade estava fragmentada entre ferramentas e folhas de cálculo.',
+      useCase1Intervention: 'Um hub operacional integrado que liga workflows, dashboards e os principais sistemas industriais.',
+      useCase1Result: 'Visibilidade operacional partilhada, coordenação mais rápida e menos passagens manuais.',
+      useCase2CardLabel: 'Saber mais sobre Production & Energy Intelligence',
+      useCase2Tags: 'Dashboards · Dados · Apoio à Decisão',
+      useCase2Title: 'Production & Energy Intelligence',
+      useCase2Problem: 'O desempenho da produção, as paragens e o consumo de energia eram analisados separadamente e demasiado tarde.',
+      useCase2Intervention: 'Uma camada de apoio à decisão que combina dados industriais, dashboards em tempo real, tendências e alertas operacionais.',
+      useCase2Result: 'Decisões mais rápidas sobre eficiência, utilização de energia e capacidade produtiva.',
+      useCase3CardLabel: 'Saber mais sobre Technical Knowledge System',
+      useCase3Tags: 'Sistemas de Conhecimento · Pesquisa Interna · Copilotos',
+      useCase3Title: 'Technical Knowledge System',
+      useCase3Problem: 'Manuais, procedimentos e conhecimento de resolução de problemas estavam dispersos e dependentes de poucos especialistas.',
+      useCase3Intervention: 'Um sistema de conhecimento técnico fundamentado em fontes, com pesquisa interna e um copiloto contextual.',
+      useCase3Result: 'Resolução mais rápida de problemas, execução mais consistente e preservação do conhecimento técnico.',
+      useCase4CardLabel: 'Saber mais sobre Commercial & Quotation System',
+      useCase4Tags: 'CRM · Automação · IA',
+      useCase4Title: 'Commercial & Quotation System',
+      useCase4Problem: 'Pedidos, preços e informação técnica circulavam manualmente entre as equipas comercial e de engenharia, atrasando propostas.',
+      useCase4Intervention: 'Um workflow integrado de CRM que usa automação e IA para reunir contexto, preparar propostas e coordenar aprovações.',
+      useCase4Result: 'Respostas mais rápidas, maior rastreabilidade e propostas mais consistentes.',
+      useCase5CardLabel: 'Saber mais sobre Strategic Knowledge System',
+      useCase5Tags: 'Sistemas de Conhecimento · Pesquisa Interna',
+      useCase5Title: 'Strategic Knowledge System',
+      useCase5Problem: 'O contexto estratégico estava disperso por documentos, iniciativas e equipas.',
+      useCase5Intervention: 'Um sistema de conhecimento estruturado com pesquisa interna contextual e respostas fundamentadas em fontes.',
+      useCase5Result: 'Acesso mais rápido a contexto fiável e pronto para apoiar decisões em toda a organização.',
+      useCase6CardLabel: 'Saber mais sobre Voice Agent with Contextual Memory',
+      useCase6Tags: 'Copilotos · Agentes de IA',
+      useCase6Title: 'Voice Agent with Contextual Memory',
+      useCase6Problem: 'O contexto perdia-se entre conversas, gerando preparação repetida e acompanhamento inconsistente.',
+      useCase6Intervention: 'Um agente de voz com memória longitudinal, pesquisa contextual e preparação automática para interações futuras.',
+      useCase6Result: 'Conversas mais contínuas, menos trabalho repetitivo e acompanhamento mais consistente.',
       capabilitiesLabel: 'CAPACIDADES',
       capabilitiesTitle: 'O que trazemos a cada intervenção.',
       capabilitiesIntro: 'Um conjunto modular de capacidades desenhado para resolver problemas operacionais e evoluir em camadas.',
@@ -392,7 +401,7 @@
       systemsStep3Copy: 'A tecnologia segue o problema, nunca o contrário.<br><br>Escolhemos a abordagem mais adequada ao negócio, seja IA, software, automação ou redesenho de processos.',
       systemsStep4Title: 'Evoluir Continuamente',
       systemsStep4Copy: 'A entrega é o início, não o fim.<br><br>Cada implementação cria a base para a próxima melhoria.',
-      contactLabel: 'contacto',
+      contactLabel: 'contactar',
       contactTitle: 'Vamos <em>falar</em>',
       contactCopy: 'Manda-nos o processo mais lento, confuso ou dependente de uma só pessoa. Dizemos-te se vale a pena, mesmo que a resposta seja não.',
       contactDirect: 'Escreve-nos com uma frase sobre o sistema, processo ou ideia que queres desbloquear. Respondemos com o próximo passo mais honesto.',
@@ -412,8 +421,8 @@
       logoHome: 'Vouga Agency, home',
       mainNav: 'main navigation',
       navContact: 'contact',
-      navApproach: 'Our Approach',
-      navIntervene: 'Operating Model',
+      navApproach: 'Approach',
+      navIntervene: 'Model',
       navWork: 'Work',
       navCapabilities: 'Capabilities',
       navServices: 'Services',
@@ -423,6 +432,8 @@
       heroSubMobile: 'We take a system-first approach to identify<br>where software, automation and AI<br>can create real operational leverage.',
       heroDiagnose: 'Explore an opportunity <span class="arrow">→</span>',
       heroPillars: 'Our Approach',
+      heroApproachCta: '&gt;&nbsp; our&nbsp;<strong>approach</strong>',
+      heroModelCta: '&gt;&nbsp; <strong>what we do</strong>',
       navMethod: 'method',
       capabilitiesLabel: 'foundations',
       pillarsKicker: 'foundations',
@@ -538,7 +549,7 @@
       step3Copy: 'We improve what is live and move to the next problem.',
       useCasesLabel: 'WORK',
       useCasesTitle: 'Built around real problems.',
-      useCasesIntro: 'Selected systems and products we have<br>designed or built across operations, <br class="br-mobile">knowledge and AI.',
+      useCasesIntro: 'See how we turn operational problems into systems that create measurable leverage.',
       useCasesNavLabel: 'Selected work navigation',
       useCasesPrev: 'Previous case',
       useCasesNext: 'Next case',
@@ -548,36 +559,42 @@
       useCaseInterventionLabel: 'Intervention',
       useCaseResultLabel: 'Expected result',
       useCaseTargetLabel: 'Target impact',
-      useCase1CardLabel: 'Learn more about Strategic Knowledge System',
-      useCase1Tags: 'Knowledge Systems · Internal Project',
-      useCase1Title: 'Strategic Knowledge System',
-      useCase1Problem: 'Decision-making context was spread across documents, initiatives and teams.',
-      useCase1Intervention: 'A structured knowledge system with contextual retrieval and source-backed answers.',
-      useCase1Result: 'Faster access to decision-ready context.',
-      useCase2CardLabel: 'Learn more about Energy Optimisation Product',
-      useCase2Tags: 'Data & Product · Client Project',
-      useCase2Title: 'Energy Optimisation Product',
-      useCase2Problem: 'Consumption patterns and anomalies were difficult to understand at household level.',
-      useCase2Intervention: 'A mobile product combining monitoring, anomaly detection and personalised recommendations.',
-      useCase2Result: 'Clearer and faster energy-efficiency decisions.',
-      useCase3CardLabel: 'Learn more about Employee Portal with Copilot',
-      useCase3Tags: 'Internal Operations · Concept',
-      useCase3Title: 'Employee Portal with Copilot',
-      useCase3Problem: 'Employees move between different systems to access data, policies and benefits.',
-      useCase3Intervention: 'A unified employee portal with contextual search grounded in internal information.',
-      useCase3Result: 'More autonomy and fewer repetitive requests.',
-      useCase4CardLabel: 'Learn more about Voice Agent with Contextual Memory',
-      useCase4Tags: 'Conversational AI · Client Project',
-      useCase4Title: 'Voice Agent with Contextual Memory',
-      useCase4Problem: 'Context was lost between conversations, creating repeated preparation and inconsistent follow-up.',
-      useCase4Intervention: 'A voice agent with longitudinal memory and automatic preparation for future interactions.',
-      useCase4Result: 'More continuous conversations and more consistent follow-up.',
-      useCase5CardLabel: 'Learn more about Performance Review Workspace',
-      useCase5Tags: 'People Operations · Concept',
-      useCase5Title: 'Performance Review Workspace',
-      useCase5Problem: 'Performance reviews depend on fragmented information and inconsistent processes.',
-      useCase5Intervention: 'A shared workspace that structures evidence, feedback and review decisions.',
-      useCase5Result: 'More consistent and transparent evaluations.',
+      useCase1CardLabel: 'Learn more about Industrial Operations Hub',
+      useCase1Tags: 'Operational Systems · Dashboards · Integrations',
+      useCase1Title: 'Industrial Operations Hub',
+      useCase1Problem: 'Production, maintenance and quality information was fragmented across tools and spreadsheets.',
+      useCase1Intervention: 'An integrated operations hub connecting workflows, dashboards and core industrial systems.',
+      useCase1Result: 'Shared operational visibility, faster coordination and fewer manual handoffs.',
+      useCase2CardLabel: 'Learn more about Production & Energy Intelligence',
+      useCase2Tags: 'Dashboards · Data · Decision Support',
+      useCase2Title: 'Production & Energy Intelligence',
+      useCase2Problem: 'Production performance, downtime and energy consumption were reviewed separately and too late.',
+      useCase2Intervention: 'A decision-support layer combining industrial data, live dashboards, trends and operational alerts.',
+      useCase2Result: 'Faster decisions on efficiency, energy use and production capacity.',
+      useCase3CardLabel: 'Learn more about Technical Knowledge System',
+      useCase3Tags: 'Knowledge Systems · Internal Search · Copilots',
+      useCase3Title: 'Technical Knowledge System',
+      useCase3Problem: 'Manuals, procedures and troubleshooting know-how were dispersed and dependent on a few experts.',
+      useCase3Intervention: 'A source-backed technical knowledge system with internal search and a contextual copilot.',
+      useCase3Result: 'Faster issue resolution, more consistent execution and preserved technical know-how.',
+      useCase4CardLabel: 'Learn more about Commercial & Quotation System',
+      useCase4Tags: 'CRM · Automation · AI',
+      useCase4Title: 'Commercial & Quotation System',
+      useCase4Problem: 'Enquiries, pricing and technical inputs moved manually between sales and engineering, slowing quotations.',
+      useCase4Intervention: 'An integrated CRM workflow using automation and AI to assemble context, draft quotations and coordinate approval.',
+      useCase4Result: 'Faster response times, stronger traceability and more consistent quotations.',
+      useCase5CardLabel: 'Learn more about Strategic Knowledge System',
+      useCase5Tags: 'Knowledge Systems · Internal Search',
+      useCase5Title: 'Strategic Knowledge System',
+      useCase5Problem: 'Strategic context was spread across documents, initiatives and teams.',
+      useCase5Intervention: 'A structured knowledge system with contextual internal search and source-backed answers.',
+      useCase5Result: 'Faster access to reliable, decision-ready context across the organisation.',
+      useCase6CardLabel: 'Learn more about Voice Agent with Contextual Memory',
+      useCase6Tags: 'Copilots · AI Agents',
+      useCase6Title: 'Voice Agent with Contextual Memory',
+      useCase6Problem: 'Context was lost between conversations, creating repeated preparation and inconsistent follow-up.',
+      useCase6Intervention: 'A voice agent with longitudinal memory, contextual retrieval and automatic preparation for future interactions.',
+      useCase6Result: 'More continuous conversations, less repetitive work and more consistent follow-up.',
       capabilitiesLabel: 'CAPABILITIES',
       capabilitiesTitle: 'What we bring to each intervention.',
       capabilitiesIntro: 'A modular set of capabilities designed to solve operational problems and evolve in layers.',
@@ -781,8 +798,8 @@
       var mobileMedia = window.matchMedia('(max-width: 820px)');
       var source = new Image();
       var cells = [];
-      var palette = '.:+*%V#A@';
-      var mutators = '.:%#@&V+=*A';
+      var palette = canvas.getAttribute('data-palette') || '.:+*%V#A@';
+      var mutators = canvas.getAttribute('data-mutators') || '.:%#@&V+=*A';
       var timer = 0;
       var visible = true;
 
@@ -836,6 +853,10 @@
         var maxAllowedX = firstThird ? width * 0.38 : width;
         var minDetail = canvas.hasAttribute('data-min-detail') ? parseFloat(canvas.getAttribute('data-min-detail')) : (mobile ? 30 : 28);
         var forceDense = canvas.hasAttribute('data-force-dense');
+        var brightOnly = canvas.hasAttribute('data-bright-only');
+        var brightThreshold = parseFloat(canvas.getAttribute('data-bright-threshold')) || 155;
+        var includeOrange = canvas.hasAttribute('data-include-orange');
+        var horizontalSpread = parseInt(canvas.getAttribute('data-horizontal-spread'), 10) || 0;
         var pastelAccent = canvas.getAttribute('data-pastel-accent') || canvas.getAttribute('data-accent-color');
         var defaultColor = canvas.getAttribute('data-ascii-color') || '#fff';
         cells = [];
@@ -844,6 +865,37 @@
           for (var x = Math.floor(stepX / 2); x < maxAllowedX; x += stepX){
             var center = pixel(data, width, height, x, y);
             if (center[3] < 28) continue;
+
+            if (brightOnly) {
+              var brightness = luminance(center[0], center[1], center[2]);
+              var orangeTarget = includeOrange && center[0] > 145 && center[0] > center[1] * 1.35 && center[1] > 28 && center[2] < 135;
+              var directTarget = brightness >= brightThreshold || orangeTarget;
+              var spreadTarget = false;
+              if (!directTarget && horizontalSpread) {
+                for (var spread = 1; spread <= horizontalSpread; spread += 1) {
+                  var spreadLeft = pixel(data, width, height, x - stepX * spread, y);
+                  var spreadRight = pixel(data, width, height, x + stepX * spread, y);
+                  var spreadPixels = [spreadLeft, spreadRight];
+                  for (var side = 0; side < spreadPixels.length; side += 1) {
+                    var neighbour = spreadPixels[side];
+                    var neighbourBright = luminance(neighbour[0], neighbour[1], neighbour[2]) >= brightThreshold;
+                    var neighbourOrange = includeOrange && neighbour[0] > 145 && neighbour[0] > neighbour[1] * 1.35 && neighbour[1] > 28 && neighbour[2] < 135;
+                    if (neighbourBright || neighbourOrange) spreadTarget = true;
+                  }
+                  if (spreadTarget) break;
+                }
+              }
+              if (!directTarget && !spreadTarget) continue;
+              var brightDensity = spreadTarget ? .42 : (orangeTarget ? .82 : clamp((brightness - brightThreshold) / 42, .58, .98));
+              if (hash(x * 1.37, y * 2.11) > brightDensity) continue;
+              cells.push({
+                x:x,
+                y:y,
+                char:palette.charAt(Math.floor(hash(x * 3.17, y * 4.73) * palette.length)),
+                color:defaultColor
+              });
+              continue;
+            }
 
             var left = pixel(data, width, height, x - stepX, y);
             var right = pixel(data, width, height, x + stepX, y);
@@ -877,10 +929,12 @@
           }
         }
         draw();
+        canvas.classList.add('is-ready');
       }
       function mutate(){
         if (document.hidden || !visible || !cells.length) return;
-        var changes = Math.max(12, Math.floor(cells.length * .045));
+        var mutationRate = parseFloat(canvas.getAttribute('data-mutation-rate')) || .045;
+        var changes = Math.max(12, Math.floor(cells.length * mutationRate));
         var pastelAccent = canvas.getAttribute('data-pastel-accent') || canvas.getAttribute('data-accent-color');
         var defaultColor = canvas.getAttribute('data-ascii-color') || '#fff';
         for (var i = 0; i < changes; i += 1){
@@ -902,7 +956,8 @@
       }
       source.onload = function(){
         build();
-        if (!reducedMotion && !timer) timer = window.setInterval(mutate, 150);
+        var mutationInterval = parseInt(canvas.getAttribute('data-mutation-ms'), 10) || 150;
+        if (!reducedMotion && !timer) timer = window.setInterval(mutate, mutationInterval);
       };
       loadSource();
       if (mobileMedia.addEventListener) mobileMedia.addEventListener('change', loadSource);
@@ -955,6 +1010,11 @@
 
   /* ===== scroll progress ===== */
   var progress = document.getElementById('progress');
+  var siteNav = document.querySelector('.nav');
+  function syncScrolledNav(){
+    if (siteNav) siteNav.classList.toggle('is-scrolled', window.scrollY > 24);
+  }
+  syncScrolledNav();
   var ticking = false;
   window.addEventListener('scroll', function(){
     if (ticking) return;
@@ -962,6 +1022,7 @@
     requestAnimationFrame(function(){
       var h = document.documentElement.scrollHeight - window.innerHeight;
       progress.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+      syncScrolledNav();
       ticking = false;
     });
   }, { passive: true });

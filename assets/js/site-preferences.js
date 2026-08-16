@@ -1,5 +1,13 @@
 (function(){
   'use strict';
+  /* Keep the public contact URL pretty while ensuring that a hard refresh of
+     /#contact always resolves to the dedicated contact document. This script
+     runs in <head>, so the homepage never flashes before the redirect. */
+  if ((window.location.pathname === '/' || /\/index\.html$/i.test(window.location.pathname || '')) &&
+      window.location.hash === '#contact') {
+    window.location.replace('contact.html');
+    return;
+  }
   var root = document.documentElement;
   root.setAttribute('data-theme', 'dark');
   try {

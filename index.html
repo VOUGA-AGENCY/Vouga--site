@@ -38,9 +38,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="assets/js/site-preferences.js?v=20260714-w029-dark-only-v1"></script>
+<script src="assets/js/site-preferences.js?v=20260810-contact-route-v2"></script>
 <style>@media (max-width:820px){.nav .nav-links,.nav .nav-right>.btn-primary,.nav .nav-right>a[href^="mailto"]{display:none!important}.nav .nav-burger{display:inline-flex!important}}</style>
-<link rel="stylesheet" href="assets/css/main.css?v=20260728-v110">
+<link rel="stylesheet" href="assets/css/main.css?v=20260816-hero-buildings-v19">
 <noscript><style>.site-preloader{display:none!important}body.is-preloading{overflow:auto!important}</style></noscript>
 <script type="application/ld+json">
 {
@@ -139,7 +139,10 @@
         <span class="sep">/</span>
         <span data-lang-option="en" class="active">EN</span>
       </button>
-      <a class="btn btn-primary" href="#contact" data-route-page="contact.html" data-i18n="talkToUs">Contact us</a>
+      <a class="btn btn-primary home-contact-cta" href="#contact" data-route-page="contact.html" aria-label="Contact us">
+        <img src="assets/img/contactsymbol.png" alt="" aria-hidden="true">
+        <span data-i18n="navContact">contact</span>
+      </a>
       <button class="nav-burger" id="navBurger" type="button" aria-label="open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
@@ -163,22 +166,26 @@
 
   <!-- hero -->
   <section class="hero">
-    <picture class="hero-bg" aria-hidden="true">
-      <img src="assets/img/vouga_site_re.png" alt="">
-      <canvas class="hero-ascii-overlay" data-hero-ascii data-src="assets/img/heroascii.png" data-mobile-src="assets/img/heroascii-mobile.png"></canvas>
-    </picture>
+    <img class="hero-bg" src="assets/img/hero1.png" alt="" aria-hidden="true">
+    <canvas class="hero-image-ascii" data-hero-ascii data-src="assets/img/hero1.png" data-mobile-src="assets/img/HEROMOVEL.png" data-palette="#VA" data-mutators="#VA" data-font-size="14" data-step-mult=".7" data-bright-only data-bright-threshold="155" data-include-orange data-horizontal-spread="2" data-mutation-rate=".18" data-mutation-ms="80" data-ascii-color="#ffffff" aria-hidden="true"></canvas>
     <div class="hero-inner wrap">
       <div class="hero-content">
-        <h1 class="h-hero reveal" data-i18n-html="heroTitle"><span class="hero-line"><span class="grad">Systems thinking</span> for</span><br><span class="hero-line"><em>business growth</em></span></h1>
+        <h1 class="h-hero reveal" data-i18n-html="heroTitle"><span class="hero-line">Systems thinking for</span><br><span class="hero-line"><em>business growth</em></span></h1>
         <p class="hero-sub body-text reveal d1">
           <span class="hero-sub-desktop" data-i18n-html="heroSub">We take a system-first approach to identify where software, automation and AI can create real operational leverage.</span>
           <span class="hero-sub-mobile" data-i18n-html="heroSubMobile">We take a system-first approach to identify<br>where software, automation and AI<br>can create real operational leverage.</span>
         </p>
         <div class="hero-ctas reveal d2">
-          <a class="btn btn-primary" href="#contact" data-route-page="contact.html" data-i18n-html="heroDiagnose">Explore an opportunity <span class="arrow">→</span></a>
-          <a class="btn btn-ghost" href="#our-approach" data-i18n="heroPillars">Our Approach</a>
+          <a class="hero-approach-cta" href="#our-approach" data-i18n-html="heroApproachCta">&gt;&nbsp; our&nbsp;<strong>approach</strong></a>
+          <a class="hero-model-cta" href="#how-we-intervene">
+            <span data-i18n-html="heroModelCta">&gt;&nbsp; <strong>what we do</strong></span>
+          </a>
         </div>
       </div>
+      <a class="btn btn-primary home-contact-cta mobile-hero-contact" href="#contact" data-route-page="contact.html" aria-label="Contact us">
+        <img src="assets/img/contactsymbol.png" alt="" aria-hidden="true">
+        <span data-i18n="navContact">contact</span>
+      </a>
     </div>
   </section>
 
@@ -390,6 +397,7 @@
           <!-- STEP 01: VISIBILITY -->
           <article class="intervene-card">
             <div class="intervene-circle-wrap">
+              <canvas class="intervene-ascii-canvas" data-hero-ascii data-src="assets/img/visibilidade.png" data-palette="%#VA1" data-mutators="%#VA1" data-font-size="42" data-step-mult=".8" data-min-detail="7" data-force-dense aria-label="Visibility visual rendered as animated ASCII using the number 1"></canvas>
               <img src="assets/img/visibilidade.png" alt="Visibilidade" class="intervene-circle-img" loading="lazy">
             </div>
             <h3 class="intervene-col-title" data-i18n-html="interveneCol1Title"><span class="num">01/</span>visibilidade</h3>
@@ -415,6 +423,7 @@
           <!-- STEP 02: OPERATIONS -->
           <article class="intervene-card">
             <div class="intervene-circle-wrap">
+              <canvas class="intervene-ascii-canvas" data-hero-ascii data-src="assets/img/operação.png" data-palette="%#VA2" data-mutators="%#VA2" data-font-size="42" data-step-mult=".8" data-min-detail="7" data-force-dense aria-label="Operations visual rendered as animated ASCII using the number 2"></canvas>
               <img src="assets/img/operação.png" alt="Operação" class="intervene-circle-img" loading="lazy">
             </div>
             <h3 class="intervene-col-title" data-i18n-html="interveneCol2Title"><span class="num">02/</span>operação</h3>
@@ -440,6 +449,7 @@
           <!-- STEP 03: INTELLIGENCE -->
           <article class="intervene-card">
             <div class="intervene-circle-wrap">
+              <canvas class="intervene-ascii-canvas" data-hero-ascii data-src="assets/img/inteligência.png" data-palette="%#VA3" data-mutators="%#VA3" data-font-size="42" data-step-mult=".8" data-min-detail="7" data-force-dense aria-label="Intelligence visual rendered as animated ASCII using the number 3"></canvas>
               <img src="assets/img/inteligência.png" alt="Inteligência" class="intervene-circle-img" loading="lazy">
             </div>
             <h3 class="intervene-col-title" data-i18n-html="interveneCol3Title"><span class="num">03/</span>inteligência</h3>
@@ -473,7 +483,7 @@
       <header class="use-cases-head-centered reveal">
         <span class="use-cases-label" data-i18n="useCasesLabel">WORK</span>
         <h2 id="workTitle" data-i18n-html="useCasesTitle">Built around real problems.</h2>
-        <p data-i18n-html="useCasesIntro">Selected systems and products we have<br>designed or built across operations, <br class="br-mobile">knowledge and AI.</p>
+        <p data-i18n-html="useCasesIntro">See how we turn operational problems into systems that create measurable leverage.</p>
       </header>
     </div>
 
@@ -490,24 +500,24 @@
         <div class="use-case-card-inner">
           <div class="use-case-face use-case-front">
             <div class="use-case-media" aria-hidden="true">
-              <img src="assets/img/OS.png" alt="" loading="lazy">
+              <img src="assets/img/1.png" alt="" loading="lazy">
             </div>
             <span class="use-case-index">01</span>
             <div class="use-case-summary">
-              <span class="use-case-tags" data-i18n="useCase1Tags">Knowledge Systems · Internal Project</span>
-              <p class="use-case-back-title" data-i18n="useCase1Title">Strategic Knowledge System</p>
+              <span class="use-case-tags" data-i18n="useCase1Tags">Operational Systems · Dashboards · Integrations</span>
+              <p class="use-case-back-title" data-i18n="useCase1Title">Industrial Operations Hub</p>
               <span class="use-case-learn" data-i18n="useCaseLearnMore">Learn more</span>
             </div>
           </div>
           <div class="use-case-face use-case-back">
             <span class="use-case-index">01</span>
             <div class="use-case-content">
-              <span class="use-case-tags" data-i18n="useCase1Tags">Knowledge Systems · Internal Project</span>
-              <h3 data-i18n="useCase1Title">Strategic Knowledge System</h3>
+              <span class="use-case-tags" data-i18n="useCase1Tags">Operational Systems · Dashboards · Integrations</span>
+              <h3 data-i18n="useCase1Title">Industrial Operations Hub</h3>
               <dl class="use-case-details">
-                <div><dt data-i18n="useCaseProblemLabel">Problem</dt><dd data-i18n="useCase1Problem">Decision-making context was spread across documents, initiatives and teams.</dd></div>
-                <div><dt data-i18n="useCaseInterventionLabel">Intervention</dt><dd data-i18n="useCase1Intervention">A structured knowledge system with contextual retrieval and source-backed answers.</dd></div>
-                <div><dt data-i18n="useCaseResultLabel">Result</dt><dd data-i18n="useCase1Result">Faster access to decision-ready context.</dd></div>
+                <div><dt data-i18n="useCaseProblemLabel">Problem</dt><dd data-i18n="useCase1Problem">Production, maintenance and quality information was fragmented across tools and spreadsheets.</dd></div>
+                <div><dt data-i18n="useCaseInterventionLabel">Intervention</dt><dd data-i18n="useCase1Intervention">An integrated operations hub connecting workflows, dashboards and core industrial systems.</dd></div>
+                <div><dt data-i18n="useCaseResultLabel">Result</dt><dd data-i18n="useCase1Result">Shared operational visibility, faster coordination and fewer manual handoffs.</dd></div>
               </dl>
             </div>
           </div>
@@ -519,24 +529,24 @@
         <div class="use-case-card-inner">
           <div class="use-case-face use-case-front">
             <div class="use-case-media" aria-hidden="true">
-              <img src="assets/img/kynex.png" alt="" loading="lazy">
+              <img src="assets/img/2.png" alt="" loading="lazy">
             </div>
             <span class="use-case-index">02</span>
             <div class="use-case-summary">
-              <span class="use-case-tags" data-i18n="useCase2Tags">Data & Product · Client Project</span>
-              <p class="use-case-back-title" data-i18n="useCase2Title">Energy Optimisation Product</p>
+              <span class="use-case-tags" data-i18n="useCase2Tags">Dashboards · Data · Decision Support</span>
+              <p class="use-case-back-title" data-i18n="useCase2Title">Production &amp; Energy Intelligence</p>
               <span class="use-case-learn" data-i18n="useCaseLearnMore">Learn more</span>
             </div>
           </div>
           <div class="use-case-face use-case-back">
             <span class="use-case-index">02</span>
             <div class="use-case-content">
-              <span class="use-case-tags" data-i18n="useCase2Tags">Data & Product · Client Project</span>
-              <h3 data-i18n="useCase2Title">Energy Optimisation Product</h3>
+              <span class="use-case-tags" data-i18n="useCase2Tags">Dashboards · Data · Decision Support</span>
+              <h3 data-i18n="useCase2Title">Production &amp; Energy Intelligence</h3>
               <dl class="use-case-details">
-                <div><dt data-i18n="useCaseProblemLabel">Problem</dt><dd data-i18n="useCase2Problem">Consumption patterns and anomalies were difficult to understand at household level.</dd></div>
-                <div><dt data-i18n="useCaseInterventionLabel">Intervention</dt><dd data-i18n="useCase2Intervention">A mobile product combining monitoring, anomaly detection and personalised recommendations.</dd></div>
-                <div><dt data-i18n="useCaseResultLabel">Result</dt><dd data-i18n="useCase2Result">Clearer and faster energy-efficiency decisions.</dd></div>
+                <div><dt data-i18n="useCaseProblemLabel">Problem</dt><dd data-i18n="useCase2Problem">Production performance, downtime and energy consumption were reviewed separately and too late.</dd></div>
+                <div><dt data-i18n="useCaseInterventionLabel">Intervention</dt><dd data-i18n="useCase2Intervention">A decision-support layer combining industrial data, live dashboards, trends and operational alerts.</dd></div>
+                <div><dt data-i18n="useCaseResultLabel">Result</dt><dd data-i18n="useCase2Result">Faster decisions on efficiency, energy use and production capacity.</dd></div>
               </dl>
             </div>
           </div>
@@ -548,24 +558,24 @@
         <div class="use-case-card-inner">
           <div class="use-case-face use-case-front">
             <div class="use-case-media" aria-hidden="true">
-              <img src="assets/img/rag.png" alt="" loading="lazy">
+              <img src="assets/img/3.png" alt="" loading="lazy">
             </div>
             <span class="use-case-index">03</span>
             <div class="use-case-summary">
-              <span class="use-case-tags" data-i18n="useCase3Tags">Internal Operations · Concept</span>
-              <p class="use-case-back-title" data-i18n="useCase3Title">Employee Portal with Copilot</p>
+              <span class="use-case-tags" data-i18n="useCase3Tags">Knowledge Systems · Internal Search · Copilots</span>
+              <p class="use-case-back-title" data-i18n="useCase3Title">Technical Knowledge System</p>
               <span class="use-case-learn" data-i18n="useCaseLearnMore">Learn more</span>
             </div>
           </div>
           <div class="use-case-face use-case-back">
             <span class="use-case-index">03</span>
             <div class="use-case-content">
-              <span class="use-case-tags" data-i18n="useCase3Tags">Internal Operations · Concept</span>
-              <h3 data-i18n="useCase3Title">Employee Portal with Copilot</h3>
+              <span class="use-case-tags" data-i18n="useCase3Tags">Knowledge Systems · Internal Search · Copilots</span>
+              <h3 data-i18n="useCase3Title">Technical Knowledge System</h3>
               <dl class="use-case-details">
-                <div><dt data-i18n="useCaseProblemLabel">Problem</dt><dd data-i18n="useCase3Problem">Employees move between different systems to access data, policies and benefits.</dd></div>
-                <div><dt data-i18n="useCaseInterventionLabel">Intervention</dt><dd data-i18n="useCase3Intervention">A unified employee portal with contextual search grounded in internal information.</dd></div>
-                <div><dt data-i18n="useCaseResultLabel">Expected result</dt><dd data-i18n="useCase3Result">More autonomy and fewer repetitive requests.</dd></div>
+                <div><dt data-i18n="useCaseProblemLabel">Problem</dt><dd data-i18n="useCase3Problem">Manuals, procedures and troubleshooting know-how were dispersed and dependent on a few experts.</dd></div>
+                <div><dt data-i18n="useCaseInterventionLabel">Intervention</dt><dd data-i18n="useCase3Intervention">A source-backed technical knowledge system with internal search and a contextual copilot.</dd></div>
+                <div><dt data-i18n="useCaseResultLabel">Expected result</dt><dd data-i18n="useCase3Result">Faster issue resolution, more consistent execution and preserved technical know-how.</dd></div>
               </dl>
             </div>
           </div>
@@ -577,24 +587,24 @@
         <div class="use-case-card-inner">
           <div class="use-case-face use-case-front">
             <div class="use-case-media" aria-hidden="true">
-              <img src="assets/img/voice.png" alt="" loading="lazy">
+              <img src="assets/img/4.png" alt="" loading="lazy">
             </div>
             <span class="use-case-index">04</span>
             <div class="use-case-summary">
-              <span class="use-case-tags" data-i18n="useCase4Tags">Conversational AI · Client Project</span>
-              <p class="use-case-back-title" data-i18n="useCase4Title">Voice Agent with Contextual Memory</p>
+              <span class="use-case-tags" data-i18n="useCase4Tags">CRM · Automation · AI</span>
+              <p class="use-case-back-title" data-i18n="useCase4Title">Commercial &amp; Quotation System</p>
               <span class="use-case-learn" data-i18n="useCaseLearnMore">Learn more</span>
             </div>
           </div>
           <div class="use-case-face use-case-back">
             <span class="use-case-index">04</span>
             <div class="use-case-content">
-              <span class="use-case-tags" data-i18n="useCase4Tags">Conversational AI · Client Project</span>
-              <h3 data-i18n="useCase4Title">Voice Agent with Contextual Memory</h3>
+              <span class="use-case-tags" data-i18n="useCase4Tags">CRM · Automation · AI</span>
+              <h3 data-i18n="useCase4Title">Commercial &amp; Quotation System</h3>
               <dl class="use-case-details">
-                <div><dt data-i18n="useCaseProblemLabel">Problem</dt><dd data-i18n="useCase4Problem">Context was lost between conversations, creating repeated preparation and inconsistent follow-up.</dd></div>
-                <div><dt data-i18n="useCaseInterventionLabel">Intervention</dt><dd data-i18n="useCase4Intervention">A voice agent with longitudinal memory and automatic preparation for future interactions.</dd></div>
-                <div><dt data-i18n="useCaseResultLabel">Result</dt><dd data-i18n="useCase4Result">More continuous conversations and more consistent follow-up.</dd></div>
+                <div><dt data-i18n="useCaseProblemLabel">Problem</dt><dd data-i18n="useCase4Problem">Enquiries, pricing and technical inputs moved manually between sales and engineering, slowing quotations.</dd></div>
+                <div><dt data-i18n="useCaseInterventionLabel">Intervention</dt><dd data-i18n="useCase4Intervention">An integrated CRM workflow using automation and AI to assemble context, draft quotations and coordinate approval.</dd></div>
+                <div><dt data-i18n="useCaseResultLabel">Result</dt><dd data-i18n="useCase4Result">Faster response times, stronger traceability and more consistent quotations.</dd></div>
               </dl>
             </div>
           </div>
@@ -606,29 +616,59 @@
         <div class="use-case-card-inner">
           <div class="use-case-face use-case-front">
             <div class="use-case-media" aria-hidden="true">
-              <img src="assets/img/avaliacao-interna.png" alt="" loading="lazy">
+              <img src="assets/img/5.png" alt="" loading="lazy">
             </div>
             <span class="use-case-index">05</span>
             <div class="use-case-summary">
-              <span class="use-case-tags" data-i18n="useCase5Tags">People Operations · Concept</span>
-              <p class="use-case-back-title" data-i18n="useCase5Title">Performance Review Workspace</p>
+              <span class="use-case-tags" data-i18n="useCase5Tags">Knowledge Systems · Internal Search</span>
+              <p class="use-case-back-title" data-i18n="useCase5Title">Strategic Knowledge System</p>
               <span class="use-case-learn" data-i18n="useCaseLearnMore">Learn more</span>
             </div>
           </div>
           <div class="use-case-face use-case-back">
             <span class="use-case-index">05</span>
             <div class="use-case-content">
-              <span class="use-case-tags" data-i18n="useCase5Tags">People Operations · Concept</span>
-              <h3 data-i18n="useCase5Title">Performance Review Workspace</h3>
+              <span class="use-case-tags" data-i18n="useCase5Tags">Knowledge Systems · Internal Search</span>
+              <h3 data-i18n="useCase5Title">Strategic Knowledge System</h3>
               <dl class="use-case-details">
-                <div><dt data-i18n="useCaseProblemLabel">Problem</dt><dd data-i18n="useCase5Problem">Performance reviews depend on fragmented information and inconsistent processes.</dd></div>
-                <div><dt data-i18n="useCaseInterventionLabel">Intervention</dt><dd data-i18n="useCase5Intervention">A shared workspace that structures evidence, feedback and review decisions.</dd></div>
-                <div><dt data-i18n="useCaseResultLabel">Expected result</dt><dd data-i18n="useCase5Result">More consistent and transparent evaluations.</dd></div>
+                <div><dt data-i18n="useCaseProblemLabel">Problem</dt><dd data-i18n="useCase5Problem">Strategic context was spread across documents, initiatives and teams.</dd></div>
+                <div><dt data-i18n="useCaseInterventionLabel">Intervention</dt><dd data-i18n="useCase5Intervention">A structured knowledge system with contextual internal search and source-backed answers.</dd></div>
+                <div><dt data-i18n="useCaseResultLabel">Expected result</dt><dd data-i18n="useCase5Result">Faster access to reliable, decision-ready context across the organisation.</dd></div>
               </dl>
             </div>
           </div>
         </div>
       </article>
+
+      <!-- Card 06 -->
+      <article class="use-case-card has-image" role="button" tabindex="0" aria-pressed="false" data-use-case-card data-i18n-aria="useCase6CardLabel">
+        <div class="use-case-card-inner">
+          <div class="use-case-face use-case-front">
+            <div class="use-case-media" aria-hidden="true">
+              <img src="assets/img/6.png" alt="" loading="lazy">
+            </div>
+            <span class="use-case-index">06</span>
+            <div class="use-case-summary">
+              <span class="use-case-tags" data-i18n="useCase6Tags">Copilots · AI Agents</span>
+              <p class="use-case-back-title" data-i18n="useCase6Title">Voice Agent with Contextual Memory</p>
+              <span class="use-case-learn" data-i18n="useCaseLearnMore">Learn more</span>
+            </div>
+          </div>
+          <div class="use-case-face use-case-back">
+            <span class="use-case-index">06</span>
+            <div class="use-case-content">
+              <span class="use-case-tags" data-i18n="useCase6Tags">Copilots · AI Agents</span>
+              <h3 data-i18n="useCase6Title">Voice Agent with Contextual Memory</h3>
+              <dl class="use-case-details">
+                <div><dt data-i18n="useCaseProblemLabel">Problem</dt><dd data-i18n="useCase6Problem">Context was lost between conversations, creating repeated preparation and inconsistent follow-up.</dd></div>
+                <div><dt data-i18n="useCaseInterventionLabel">Intervention</dt><dd data-i18n="useCase6Intervention">A voice agent with longitudinal memory, contextual retrieval and automatic preparation for future interactions.</dd></div>
+                <div><dt data-i18n="useCaseResultLabel">Result</dt><dd data-i18n="useCase6Result">More continuous conversations, less repetitive work and more consistent follow-up.</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
   </section>
 
   <!-- Organic Wavy Section Transition -->
@@ -706,22 +746,23 @@
       <div class="footer-brand">
         <pre class="ascii-logo" id="asciiLogo" aria-hidden="true"></pre>
         <span class="footer-word">Vouga <em>Agency</em></span>
-        <p class="footer-tag" data-i18n="footerTag">understand, before building.</p>
       </div>
       <div class="footer-cols">
         <div class="f-col footer-contact">
           <h2 class="footer-talk" data-i18n-html="footerTalkTitle">Let’s <em>talk</em></h2>
-          <p><a href="mailto:hello@vouga-agency.pt">hello@vouga-agency.pt</a><br><a href="tel:+351936369610">+351 936 369 610</a></p>
+          <p><a href="mailto:hello@vouga-agency.pt">hello@vouga-agency.pt</a></p>
         </div>
         <div class="f-col footer-socials">
           <div class="f-social">
             <a href="https://www.linkedin.com/company/vougagency/" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.1h4.56V23H.22V8.1zM8.34 8.1h4.37v2.03h.06c.61-1.15 2.1-2.37 4.32-2.37 4.62 0 5.47 3.04 5.47 7v8.24h-4.55v-7.3c0-1.74-.03-3.98-2.42-3.98-2.43 0-2.8 1.9-2.8 3.86V23H8.34V8.1z"/></svg>
             </a>
+            <a href="https://x.com/VougaAgency" aria-label="X"><span aria-hidden="true">X</span></a>
           </div>
         </div>
       </div>
     </div>
+    <p class="footer-motto" data-i18n="footerTag">understand, before building.</p>
     <div class="footer-bottom">
       <span data-i18n="rights">Copyright © 2026 Vouga Agency</span>
       <span class="site-signature">Engineered in Porto.</span>
@@ -730,7 +771,7 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20260728-v92" defer></script>
+<script src="assets/js/main.js?v=20260816-hero-buildings-v5" defer></script>
 <script src="assets/js/gradual-blur.js?v=20260728-4" defer></script>
 </body>
 </html>
