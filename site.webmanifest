@@ -1,7 +1,7 @@
 {
   "name": "Vouga Agency",
   "short_name": "Vouga",
-  "description": "Systems-led transformation, product strategy, software, applied AI and execution for complex business problems.",
+  "description": "Stronger industrial operations through systems thinking, software, automation and applied AI.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -15,5 +15,5 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["business", "productivity", "developer"]
+  "categories": ["business", "productivity"]
 }

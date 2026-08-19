@@ -1,68 +1,72 @@
 # Vouga Agency Website
 
-Website for Vouga Agency, a systems-led transformation and product company. The public pages are static; `/api/contact` is a Vercel Function that delivers enquiries by email through Resend.
+Public website for Vouga Agency, focused on stronger industrial operations through systems thinking, software, automation and applied AI.
 
-## Structure
+The public pages are static. The contact form posts to a same-origin Vercel Function, which validates the submission and delivers it through Resend.
+
+## Current structure
 
 ```text
 index.html
 contact.html
-intelligence.html
-foundations.html
-academy.html
 privacy.html
 terms.html
 assets/
   css/main.css
-  css/pillar-pages.css
-  js/main.js
-  js/pillar-pages.js
-  js/contact.js
+  fonts/
   img/
+  js/
+    main.js
+    gradual-blur.js
+    site-preferences.js
+    contact.js
+    contact-phone.js
+    site-back.js
 api/
   contact.mjs
+src/
+  contact-phone.js
+tests/
+  contact-api.test.mjs
 docs/
   site-documentation.md
-_headers
-llms.txt
-robots.txt
-sitemap.xml
-site.webmanifest
+  deploy-checklist.md
+  contact-backend.md
 ```
 
-## Local Development
+The homepage contains the hero, Why Now, Our Approach, Operating Model, Selected Work application examples, About and footer. Selected Work is hash-routed inside the homepage.
 
-For page-only work, run a static server from the project root:
+## Local development
+
+For page-only work:
 
 ```sh
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Then open:
+Open `http://127.0.0.1:8000/`.
 
-```text
-http://127.0.0.1:8000/
+For the complete contact flow, configure the variables described in `docs/contact-backend.md` and run `vercel dev`.
+
+## Commands
+
+```sh
+bun test
+bun run build:phone
 ```
 
-If port `8000` is busy, use another port.
-
-For the complete contact flow, configure the environment variables from `.env.example` and run the project with `vercel dev`. See `docs/contact-backend.md`.
+Run `build:phone` only after changing `src/contact-phone.js`. The committed `assets/js/contact-phone.js` must match the generated bundle.
 
 ## Deployment
 
-The committed browser assets need no production build step. Deploy the repository root to Vercel so the contact Function in `/api` is available. Run `bun run build:phone` only after changing `src/contact-phone.js`.
+Deploy the repository root to Vercel so `/api/contact` remains available. Before production:
 
-Recommended production checks:
+- Run the automated tests.
+- Check the homepage and all Selected Work routes in Portuguese and English.
+- Test desktop, mobile and reduced-motion behaviour.
+- Submit a real contact request in staging.
+- Validate metadata, structured data, social previews, sitemap and legal pages.
+- Confirm the production domain and Resend sender configuration.
+- Review the Privacy Policy and Terms whenever the contact flow, providers or legal entity details change.
 
-- Confirm the production domain is `https://www.vouga-agency.pt/` or update canonical URLs, `sitemap.xml`, `robots.txt`, `llms.txt` and documentation.
-- Confirm `_headers` is supported by the host or translate those headers to the host's config format.
-- Confirm `privacy.html` and `terms.html` match the final legal entity and have legal review.
-- Test social previews with LinkedIn, X/Twitter and WhatsApp-compatible preview tools.
-- Submit `sitemap.xml` to Google Search Console and Bing Webmaster Tools.
-- Confirm contact flow works on desktop and mobile.
-
-## Important Notes
-
-- `docs/site-documentation.md` is the living source of truth for design, content, SEO, accessibility and technical decisions.
-- Update that document after each meaningful iteration.
-- The contact form requires the Vercel and Resend setup documented in `docs/contact-backend.md`.
+`docs/site-documentation.md` is the source of truth for the current site. Update it after meaningful structural or content changes.

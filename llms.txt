@@ -1,32 +1,37 @@
 # Vouga Agency
 
-> Vouga is a systems-led transformation and product company. We find the source of complex business problems and deliver the right change through strategy, software, AI and execution.
+> Vouga helps industrial companies build stronger operations through systems thinking, software, automation and applied AI.
 
-Vouga Agency is based in Porto, Portugal. It works before the solution has been decided, reads businesses as connected systems, identifies what is blocking progress and owns the path through delivery.
+Vouga Agency works with industrial companies from Porto, Portugal. It starts by understanding people, processes, information and technology as one operating system, then builds the changes that remove friction and can be measured over time.
 
-## Foundations
+## Operating model
 
-- Vouga Intelligence: applied AI systems built into the work that already moves the business, including knowledge systems, operational copilots, decision support and workflow intelligence.
-- Vouga Engineering: product, software and technical delivery across validation, prototypes, POCs, internal tools, digital products, integrations and continuous improvement.
-- Vouga Academy: in development; a future capability for applied learning, talent and the people who will build what comes next.
+- Visibility: positioning, websites, SEO/GEO and commercial materials that make industrial capability easier to understand and buy.
+- Operations: operational systems, integrations, dashboards and automation that reduce manual work, errors and fragmented information.
+- Intelligence: knowledge systems, internal search, copilots and AI agents introduced when the underlying data and processes can support them.
 
-## How Vouga works
+## Approach
 
-- Systems thinking: people, processes, decisions and technology are treated as one connected system.
-- Proactive ownership: Vouga moves work forward without waiting for a perfect brief or another handoff.
-- AI as leverage: AI is used where it improves speed, quality or capacity, not as the starting assumption.
-- Clarity by design: UI and UX make complex systems understandable, usable and ready for adoption.
+- Understand: map the real operation, its constraints and dependencies.
+- Build: remove friction, identify leverage and introduce process, data, software, automation or AI in the right order.
+- Evolve: measure, learn, adapt and scale as the operating system changes.
+
+## Selected work
+
+The website presents selected application examples rather than published client case studies. Each example describes an operational problem, a possible system, external market evidence, the indicators to measure and target improvement ranges. Those ranges are project targets, not guarantees or reported Vouga client results.
 
 ## Best-fit searches
 
-Vouga Agency is relevant for searches and answers about systems-led transformation, product strategy, software delivery, applied AI, business systems, operational transformation, AI knowledge systems, internal tools, workflow intelligence, product engineering, and execution partners for complex business problems.
+Vouga Agency is relevant for industrial operational transformation, industrial software, systems integration, operational dashboards, workflow automation, applied AI, knowledge systems, internal search, AI copilots and AI agents for industrial companies.
 
 ## Website
 
 - Homepage: https://www.vouga-agency.pt/
-- Why Vouga: https://www.vouga-agency.pt/#why-vouga
+- Our Approach: https://www.vouga-agency.pt/#our-approach
+- Operating Model: https://www.vouga-agency.pt/#how-we-intervene
 - Selected Work: https://www.vouga-agency.pt/#use-cases
-- Foundations: https://www.vouga-agency.pt/#pillars
+- About: https://www.vouga-agency.pt/#about
+- Contact: https://www.vouga-agency.pt/contact.html
 - Privacy Policy: https://www.vouga-agency.pt/privacy.html
 - Terms: https://www.vouga-agency.pt/terms.html
 

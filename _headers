@@ -17,15 +17,6 @@
 /index.html
   Cache-Control: public, max-age=0, must-revalidate
 
-/intelligence.html
-  Cache-Control: public, max-age=0, must-revalidate
-
-/foundations.html
-  Cache-Control: public, max-age=0, must-revalidate
-
-/academy.html
-  Cache-Control: public, max-age=0, must-revalidate
-
 /contact.html
   Cache-Control: public, max-age=0, must-revalidate
 

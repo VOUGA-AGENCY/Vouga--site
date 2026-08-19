@@ -1,6 +1,6 @@
 # Contact delivery
 
-Last updated: 2026-07-14
+Last updated: 2026-08-19
 
 The website contact form delivers enquiries by email. It does not use Supabase or any other website contact database.
 
@@ -63,6 +63,7 @@ Responses:
 | `413` | Declared payload is larger than 16 KB |
 | `415` | Content type is not JSON |
 | `422` | Field validation failed; response includes `field` and `code` |
+| `429` | More than five requests from the same client IP within ten minutes |
 | `503` | Resend configuration is missing/invalid or email delivery failed |
 
 All responses use `Cache-Control: no-store`.
@@ -153,6 +154,7 @@ The tests currently cover:
 - Email validation
 - Required and optional fields
 - Honeypot behaviour
+- In-memory IP rate limiting
 - Missing configuration
 - Resend delivery failure
 
@@ -167,9 +169,10 @@ Current controls:
 - JSON-only endpoint
 - 16 KB request limit
 - Hidden honeypot
+- In-memory IP rate limit: five requests per client IP in ten minutes
 - No-store responses
 
-There is currently no CAPTCHA, IP rate limit or durable abuse ledger. Add further controls only if real traffic demonstrates a need. Any new tracking or anti-abuse provider must be reflected in the Privacy Policy.
+There is currently no CAPTCHA or durable abuse ledger. The rate limit is process-local and can reset when a serverless instance is replaced, so it is a lightweight abuse control rather than a durable distributed limit. Any new tracking or anti-abuse provider must be reflected in the Privacy Policy.
 
 ## Data handling
 

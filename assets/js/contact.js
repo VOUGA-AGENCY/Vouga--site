@@ -4,10 +4,6 @@
   var requestedService = '';
   try { requestedService = new URLSearchParams(window.location.search).get('service') || ''; } catch(e) {}
 
-  if (window.history && window.history.replaceState && /\/contact\.html$/i.test(window.location.pathname || '')) {
-    window.history.replaceState(null, '', '/#contact');
-  }
-
   var root = document.documentElement;
   root.setAttribute('data-theme', 'dark');
   try { localStorage.removeItem('vouga-theme'); } catch(e) {}
@@ -22,7 +18,7 @@
   var COPY = {
     pt: {
       documentTitle:'Contactar a Vouga · Vamos conversar',
-      metaDescription:'Fale com a Vouga sobre o sistema, produto, software, IA ou decisão que precisa de avançar.',
+      metaDescription:'Fale com a Vouga sobre operações industriais, software, automação ou IA que precisa de avançar.',
       socialLocale:'pt_PT',
       socialImageAlt:'Identidade visual da Vouga Agency para transformação sistémica, software, IA e execução.',
       logoHome:'Vouga Agency, início',
@@ -68,9 +64,9 @@
     },
     en: {
       documentTitle:'Contact Vouga · Start a conversation',
-      metaDescription:'Start a conversation with Vouga about the business system, product, software or AI work that needs to move.',
+      metaDescription:'Start a conversation with Vouga about industrial operations, software, automation or AI work that needs to move.',
       socialLocale:'en_US',
-      socialImageAlt:'Vouga Agency visual identity for systems-led transformation, software, AI and execution.',
+      socialImageAlt:'Vouga Agency visual identity for industrial operations, software, automation and AI.',
       logoHome:'Vouga Agency, home',
       mainNav:'main navigation',
       mobileNav:'mobile navigation',
