@@ -784,7 +784,7 @@
         problems: ['Desempenho produtivo e energia analisados separadamente.', 'Indicadores disponíveis apenas depois do problema.', 'Perdas difíceis de localizar e explicar.', 'Decisões baseadas em médias e relatórios tardios.'],
         systemTitle: 'Um sistema que cruza produção, energia e capacidade.',
         systemBody: 'Ligamos os dados operacionais e energéticos para mostrar desempenho por linha, equipamento ou produto e sinalizar anomalias antes de se tornarem custos.',
-        systemFlow: {inputs:['Produção','Energia','Paragens','Capacidade'], core:'Intelligence Layer', outputs:['Alertas','Análise','Decisões']},
+        systemFlow: {inputs:['Produção','Energia','Paragens','Capacidade'], core:'Intelligence Layer', outputs:['Análise','Alertas','Decisão']},
         system: ['Dashboards de produção e energia.', 'Indicadores por linha, equipamento ou produto.', 'Alertas sobre anomalias e desvios.', 'Comparação entre períodos e condições operacionais.', 'Apoio à decisão sobre eficiência e capacidade.'],
         evidence: [
           {stat:'≈40%', copy:'do consumo final mundial de energia pertence à indústria.', source:'IEA · 2025', url:'https://www.iea.org/reports/energy-efficiency-2025/industry'},
@@ -811,7 +811,7 @@
         problems: ['Production performance and energy reviewed separately.', 'Indicators available only after the problem.', 'Losses that are difficult to locate and explain.', 'Decisions based on averages and delayed reports.'],
         systemTitle: 'A system connecting production, energy and capacity.',
         systemBody: 'We connect operational and energy data to show performance by line, equipment or product and flag anomalies before they become costs.',
-        systemFlow: {inputs:['Production','Energy','Downtime','Capacity'], core:'Intelligence Layer', outputs:['Alerts','Analysis','Decisions']},
+        systemFlow: {inputs:['Production','Energy','Downtime','Capacity'], core:'Intelligence Layer', outputs:['Analysis','Alerts','Decision']},
         system: ['Production and energy dashboards.', 'Indicators by line, equipment or product.', 'Anomaly and deviation alerts.', 'Comparison across periods and operating conditions.', 'Decision support for efficiency and capacity.'],
         evidence: [
           {stat:'≈40%', copy:'of global final energy consumption comes from industry.', source:'IEA · 2025', url:'https://www.iea.org/reports/energy-efficiency-2025/industry'},
@@ -1080,35 +1080,68 @@
       list.appendChild(li);
     });
   }
-  function renderWorkFlow(id, flow, mode, labels){
-    var root = document.getElementById(id);
+  var workSchematicObserver = null;
+  function queueWorkSchematicReveal(root){
     if (!root) return;
-    root.textContent = '';
-    if (!flow) { root.hidden = true; return; }
-    root.hidden = false;
-    var rows = [
-      {key:labels.flowSources, values:flow.inputs || []},
-      {key:mode === 'build' ? labels.flowLayer : labels.flowFriction, values:[flow.core], core:true},
-      {key:mode === 'build' ? labels.flowEnables : labels.flowResult, values:flow.outputs || []}
-    ];
-    rows.forEach(function(row){
-      var rowEl = document.createElement('div');
-      rowEl.className = 'work-flow-row' + (row.core ? ' is-core' : '');
-      var key = document.createElement('span');
-      key.className = 'work-flow-key';
-      key.textContent = row.key;
-      var values = document.createElement('div');
-      values.className = 'work-flow-values';
-      row.values.filter(Boolean).forEach(function(value){
-        var item = document.createElement('span');
-        item.className = 'work-flow-value';
-        item.textContent = value;
-        values.appendChild(item);
-      });
-      rowEl.appendChild(key);
-      rowEl.appendChild(values);
-      root.appendChild(rowEl);
+    root.classList.remove('is-visible');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) {
+      root.classList.add('is-visible');
+      return;
+    }
+    requestAnimationFrame(function(){
+      void root.offsetWidth;
+      if (!workSchematicObserver) {
+        workSchematicObserver = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            workSchematicObserver.unobserve(entry.target);
+          });
+        }, {threshold:.28});
+      }
+      workSchematicObserver.unobserve(root);
+      workSchematicObserver.observe(root);
     });
+  }
+  function renderWorkSchematic(problemFlow, systemFlow){
+    var root = document.getElementById('workSystemSchematic');
+    if (!root || !problemFlow || !systemFlow) return;
+    var locale = currentLang === 'pt' ? 'pt-PT' : 'en-US';
+    function editorial(value){
+      return String(value || '').toLocaleUpperCase(locale);
+    }
+    var sources = (problemFlow.inputs || []).slice(0,4);
+    var outputs = (systemFlow.outputs || []).slice(0,3);
+    root.querySelectorAll('[data-schematic-source]').forEach(function(group){
+      var index = Number(group.getAttribute('data-schematic-source'));
+      var value = sources[index] || '';
+      group.style.display = value ? '' : 'none';
+      var text = group.querySelector('text');
+      if (text) text.textContent = editorial(value);
+    });
+    root.querySelectorAll('[data-schematic-output]').forEach(function(group){
+      var index = Number(group.getAttribute('data-schematic-output'));
+      var value = outputs[index] || '';
+      group.style.display = value ? '' : 'none';
+      var text = group.querySelector('text');
+      if (text) text.textContent = editorial(value);
+    });
+    root.querySelectorAll('svg').forEach(function(svg){
+      svg.querySelectorAll('.schematic-input-lines path').forEach(function(path,index){
+        path.style.display = sources[index] ? '' : 'none';
+      });
+      svg.querySelectorAll('.schematic-output-lines path').forEach(function(path,index){
+        path.style.display = outputs[index] ? '' : 'none';
+      });
+    });
+    root.querySelectorAll('[data-schematic-core]').forEach(function(text){
+      text.textContent = editorial(systemFlow.core);
+    });
+    root.setAttribute('aria-label', currentLang === 'pt'
+      ? 'Fontes fragmentadas — ' + sources.join(', ') + ' — ligadas através de ' + systemFlow.core + ' para ' + outputs.join(', ') + '.'
+      : 'Fragmented sources — ' + sources.join(', ') + ' — connected through ' + systemFlow.core + ' to ' + outputs.join(', ') + '.');
+    queueWorkSchematicReveal(root);
   }
   function renderWorkCase(slug){
     var item = WORK_CASES[slug];
@@ -1126,12 +1159,11 @@
     fillText('workProblemLabel', labels.problem);
     fillText('workProblemTitle', copy.problemTitle);
     fillText('workProblemBody', copy.problemBody);
-    renderWorkFlow('workProblemFlow', copy.problemFlow, 'problem', labels);
     fillList('workProblemList', copy.problems);
     fillText('workSystemLabel', labels.system);
     fillText('workSystemTitle', copy.systemTitle);
     fillText('workSystemBody', copy.systemBody);
-    renderWorkFlow('workSystemFlow', copy.systemFlow, 'build', labels);
+    renderWorkSchematic(copy.problemFlow, copy.systemFlow);
     fillList('workSystemList', copy.system);
     fillText('workEvidenceLabel', labels.evidence);
     fillText('workEvidenceTitle', labels.evidenceTitle);

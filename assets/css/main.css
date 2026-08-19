@@ -1,3 +1,11 @@
+@font-face{
+  font-family:'Departure Mono';
+  src:url('../fonts/DepartureMono-Regular.woff2') format('woff2');
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+}
+
 /* ============ tokens ============ */
 :root{
   --bg:#000; --surface:#1d1b16; --text:#ece8de; --text-dim:#a9a496;
@@ -7,6 +15,7 @@
   --accent-secondary:#2f80ed;
   --font-display:'Instrument Serif',Georgia,'Times New Roman',serif;
   --font-mono:ui-monospace,'SF Mono','JetBrains Mono',Menlo,Consolas,monospace;
+  --font-tech:'Departure Mono',var(--font-mono);
   --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   --maxw:1100px; --content:840px;
   --section-gap:clamp(104px,14vw,172px);
@@ -2020,7 +2029,8 @@ body.work-detail-open .footer{margin-top:0}
 .work-detail-story-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:clamp(64px,10vw,150px);
+  column-gap:clamp(64px,10vw,150px);
+  row-gap:0;
 }
 .work-detail-story-grid article{min-width:0}
 .work-detail-label{
@@ -2051,49 +2061,97 @@ body.work-detail-open .footer{margin-top:0}
   font-size:14px;
   line-height:1.62;
 }
-.work-detail-flow{
-  display:grid;
-  gap:14px;
+.work-system-schematic{
+  grid-column:1/-1;
+  position:relative;
   width:100%;
-  min-height:142px;
-  margin:clamp(30px,4vw,44px) 0 8px;
-  padding:4px 0;
+  margin:clamp(42px,5vw,64px) 0 clamp(34px,4vw,52px);
+  overflow:visible;
 }
-.work-flow-row{
-  display:grid;
-  grid-template-columns:76px minmax(0,1fr);
-  gap:18px;
-  align-items:baseline;
+.work-system-schematic svg{
+  display:block;
+  width:100%;
+  height:auto;
+  overflow:visible;
 }
-.work-flow-key{
-  color:rgba(236,232,222,.3);
-  font-family:var(--font-mono);
-  font-size:9px;
-  line-height:1.5;
-  letter-spacing:.13em;
-  text-transform:uppercase;
+.work-system-schematic-mobile{display:none!important}
+.work-system-schematic text{
+  fill:rgba(247,242,232,.88);
+  font-family:var(--font-tech);
+  font-size:16px;
+  font-weight:500;
+  letter-spacing:.08em;
 }
-.work-flow-values{display:flex;flex-wrap:wrap;gap:5px 0;min-width:0}
-.work-flow-value{
-  color:rgba(236,232,222,.58);
-  font-size:12px;
-  line-height:1.5;
-  white-space:nowrap;
+.work-system-schematic line,
+.work-system-schematic path{
+  vector-effect:non-scaling-stroke;
 }
-.work-flow-value + .work-flow-value::before{
-  content:'·';
-  margin:0 9px;
-  color:rgba(236,232,222,.24);
+.schematic-node line{
+  stroke:rgba(236,232,222,.5);
+  stroke-width:1;
 }
-.work-flow-row.is-core .work-flow-value{
-  color:rgba(236,232,222,.9);
-  font-size:14px;
-  font-weight:600;
-  letter-spacing:-.01em;
+.schematic-node--source,
+.schematic-node--output{
+  opacity:1;
+  transition:opacity .32s ease,transform .32s ease;
 }
-.work-detail-flow--problem .work-flow-row.is-core .work-flow-value{color:rgba(236,232,222,.72)}
-.work-detail-flow--build .work-flow-row.is-core .work-flow-value{color:var(--accent)}
+.schematic-node--source{transform:none}
+.schematic-node--output{transform:none}
+.schematic-input-lines path,
+.schematic-output-lines path{
+  fill:none;
+  stroke:rgba(236,232,222,.65);
+  stroke-width:1.5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:1;
+  transition:opacity .45s ease;
+}
+.schematic-core{
+  opacity:1;
+  transition:opacity .22s linear;
+}
+.schematic-core line,
+.schematic-core circle{
+  stroke:var(--accent);
+  fill:var(--accent);
+  stroke-width:1.5;
+}
+.schematic-core text{
+  fill:var(--accent);
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.15em;
+}
+.work-system-schematic.is-visible .schematic-node--source,
+.work-system-schematic.is-visible .schematic-node--output,
+.work-system-schematic.is-visible .schematic-input-lines path,
+.work-system-schematic.is-visible .schematic-output-lines path,
+.work-system-schematic.is-visible .schematic-core{
+  opacity:1;
+}
+
+/* Departure Mono: restrained technical/editorial layer. */
+.why-v2-label,
+.approach-label,
+.intervene-label,
+.use-cases-label,
+.about-label,
+.work-detail-label{
+  font-family:var(--font-tech);
+}
+.approach-pc-head .bracket-num,
+.approach-layer-left .bracket-num,
+.intervene-col-title .num,
+.use-case-index,
+.work-detail-index{
+  font-family:var(--font-tech);
+  font-weight:400;
+}
 .work-detail-list{list-style:none;margin-top:clamp(32px,4vw,48px)}
+.work-detail-story-grid > .work-detail-list{margin-top:0}
+.work-detail-list--problem{grid-column:1}
+.work-detail-list--build{grid-column:2}
 .work-detail-list li{
   position:relative;
   padding:13px 0 13px 22px;
@@ -2278,14 +2336,17 @@ body.work-detail-open .footer{margin-top:0}
   .work-detail-visual{width:100%;max-width:none;margin:0}
   .work-detail-visual::before{background:linear-gradient(90deg,rgba(0,0,0,.36),rgba(0,0,0,.1))}
   .work-detail-story{padding:44px 0 72px}
-  .work-detail-story-grid{grid-template-columns:1fr;gap:66px}
+  .work-detail-story-grid{grid-template-columns:1fr;column-gap:0;row-gap:0}
+  .work-detail-story-build{margin-top:66px}
   .work-detail-story h2,.work-detail-section-head h2{font-size:clamp(36px,10vw,48px)}
   .work-detail-story-copy{font-size:13px;line-height:1.58}
-  .work-detail-flow{min-height:132px;margin-top:28px;gap:12px}
-  .work-flow-row{grid-template-columns:66px minmax(0,1fr);gap:12px}
-  .work-flow-key{font-size:8px}
-  .work-flow-value{font-size:11px}
-  .work-flow-row.is-core .work-flow-value{font-size:13px}
+  .work-system-schematic{margin:34px 0 34px}
+  .work-system-schematic-desktop{display:none!important}
+  .work-system-schematic-mobile{display:block!important;width:100%;max-width:340px;margin:0 auto}
+  .work-system-schematic text{font-size:12.5px;letter-spacing:.05em}
+  .work-system-schematic .schematic-core text{font-size:14.5px!important;font-weight:700!important;letter-spacing:.12em!important;fill:var(--accent)!important}
+  .work-detail-list--problem,.work-detail-list--build{grid-column:1}
+  .work-detail-list--build{margin-top:34px!important}
   .work-detail-list{margin-top:28px}
   .work-detail-evidence{padding:72px 0}
   .work-evidence-grid{
@@ -2326,6 +2387,21 @@ body.work-detail-open .footer{margin-top:0}
   .work-detail-cta-row{grid-template-columns:1fr;gap:38px}
   .work-detail-cta h2{font-size:clamp(40px,11vw,54px)}
   .work-detail-cta-link{min-width:0;width:100%}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .schematic-node--source,
+  .schematic-node--output,
+  .schematic-core{
+    opacity:1!important;
+    transform:none!important;
+    transition:none!important;
+  }
+  .schematic-input-lines path,
+  .schematic-output-lines path{
+    stroke-dashoffset:0!important;
+    transition:none!important;
+  }
 }
 
 @media (prefers-reduced-motion:reduce){
