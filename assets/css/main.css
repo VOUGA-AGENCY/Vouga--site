@@ -38,6 +38,7 @@ html[data-theme="dark"]{
 html{
   zoom:.8;
   overflow-x:clip;
+  overscroll-behavior-y:none;
   scroll-behavior:smooth;
   -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
@@ -3027,22 +3028,26 @@ body.home .home-contact-cta span::before{
   transition:width .3s ease,opacity .22s ease;
 }
 
+body.home {
+  overscroll-behavior-y:none;
+  background-color:#173e99;
+}
 body.home .hero{
   display:block;
   min-height:125vh;
   min-height:125svh;
-  background:#000 url("../img/hero1.png") center/cover no-repeat;
+  background:#173e99 url("../img/hero1.png") center/cover no-repeat;
 }
 body.home .hero-bg{
   position:absolute;
   z-index:0;
-  top:0;
+  top:-12vh;
   right:0;
   bottom:auto;
   left:0;
   display:block;
   width:100%;
-  height:100%;
+  height:calc(100% + 12vh);
   max-width:none;
   object-fit:cover;
   object-position:center bottom;
@@ -3059,9 +3064,9 @@ body.home .hero-image-ascii{
   opacity:.62;
   mix-blend-mode:screen;
   pointer-events:none;
-  clip-path:inset(57% 0 0 0);
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 57%,#000 61%,#000 98%,transparent 100%);
-  mask-image:linear-gradient(to bottom,transparent 0%,transparent 57%,#000 61%,#000 98%,transparent 100%);
+  clip-path:inset(54% 0 0 0);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 54%,#000 58%,#000 98%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0%,transparent 54%,#000 58%,#000 98%,transparent 100%);
 }
 body.home .hero::before,
 body.home .hero::after{
@@ -3712,9 +3717,9 @@ body.home .footer .f-social a:hover{border-color:#fff;color:#fff}
   body.home .hero{width:100%;max-width:100%}
   body.home .hero-bg{content:url("../img/HEROMOVEL.png")!important;opacity:1!important}
   body.home .hero-image-ascii{
-    clip-path:inset(53% 0 0 0);
-    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 53%,#000 58%,#000 98%,transparent 100%);
-    mask-image:linear-gradient(to bottom,transparent 0%,transparent 53%,#000 58%,#000 98%,transparent 100%);
+    clip-path:inset(50% 0 0 0);
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 50%,#000 55%,#000 98%,transparent 100%);
+    mask-image:linear-gradient(to bottom,transparent 0%,transparent 50%,#000 55%,#000 98%,transparent 100%);
   }
   body.home .nav-inner{height:62.4px;padding:0 17.6px}
   body.home .logo{font-size:16.8px;gap:7.2px}
