@@ -1,6 +1,9 @@
 (function(){
   'use strict';
 
+  var requestedService = '';
+  try { requestedService = new URLSearchParams(window.location.search).get('service') || ''; } catch(e) {}
+
   if (window.history && window.history.replaceState && /\/contact\.html$/i.test(window.location.pathname || '')) {
     window.history.replaceState(null, '', '/#contact');
   }
@@ -110,6 +113,24 @@
       error:'We could not send it. Please try again or email hello@vouga-agency.pt.'
     }
   };
+  var SERVICE_NAMES = {
+    pt: {
+      'centro-operacoes-industriais':'Centro Integrado de Operações Industriais',
+      'inteligencia-producao-energia':'Inteligência de Produção e Energia',
+      'sistema-conhecimento-tecnico':'Sistema de Conhecimento Técnico',
+      'sistema-comercial-orcamentacao':'Sistema Comercial e de Orçamentação',
+      'sistema-conhecimento-estrategico':'Sistema de Conhecimento Estratégico',
+      'agente-voz-memoria-contextual':'Agente de Voz com Memória Contextual'
+    },
+    en: {
+      'centro-operacoes-industriais':'Industrial Operations Hub',
+      'inteligencia-producao-energia':'Production & Energy Intelligence',
+      'sistema-conhecimento-tecnico':'Technical Knowledge System',
+      'sistema-comercial-orcamentacao':'Commercial & Quotation System',
+      'sistema-conhecimento-estrategico':'Strategic Knowledge System',
+      'agente-voz-memoria-contextual':'Voice Agent with Contextual Memory'
+    }
+  };
   var copy = COPY[lang] || COPY.pt;
   function applyCopy(){
     copy = COPY[lang] || COPY.pt;
@@ -154,6 +175,14 @@
       var field = document.getElementById(id);
       if (field) field.setAttribute('placeholder', placeholders[id]);
     });
+    var serviceName = SERVICE_NAMES[lang] && SERVICE_NAMES[lang][requestedService];
+    var messageField = document.getElementById('contactMessage');
+    if (serviceName && messageField && (!messageField.value || messageField.getAttribute('data-service-prefill') === 'true')) {
+      messageField.value = lang === 'pt'
+        ? 'Gostaria de explorar como aplicar o serviço “' + serviceName + '” na minha empresa.'
+        : 'I would like to explore how to apply “' + serviceName + '” in my company.';
+      messageField.setAttribute('data-service-prefill', 'true');
+    }
     var logo = document.querySelector('.logo');
     if (logo) logo.setAttribute('aria-label', copy.logoHome);
     var nav = document.querySelector('.nav nav');
@@ -175,6 +204,10 @@
     if (signature) signature.setAttribute('aria-label', copy.signatureLabel);
   }
   applyCopy();
+  var prefilledMessage = document.getElementById('contactMessage');
+  if (prefilledMessage) prefilledMessage.addEventListener('input', function(){
+    prefilledMessage.removeAttribute('data-service-prefill');
+  });
 
   (function initNav(){
     var siteNav = document.querySelector('.nav');
