@@ -504,20 +504,20 @@
   };
   var META_COPY = {
     pt: {
-      title: 'Vouga Agency · Operações industriais, software e IA',
-      description: 'Ajudamos empresas industriais a construir operações mais sólidas através de pensamento sistémico, software, automação e IA.',
+      title: 'Vouga Agency | Consultora Tecnológica para a Indústria',
+      description: 'A Vouga Agency ajuda empresas industriais a modernizar operações através de uma abordagem system-first a software, automação e IA.',
       keywords: 'operações industriais, transformação operacional, software industrial, automação, inteligência artificial, sistemas empresariais, Vouga Agency, Porto, Portugal',
-      socialTitle: 'Vouga Agency · Operações industriais, software e IA',
-      socialDescription: 'Ajudamos empresas industriais a construir operações mais sólidas através de pensamento sistémico, software, automação e IA.',
+      socialTitle: 'Vouga Agency | Consultora Tecnológica para a Indústria',
+      socialDescription: 'A Vouga Agency ajuda empresas industriais a modernizar operações através de uma abordagem system-first a software, automação e IA.',
       imageAlt: 'Identidade visual da Vouga Agency para operações industriais, software, automação e IA.',
       locale: 'pt_PT'
     },
     en: {
-      title: 'Vouga Agency · Industrial operations, software and AI',
-      description: 'We help industrial companies build stronger operations through systems thinking, software, automation and AI.',
+      title: 'Vouga Agency | Technology Consulting for Industry',
+      description: 'Vouga Agency helps industrial companies modernize operations through a system-first approach to software, automation and AI.',
       keywords: 'industrial operations, operational transformation, industrial software, automation, artificial intelligence, business systems, Vouga Agency, Porto, Portugal',
-      socialTitle: 'Vouga Agency · Industrial operations, software and AI',
-      socialDescription: 'We help industrial companies build stronger operations through systems thinking, software, automation and AI.',
+      socialTitle: 'Vouga Agency | Technology Consulting for Industry',
+      socialDescription: 'Vouga Agency helps industrial companies modernize operations through a system-first approach to software, automation and AI.',
       imageAlt: 'Vouga Agency visual identity for industrial operations, software, automation and AI.',
       locale: 'en_US'
     }
