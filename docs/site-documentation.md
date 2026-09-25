@@ -41,7 +41,7 @@ Every engagement can start in one layer and evolve into the others as the operat
 
 ## Selected Work
 
-Selected Work remains the public section name. Its six entries are application examples, not published client case studies.
+Selected Work remains the public section name. Its five entries are application examples, not published client case studies.
 
 Each example contains:
 

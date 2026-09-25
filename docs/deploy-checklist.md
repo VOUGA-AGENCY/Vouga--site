@@ -18,7 +18,7 @@ Last updated: 2026-08-19
 - [ ] Confirm desktop and mobile hero artwork.
 - [ ] Confirm hero ASCII alignment, speed and reduced-motion behaviour.
 - [ ] Confirm navigation and mobile menu.
-- [ ] Confirm Selected Work rail buttons, keyboard arrows and all six routes.
+- [ ] Confirm Selected Work rail buttons, keyboard arrows and all five routes.
 - [ ] Confirm each work detail is labelled as an application example.
 - [ ] Confirm external evidence links open safely in a new tab.
 - [ ] Confirm target ranges are described as objectives rather than guarantees.

@@ -111,20 +111,18 @@
   };
   var SERVICE_NAMES = {
     pt: {
-      'centro-operacoes-industriais':'Centro Integrado de Operações Industriais',
-      'inteligencia-producao-energia':'Inteligência de Produção e Energia',
-      'sistema-conhecimento-tecnico':'Sistema de Conhecimento Técnico',
-      'sistema-comercial-orcamentacao':'Sistema Comercial e de Orçamentação',
-      'sistema-conhecimento-estrategico':'Sistema de Conhecimento Estratégico',
-      'agente-voz-memoria-contextual':'Agente de Voz com Memória Contextual'
+      "centro-operacoes-industriais": "Centro Integrado de Operações Industriais",
+      "sistema-comercial-orcamentacao": "Sistema Comercial e de Orçamentação",
+      "sistema-conhecimento-tecnico": "Camada de Conhecimento Técnico",
+      "motor-normalizacao-dados": "Motor de Normalização de Dados",
+      "inteligencia-operacional": "Inteligência Operacional"
     },
     en: {
-      'centro-operacoes-industriais':'Industrial Operations Hub',
-      'inteligencia-producao-energia':'Production & Energy Intelligence',
-      'sistema-conhecimento-tecnico':'Technical Knowledge System',
-      'sistema-comercial-orcamentacao':'Commercial & Quotation System',
-      'sistema-conhecimento-estrategico':'Strategic Knowledge System',
-      'agente-voz-memoria-contextual':'Voice Agent with Contextual Memory'
+      "centro-operacoes-industriais": "Industrial Operations Hub",
+      "sistema-comercial-orcamentacao": "Commercial & Quotation System",
+      "sistema-conhecimento-tecnico": "Technical Knowledge Layer",
+      "motor-normalizacao-dados": "Data Normalization Engine",
+      "inteligencia-operacional": "Operational Intelligence"
     }
   };
   var copy = COPY[lang] || COPY.pt;
