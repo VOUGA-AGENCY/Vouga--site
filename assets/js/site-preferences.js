@@ -4,7 +4,7 @@
      contact document before the homepage can flash. */
   if ((window.location.pathname === '/' || /\/index\.html$/i.test(window.location.pathname || '')) &&
       window.location.hash === '#contact') {
-    window.location.replace('contact.html');
+    window.location.replace('/contact');
     return;
   }
   var root = document.documentElement;

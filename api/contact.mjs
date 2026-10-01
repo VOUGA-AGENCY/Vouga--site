@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { parsePhoneNumberFromString } from 'libphonenumber-js/max';
+import { automationMessage } from '../lib/automation.mjs';
 
 const MAX_BODY_BYTES = 16_000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
@@ -183,11 +184,16 @@ export default {
 
     let body;
     try {
-      body = await request.json();
+      const raw = await request.text();
+      if (new TextEncoder().encode(raw).byteLength > MAX_BODY_BYTES) {
+        return json({ ok: false, code: 'payload_too_large' }, 413);
+      }
+      body = JSON.parse(raw);
     } catch {
       return json({ ok: false, code: 'invalid_json' }, 400);
     }
 
+    if (!body || typeof body !== 'object' || Array.isArray(body)) return json({ ok: false, code: 'invalid_json' }, 400);
     if (cleanSingleLine(body.website)) {
       return json({ ok: true }, 202);
     }
@@ -196,13 +202,18 @@ export default {
     const email = cleanSingleLine(body.email).toLowerCase();
     const phoneRaw = cleanSingleLine(body.phone);
     const company = cleanSingleLine(body.company);
-    const message = cleanMessage(body.message);
+    const isAutomation = body.source === 'website_automation';
+    let message = cleanMessage(body.message);
+    if (isAutomation) {
+      try { message = automationMessage(body.analysis, body.attribution); }
+      catch (error) { return invalid(error.field || 'analysis', 'invalid_analysis'); }
+    }
     const language = body.language === 'en' ? 'en' : 'pt';
 
     if (name.length < 2 || name.length > 100) return invalid('name', 'invalid_name');
     if (email.length > 254 || !EMAIL_PATTERN.test(email)) return invalid('email', 'invalid_email');
     if (company.length < 2 || company.length > 120) return invalid('company', 'invalid_company');
-    if (message.length < 10 || message.length > 5000) return invalid('message', 'invalid_message');
+    if (message.length < 10 || message.length > (isAutomation ? 10000 : 5000)) return invalid('message', 'invalid_message');
     if (body.consent !== true) return invalid('consent', 'consent_required');
 
     const phone = validatePhone(phoneRaw);

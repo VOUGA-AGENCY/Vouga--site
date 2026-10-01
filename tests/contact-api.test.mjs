@@ -191,3 +191,30 @@ test('rate limits repeated submissions from the same IP', async () => {
   assert.equal(body.code, 'rate_limited');
   assert.ok(Number(response.headers.get('retry-after')) > 0);
 });
+
+test('automation leads reuse delivery and include server-calculated values and attribution', async () => {
+  let email;
+  globalThis.fetch = async (_url, options) => { email = JSON.parse(options.body); return Response.json({ id: 'automation_test' }); };
+  const response = await contactHandler.fetch(request(validPayload({ source: 'website_automation', message: '', phone: '',
+    analysis: { process: 'Copiar faturas para Excel', people: 5, minutes: 60, frequency: 'daily', hourlyCost: 15, hours: 1 },
+    attribution: { url: 'https://www.vouga-agency.pt/automation', utm: { utm_source:'leanked', utm_medium:'newsletter', utm_campaign:'automation_01' } }
+  })));
+  assert.equal(response.status, 201);
+  assert.match(email.text, /Horas anuais: 1100/); assert.match(email.text, /Custo anual: 16500 EUR/);
+  assert.match(email.text, /Leanked Newsletter #01/); assert.match(email.text, /Received: \d{4}-/);
+});
+
+test('invalid automation payloads never send email', async () => {
+  let calls = 0;
+  globalThis.fetch = async () => { calls++; return Response.json({ id: 'test' }); };
+  for (const analysis of [null, {}, {process:'Copiar dados',people:0,minutes:30,frequency:'daily'}]) {
+    const response = await contactHandler.fetch(request(validPayload({ source:'website_automation', analysis })));
+    assert.equal(response.status,422);
+  }
+  assert.equal(calls,0);
+});
+
+test('validates actual body size and rejects non-object JSON', async () => {
+  assert.equal((await contactHandler.fetch(request(null))).status,400);
+  assert.equal((await contactHandler.fetch(request(validPayload({message:'x'.repeat(17000)})))).status,413);
+});

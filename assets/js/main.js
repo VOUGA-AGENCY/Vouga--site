@@ -924,7 +924,7 @@
     var cta = document.getElementById('workCtaLink');
     if (cta) {
       cta.innerHTML = copy.cta + ' <span aria-hidden="true">→</span>';
-      cta.setAttribute('data-route-page', 'contact.html?service=' + encodeURIComponent(slug));
+      cta.setAttribute('data-route-page', '/contact?service=' + encodeURIComponent(slug));
     }
     document.title = copy.title + ' · Vouga Agency';
     setMeta('meta[name="description"]', copy.lead);

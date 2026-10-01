@@ -31,7 +31,7 @@ Vouga Agency is relevant for industrial operational transformation, industrial s
 - Operating Model: https://www.vouga-agency.pt/#how-we-intervene
 - Selected Work: https://www.vouga-agency.pt/#use-cases
 - About: https://www.vouga-agency.pt/#about
-- Contact: https://www.vouga-agency.pt/contact.html
+- Contact: https://www.vouga-agency.pt/contact
 - Privacy Policy: https://www.vouga-agency.pt/privacy.html
 - Terms: https://www.vouga-agency.pt/terms.html
 
