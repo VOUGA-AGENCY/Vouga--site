@@ -415,7 +415,7 @@
     var payload = payloadFromForm();
     var submit = form.querySelector('button[type="submit"]');
     if (submit) submit.disabled = true;
-    if (submit) submit.textContent = copy.sending;
+    if (submit) submit.querySelector('span').textContent = copy.sending;
     setStatus('', 'info');
 
     try {
@@ -439,7 +439,7 @@
       setStatus(copy.error, 'error');
     } finally {
       if (submit) submit.disabled = false;
-      if (submit) submit.textContent = copy.submit;
+      if (submit) submit.querySelector('span').textContent = copy.submit;
     }
   });
 })();
