@@ -4,6 +4,7 @@
     { "source": "/contact.html", "destination": "/contact", "permanent": true }
   ],
   "rewrites": [
+    { "source": "/leanked", "destination": "/leanked/index.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/automation", "destination": "/automation/index.html" }
   ],

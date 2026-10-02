@@ -168,6 +168,7 @@
   var langToggle = document.getElementById('langToggle');
   var I18N = {
     pt: {
+      heroPartnership: 'NEW: VOUGA x LEANKED',
       logoHome: 'Vouga Agency, início',
       mainNav: 'navegação principal',
       navContact: 'contactar',
@@ -330,6 +331,7 @@
     },
     en: {
       logoHome: 'Vouga Agency, home',
+      heroPartnership: 'NEW: VOUGA x LEANKED',
       mainNav: 'main navigation',
       navContact: 'contact',
       navApproach: 'Approach',

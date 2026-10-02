@@ -16,9 +16,10 @@ const server = Bun.serve({
     try { pathname = decodeURIComponent(url.pathname); } catch { return new Response('Pedido inválido', { status: 400 }); }
     if (pathname === '/automation' || pathname === '/automation/') pathname = '/automation/index.html';
     if (pathname === '/') pathname = '/index.html';
+    if (pathname === '/leanked' || pathname === '/leanked/') pathname = '/leanked/index.html';
     if (pathname === '/contact' || pathname === '/contact/') pathname = '/contact.html';
     // Serve only public documents and assets, never env files, sources, tests or .git.
-    if (!(pathname.startsWith('/assets/') || /^\/[\w-]+\.html$/.test(pathname) || pathname === '/automation/index.html' ||
+    if (!(pathname.startsWith('/assets/') || /^\/[\w-]+\.html$/.test(pathname) || pathname === '/automation/index.html' || pathname === '/leanked/index.html' ||
         ['/robots.txt', '/sitemap.xml', '/llms.txt', '/site.webmanifest'].includes(pathname)) || pathname.split('/').some(part => part.startsWith('.'))) {
       return new Response('Não encontrado', { status: 404 });
     }
