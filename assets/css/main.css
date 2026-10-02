@@ -3412,6 +3412,9 @@ body.home .hero-actions .hero-ctas .retro-button>span{padding:12px 10px;gap:4px;
 body.home .hero-approach-cta.retro-button{--retro-bg:#404040;--retro-active:#262626;--retro-hover:#525252;--retro-light:#a3a3a3;--retro-dark:#171717}
 body.home .hero-model-cta.retro-button{--retro-bg:#f97316;--retro-active:#ea580c;--retro-hover:#fb923c;--retro-light:#fdba74;--retro-dark:#c2410c}
 @media(max-width:820px){
-  body.home .hero-actions .hero-ctas .retro-button{font-size:10px;white-space:normal}
-  body.home .hero-actions .hero-ctas .retro-button>span{padding:10px 6px;letter-spacing:.025em;flex-wrap:wrap;gap:0 3px}
+  body.home .hero-actions .hero-ctas{width:76%;--hero-cta-gap:8px}
+  body.home .hero-actions .hero-ctas .retro-button{font-size:9px;white-space:normal;min-height:36px}
+  body.home .hero-actions .hero-ctas .retro-button>span{min-height:32px;padding:7px 5px;letter-spacing:.015em;flex-wrap:wrap;gap:0 3px}
+  body.home .hero-actions .hero-partnership{font-size:9px;margin-top:10px}
+  body.home .hero-actions .hero-partnership>span{min-height:32px;padding:7px 14px}
 }
