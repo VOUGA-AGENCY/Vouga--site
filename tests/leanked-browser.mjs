@@ -51,7 +51,7 @@ try{
     assert.equal(await page.locator('.hero-partnership').getAttribute('href'),'/leanked');
     await page.screenshot({path:`${output}/${width}-home.png`});
     await page.locator('#langToggle').click();
-    assert.equal(await page.locator('.hero-partnership').textContent(),'NEW: VOUGA x LEANKED');
+    assert.equal(await page.locator('.hero-partnership').textContent(),'NEW: Vouga × Leanked →');
     await page.locator('.hero-partnership').click();
     await page.waitForURL('**/leanked');
     assert.equal(await page.locator('html').getAttribute('lang'),'pt-PT');

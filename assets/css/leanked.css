@@ -10,7 +10,7 @@
 .partnership-hero img{display:block;width:100%;height:auto}
 .partnership-hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:24%;pointer-events:none;background:linear-gradient(to bottom,transparent,#070808 94%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);mask-image:linear-gradient(to bottom,transparent,#000 80%)}
 .partnership-hero-copy{position:absolute;z-index:1;top:clamp(110px,8vw,160px);left:50%;transform:translateX(-50%);width:min(78%,1080px);text-align:center;color:var(--text);text-shadow:0 1px 8px rgba(0,0,0,.2)}
-.partnership-hero h1{margin:16px 0 12px;font:500 clamp(28px,2.8vw,46px)/1.12 Inter,var(--font-sans);letter-spacing:-.04em;text-wrap:balance}
+.partnership-hero h1{margin:16px 0 12px;font:700 clamp(32px,3.2vw,52px)/1.12 var(--font-display);letter-spacing:-.01em;text-wrap:balance}
 .partnership-hero-description{max-width:1000px;margin:0 auto;font-size:16px;line-height:1.45;font-weight:400;text-wrap:balance;opacity:.9}
 .partnership-content{max-width:1400px}
 .partnership-section{padding-block:clamp(48px,6vw,88px);border-bottom:1px solid var(--divider)}
@@ -45,8 +45,8 @@ body.partnership-page .footer::before{top:-100px;height:clamp(260px,26vw,400px);
   .partnership-hero::before{content:'';position:absolute;inset:0;background:url('/assets/img/leankedmovel.png') center top / auto 1100px no-repeat;pointer-events:none}
   .partnership-hero img{position:absolute;top:auto;bottom:0;left:0;width:100%;height:auto;max-width:none;mask-image:linear-gradient(to bottom,transparent,#000 25%);object-fit:cover;object-position:center}
   .partnership-hero-copy{position:relative;top:auto;left:auto;transform:none;width:100%;padding:104px 22px 0}
-  .partnership-hero h1{font-size:clamp(27px,5vw,38px);margin:18px 0 16px}
-  .partnership-hero-description{max-width:540px;font-size:15px;line-height:1.5}
+  .partnership-hero h1{font-size:clamp(31px,6vw,42px);margin:18px 0 16px}
+  .partnership-hero-description{width:84%;max-width:84%;font-size:14.4px;line-height:1.22;letter-spacing:-.015em;text-align:justify;text-align-last:center;text-wrap:wrap}
   .partnership-metrics{grid-template-columns:1fr;margin-top:32px;gap:0}
   .partnership-metrics>div{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:18px 0;border-left:0;border-bottom:1px solid var(--divider)}
   .partnership-metrics dt{font-size:28px;white-space:nowrap}
