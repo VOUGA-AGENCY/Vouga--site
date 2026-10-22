@@ -1,6 +1,6 @@
 # Vouga Agency Site Documentation
 
-Last updated: 2026-08-19
+Last updated: 2026-10-22
 
 ## Purpose and positioning
 
@@ -11,7 +11,8 @@ The primary promise is operational growth. The site should not drift back to gen
 ## Public pages
 
 - `/` — homepage and hash-routed Selected Work details.
-- `/contact.html` — dedicated bilingual contact form.
+- `/#contact` — bilingual contact section with the Cal.com calendar in the homepage footer.
+- `/contact` and `/contact.html` — permanent redirects to `/#contact`.
 - `/privacy.html` — English Privacy Policy.
 - `/terms.html` — English website terms.
 
@@ -24,8 +25,9 @@ There are no standalone Intelligence, Engineering, Foundations or Academy pages.
 3. Our Approach — `#our-approach`
 4. Operating Model — `#how-we-intervene`
 5. Selected Work — `#use-cases`
-6. About — `#about`
-7. Footer/contact — `#contact`
+6. News — `#news`
+7. About — `#about`
+8. Footer/contact calendar — `#contact`
 
 The hero uses separate desktop and mobile WebP artwork plus an animated ASCII canvas. The ASCII canvas pauses when it is outside the viewport and does not animate when reduced motion is requested.
 
@@ -57,25 +59,19 @@ Routes use `#work/<slug>` and are rendered inside `index.html`.
 
 ## Language
 
-The homepage and contact page support Portuguese and English through the language toggle. Portuguese is the default when no valid preference exists. The preference is stored as `vouga-lang` in `localStorage`.
+The homepage, including contact-section copy, supports Portuguese and English through the language toggle. Portuguese is the default when no valid preference exists. The preference is stored as `vouga-lang` in `localStorage`. Cal.com owns the event details and booking interface inside its iframe.
 
 Metadata is updated when the homepage language changes. Privacy and Terms are currently English-only.
 
 ## Contact flow
 
-The homepage routes contact CTAs to `contact.html`. The form sends JSON to the same-origin `/api/contact` endpoint.
+All contact CTAs lead to the homepage calendar at `/#contact`, including model services and Selected Work details. The calendar uses the official Cal.com inline embed for `vouga-agency/discovery-call-vouga-agency`, dark theme and month view. It loads near the footer, with loading/error states and a permanent direct booking link. Cal.com processes meeting bookings; no booking data is copied to the website API.
 
-The form collects:
+The old contact document is now only a redirect fallback. Vercel and the local preview redirect both old contact routes. The sitemap excludes those redirected documents.
 
-- Name
-- Email
-- Optional phone
-- Company
-- Message
-- Consent
-- Hidden honeypot
+The automation analysis form still uses `/api/contact` with the existing validation, rate limiting and Resend delivery. No environment variables or backend architecture are changed by the booking embed.
 
-The endpoint validates, normalises, rate-limits and escapes submissions before sending them through Resend. It does not store submissions in a website database.
+Cal.com's script and iframe origins are explicitly allowed in `vercel.json` and `_headers`. Below the calendar, the homepage ends with the original footer photograph, Inter navigation links over its blue area, and an interactive halftone “VOUGA” wordmark on an extended black base. Leanked and Automation share this footer and link to the homepage for bookings. Its dots respond to pointer movement and clicks, pause offscreen, and remain static with reduced motion enabled.
 
 See `docs/contact-backend.md` for configuration and operational details.
 
@@ -83,7 +79,9 @@ See `docs/contact-backend.md` for configuration and operational details.
 
 - `assets/css/main.css` — all active public-page styles.
 - `assets/js/main.js` — homepage language, navigation, preloader, Selected Work routing, ASCII rendering, reveals and carousel behaviour.
-- `assets/js/contact.js` — contact-page language, form validation and submission.
+- `assets/js/booking.js` and `assets/css/booking.css` — lazy-loaded Cal.com embed and footer layout.
+- `assets/js/halftone-footer.js` and `assets/css/halftone-footer.css` — shared bilingual footer, canvas wordmark and pointer interaction.
+- `assets/js/contact.js` — legacy form implementation, no longer loaded by a public page.
 - `assets/js/contact-phone.js` — generated phone-validation bundle.
 - `src/contact-phone.js` — source for that generated bundle.
 - `assets/js/site-preferences.js` — theme, language preference and internal routing.
@@ -116,7 +114,6 @@ When adding images:
 Canonical public documents are:
 
 - `https://www.vouga-agency.pt/`
-- `https://www.vouga-agency.pt/contact.html`
 - `https://www.vouga-agency.pt/privacy.html`
 - `https://www.vouga-agency.pt/terms.html`
 
@@ -127,7 +124,7 @@ The sitemap contains documents, not fragment URLs. Structured data and `llms.txt
 - Decorative images and ASCII canvases are hidden from assistive technology.
 - Meaningful images require useful alternatives.
 - Navigation controls expose labels and expanded state.
-- The contact form has explicit labels, errors, consent and a live status region.
+- The contact calendar has an iframe title, loading/error states and a direct booking fallback; the automation form retains explicit labels and validation.
 - Motion-heavy components respect `prefers-reduced-motion`.
 - Keyboard navigation must work for the menu, carousel controls, Selected Work routes and contact form.
 

@@ -17,7 +17,7 @@ try{
     assert.equal(await page.locator('h1').count(),1);
     assert.match(await page.locator('.partnership-intro h2').textContent(),/Uma parceria/);
     assert.match(await page.locator('h1').evaluate(el=>getComputedStyle(el).fontFamily),/Inter/);
-    assert.equal(await page.locator('.partnership-closing .btn').getAttribute('href'),'/contact');
+    assert.equal(await page.locator('.partnership-closing .btn').getAttribute('href'),'/#contact');
     const image=await page.locator('#partnershipImage').boundingBox();
     const ratio=await page.locator('#partnershipImage').evaluate(el=>el.naturalWidth/el.naturalHeight);
     if(width>820) assert.ok(Math.abs(image.width/image.height-ratio)<.01,'uncropped desktop image aspect ratio');

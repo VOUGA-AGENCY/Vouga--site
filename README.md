@@ -2,7 +2,7 @@
 
 Public website for Vouga Agency, focused on stronger industrial operations through systems thinking, software, automation and applied AI.
 
-The public pages are static. The contact form posts to a same-origin Vercel Function, which validates the submission and delivers it through Resend.
+The public pages are static. Contact links open the Cal.com calendar in the homepage footer at `/#contact`; `/contact` and `/contact.html` redirect there. The automation analysis form still posts to a same-origin Vercel Function, which validates the submission and delivers it through Resend.
 
 ## Current structure
 
@@ -34,7 +34,7 @@ docs/
   contact-backend.md
 ```
 
-The homepage contains the hero, Why Now, Our Approach, Operating Model, Selected Work application examples, About and footer. Selected Work is hash-routed inside the homepage.
+The homepage contains the hero, Why Now, Our Approach, Intervention Model, Selected Work application examples, News, About, contact calendar and halftone wordmark footer. Selected Work is hash-routed inside the homepage. The wordmark footer is shared with Leanked and Automation.
 
 ## Local development
 

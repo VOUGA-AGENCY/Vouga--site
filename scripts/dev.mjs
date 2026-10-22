@@ -9,7 +9,9 @@ const server = Bun.serve({
   hostname: '127.0.0.1', port: Number(process.env.PORT || 4173),
   async fetch(request) {
     const url = new URL(request.url);
-    if (url.pathname === '/contact.html') return Response.redirect(new URL('/contact' + url.search, url), 308);
+    if (['/contact', '/contact/', '/contact.html'].includes(url.pathname)) {
+      return Response.redirect(new URL('/' + url.search + '#contact', url), 308);
+    }
     if (url.pathname === '/api/contact') return contact.fetch(request);
     if (url.pathname === '/api/automation-events') return events.fetch(request);
     let pathname;
@@ -17,7 +19,6 @@ const server = Bun.serve({
     if (pathname === '/automation' || pathname === '/automation/') pathname = '/automation/index.html';
     if (pathname === '/') pathname = '/index.html';
     if (pathname === '/leanked' || pathname === '/leanked/') pathname = '/leanked/index.html';
-    if (pathname === '/contact' || pathname === '/contact/') pathname = '/contact.html';
     // Serve only public documents and assets, never env files, sources, tests or .git.
     if (!(pathname.startsWith('/assets/') || /^\/[\w-]+\.html$/.test(pathname) || pathname === '/automation/index.html' || pathname === '/leanked/index.html' ||
         ['/robots.txt', '/sitemap.xml', '/llms.txt', '/site.webmanifest'].includes(pathname)) || pathname.split('/').some(part => part.startsWith('.'))) {

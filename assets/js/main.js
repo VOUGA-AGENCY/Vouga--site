@@ -334,7 +334,7 @@
       aboutLabel: 'SOBRE',
       aboutTitle: 'De uma região industrial. <span class="about-title-mobile-break">Para o seu <span class="grad"><em>próximo capítulo</em></span>.</span>',
       aboutBody: 'Nascidos entre os rios Douro e Vouga, crescemos rodeados de fábricas, produtores e empresas industriais que moldaram a região. Hoje, trabalhamos ao seu lado para modernizar operações através de pensamento sistémico, software e IA.',
-      aboutTagline: 'A ajudar a próxima geração da indústria a crescer<br>sobre bases operacionais mais sólidas.',
+      aboutTagline: '“A ajudar a próxima geração da indústria a crescer<br>sobre bases operacionais mais sólidas.”',
       indTextile: 'Têxtil',
       indFootwear: 'Calçado',
       indMetalworking: 'Metalomecânica',
@@ -342,6 +342,25 @@
       indMachinery: 'Máquinas Industriais',
       indCork: 'Cortiça',
       indAutomotive: 'Automóvel',
+      bookingLabel: 'CONTACTO',
+      bookingTitle: 'Marque uma conversa.',
+      bookingIntro: 'Escolha um horário para falarmos sobre a sua operação.',
+      bookingLoading: 'A carregar os horários disponíveis…',
+      bookingError: 'Não foi possível carregar o calendário. Pode abri-lo diretamente no link abaixo.',
+      bookingDirect: 'Abrir calendário numa nova janela',
+      bookingPrivacy: 'Agendamento através do Cal.com.',
+      bookingPrivacyLink: 'Privacidade',
+      newsTitle: 'A Vouga em destaque.',
+      newsPause: 'Pausar movimento',
+      newsResume: 'Retomar movimento',
+      newsRegion: 'Notícias',
+      newsNextTitle: 'Vouga Agency quer tirar a indústria portuguesa do Excel antes de lhe dar IA',
+      newsPorticTitle: 'Jovens engenheiros do ISEP transformam conhecimento em soluções para a indústria portuguesa',
+      newsPportoTitle: 'Conhecimento de engenharia ao serviço das empresas',
+      newsRead: 'Ler notícia',
+      newsPost: 'Ver publicação',
+      newsPartnership: 'Parceria estratégica',
+      newsDiscover: 'Conhecer a parceria',
       footerTalkTitle: '<span>Vamos</span><em>conversar</em>',
       footerTag: 'understand, before building.',
       rights: 'Copyright © 2026 Vouga Agency',
@@ -514,7 +533,7 @@
       aboutLabel: 'ABOUT',
       aboutTitle: 'From an industrial region. <span class="about-title-mobile-break">For its <span class="grad"><em>next chapter</em></span>.</span>',
       aboutBody: 'Born between the Douro and Vouga rivers, we grew up surrounded by factories, makers and industrial businesses that shaped the region. Today, we work alongside them to modernise operations through systems thinking, software and AI.',
-      aboutTagline: 'helping the next generation of industry grow on stronger operating foundations.',
+      aboutTagline: '“Helping the next generation of industry grow<br>on stronger operating foundations.”',
       indTextile: 'Textile',
       indFootwear: 'Footwear',
       indMetalworking: 'Metalworking',
@@ -522,6 +541,25 @@
       indMachinery: 'Industrial Machinery',
       indCork: 'Cork',
       indAutomotive: 'Automotive',
+      bookingLabel: 'CONTACT',
+      bookingTitle: 'Book a conversation.',
+      bookingIntro: 'Choose a time to talk about your operation.',
+      bookingLoading: 'Loading available times…',
+      bookingError: 'The calendar could not load. You can open it directly using the link below.',
+      bookingDirect: 'Open calendar in a new window',
+      bookingPrivacy: 'Scheduling through Cal.com.',
+      bookingPrivacyLink: 'Privacy',
+      newsTitle: 'Vouga in the spotlight.',
+      newsPause: 'Pause movement',
+      newsResume: 'Resume movement',
+      newsRegion: 'News',
+      newsNextTitle: 'Vouga Agency wants to move Portuguese industry beyond Excel before bringing it AI',
+      newsPorticTitle: 'Young ISEP engineers turn knowledge into solutions for Portuguese industry',
+      newsPportoTitle: 'Engineering knowledge at the service of businesses',
+      newsRead: 'Read article',
+      newsPost: 'View post',
+      newsPartnership: 'Strategic partnership',
+      newsDiscover: 'Explore the partnership',
       footerTalkTitle: '<span class="single-line">Let’s <em>talk</em></span>',
       footerTag: 'understand, before building.',
       rights: 'Copyright © 2026 Vouga Agency',
@@ -965,7 +1003,8 @@
       var ctaFace = document.createElement('span');
       ctaFace.textContent = copy.cta + ' →';
       cta.appendChild(ctaFace);
-      cta.setAttribute('data-route-page', '/contact?service=' + encodeURIComponent(slug));
+      cta.removeAttribute('data-route-page');
+      cta.setAttribute('href', '#contact');
     }
     document.title = copy.title + ' · Vouga Agency';
     setMeta('meta[name="description"]', copy.lead);
@@ -1367,69 +1406,7 @@
     updateControls();
   })();
 
-  /* ============================================================
-     ASCII logo: the mark drawn in characters that keep mutating
-  ============================================================ */
-  var ASCII_GRID = [
-    '000000000000000000000011111111111111',
-    '000000000000000000000111111111111111',
-    '000000000000000000001111111111111111',
-    '111111111111111111111100000000000000',
-    '111111111111111111111000000000000000',
-    '111111111111111111111000000000000000',
-    '000000000000000000011111111111111111',
-    '000000000000000000111111111111111111',
-    '000000000000000001111111111111111111',
-    '111111111111111111100000000000000000',
-    '111111111111111111000000000000000000',
-    '111111111111111111000000000000000000',
-    '000000000000000111111111111111111111',
-    '000000000000000111111111111111111111',
-    '000000000000001111111111111111111111',
-    '111111111111111100000000000000000000',
-    '111111111111111000000000000000000000',
-    '111111111111110000000000000000000000'
-  ];
-  var SYMS = '%#$@&+=*';
-  var asciiEl = document.getElementById('asciiLogo');
-  var asciiVisible = true;
-  var asciiCells = [];
-  var asciiOn = [];
-  (function initAscii(){
-    for (var r = 0; r < ASCII_GRID.length; r++) {
-      asciiCells.push([]);
-      for (var c = 0; c < ASCII_GRID[r].length; c++) {
-        if (ASCII_GRID[r][c] === '1') {
-          asciiCells[r].push(SYMS[Math.floor(Math.random() * SYMS.length)]);
-          asciiOn.push([r, c]);
-        } else {
-          asciiCells[r].push(' ');
-        }
-      }
-    }
-    renderAscii();
-  })();
-  function renderAscii(){
-    var out = '';
-    for (var r = 0; r < asciiCells.length; r++) out += asciiCells[r].join('') + (r < asciiCells.length - 1 ? '\n' : '');
-    asciiEl.textContent = out;
-  }
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function(entries){
-      asciiVisible = entries[0] ? entries[0].isIntersecting : true;
-    }, { threshold:0 }).observe(asciiEl);
-  }
-  if (!reducedMotion) {
-    setInterval(function(){
-      if (document.hidden || !asciiVisible) return;
-      var n = Math.max(4, Math.floor(asciiOn.length * 0.05));
-      for (var i = 0; i < n; i++) {
-        var cell = asciiOn[Math.floor(Math.random() * asciiOn.length)];
-        asciiCells[cell[0]][cell[1]] = SYMS[Math.floor(Math.random() * SYMS.length)];
-      }
-      renderAscii();
-    }, 140);
-  }
+
 
   /* ===== 3D About Sectors Coverflow Carousel ===== */
   (function(){

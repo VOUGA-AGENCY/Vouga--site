@@ -1,4 +1,4 @@
-import './footer-ascii.mjs';
+
 // Shares the site's persisted PT/EN choice; isolated from homepage-only features.
 const COPY = {
   "pt": {

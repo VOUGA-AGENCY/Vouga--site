@@ -1208,10 +1208,10 @@ html[data-theme="dark"] .hero .btn-primary{background:#f7f2e8;color:#141412}
   max-width:64ch;margin-top:18px;margin-left:auto;margin-right:auto;
   font-size:clamp(17px,1.35vw,19.5px);line-height:1.5;color:var(--text-dim);text-align:center;
 }
-.about-head-centered p.about-tagline{
-  max-width:64ch;margin-top:14px;margin-left:auto;margin-right:auto;
+.about-head-centered .about-tagline{
+  max-width:64ch;margin:calc(14px + 1cm) auto 0;
   font-family:var(--font-display);font-style:italic;font-weight:400;
-  font-size:clamp(18px,1.6vw,22px);line-height:1.35;color:var(--text);text-align:center;
+  font-size:clamp(22px,2vw,28px);line-height:1.08;color:var(--text);text-align:center;
 }
 /* Wavy Section Transition between WORK and ABOUT */
 .sec-wave-transition{
@@ -1233,7 +1233,7 @@ html[data-theme="dark"] .hero .btn-primary{background:#f7f2e8;color:#141412}
 }
 /* ============ about 3D sector coverflow ============ */
 .about-sectors-wrapper{
-  margin-top:clamp(18px,2.5vw,32px);
+  margin-top:8px;
   width:100%;
   position:relative;
   user-select:none;
@@ -1299,7 +1299,7 @@ html[data-theme="dark"] .hero .btn-primary{background:#f7f2e8;color:#141412}
 @media (max-width:640px){
   .about-title-mobile-break{display:block}
   .about{overflow-x:clip}
-  .about-sectors-wrapper{overflow:visible}
+  .about-sectors-wrapper{overflow:visible;margin-top:24px}
   .about-sectors-stage{
     height:clamp(286px,84vw,338px);
     padding:12px 0 36px;

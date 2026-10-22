@@ -1,12 +1,5 @@
 (function(){
   'use strict';
-  /* Keep legacy /#contact links working by routing them to the dedicated
-     contact document before the homepage can flash. */
-  if ((window.location.pathname === '/' || /\/index\.html$/i.test(window.location.pathname || '')) &&
-      window.location.hash === '#contact') {
-    window.location.replace('/contact');
-    return;
-  }
   var root = document.documentElement;
   root.setAttribute('data-theme', 'dark');
   try {
@@ -18,7 +11,7 @@
     var link = e.target.closest ? e.target.closest('a[data-route-page]') : null;
     if (!link) link = e.target.closest ? e.target.closest('a.logo') : null;
     if (!link && !document.body.classList.contains('home')) link = e.target.closest ? e.target.closest('a[href^="/#"]') : null;
-    if (!link) return;
+    if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var page = link.getAttribute('data-route-page');
     if (!page && link.classList.contains('logo') && !document.body.classList.contains('home')) page = 'index.html#top';
     if (!page && !document.body.classList.contains('home') && link.getAttribute('href')) page = 'index.html' + link.getAttribute('href').slice(1);

@@ -22,11 +22,12 @@
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/main.css?v=20261002-retro-ctas">
 <link rel="stylesheet" href="/assets/css/leanked.css?v=20261003-hero-type-bold">
-<script src="/assets/js/site-preferences.js?v=20261002-4"></script>
-<script type="module" src="/assets/js/leanked.mjs?v=20261002-9"></script>
+<script src="/assets/js/site-preferences.js?v=20261022-booking"></script>
+<script type="module" src="/assets/js/leanked.mjs?v=20261022-halftone"></script>
+<link rel="stylesheet" href="/assets/css/halftone-footer.css?v=20261022-4">
 </head>
 <body class="contact-page partnership-page">
 <a class="partnership-skip" href="#partnership" data-partner="skip">Saltar para o conteúdo</a>
@@ -39,14 +40,14 @@
     <nav aria-label="navegação principal"><ul class="nav-links"><li><a href="/#our-approach" data-partner="navApproach">abordagem</a></li><li><a href="/#how-we-intervene" data-partner="navIntervene">modelo</a></li><li><a href="/#use-cases" data-partner="navWork">trabalho</a></li><li><a href="/#about" data-partner="navAbout">sobre</a></li></ul></nav>
     <div class="nav-right">
       <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch to English"><span data-lang-option="pt">PT</span><span class="sep">/</span><span data-lang-option="en">EN</span></button>
-      <a class="btn btn-primary desktop-contact home-contact-cta" href="/contact" aria-label="Contactar">
+      <a class="btn btn-primary desktop-contact home-contact-cta" href="/#contact" aria-label="Contactar">
         <img src="/assets/img/contactsymbol.png" alt="" aria-hidden="true" width="1584" height="396">
         <span data-partner="navContact">contactar</span>
       </a>
       <button class="nav-burger" id="navBurger" type="button" aria-label="abrir menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
     </div>
   </div>
-  <div class="mobile-menu" id="mobileMenu" inert><nav class="mobile-links" aria-label="navegação mobile"><a href="/#our-approach" data-partner="navApproach">abordagem</a><a href="/#how-we-intervene" data-partner="navIntervene">modelo</a><a href="/#use-cases" data-partner="navWork">trabalho</a><a href="/#about" data-partner="navAbout">sobre</a></nav><div class="mobile-actions"><a class="btn btn-primary" href="/contact" data-partner="talkToUs">Falar connosco</a></div></div>
+  <div class="mobile-menu" id="mobileMenu" inert><nav class="mobile-links" aria-label="navegação mobile"><a href="/#our-approach" data-partner="navApproach">abordagem</a><a href="/#how-we-intervene" data-partner="navIntervene">modelo</a><a href="/#use-cases" data-partner="navWork">trabalho</a><a href="/#about" data-partner="navAbout">sobre</a></nav><div class="mobile-actions"><a class="btn btn-primary" href="/#contact" data-partner="talkToUs">Falar connosco</a></div></div>
 </header>
 <main id="partnership">
 <section class="partnership-hero" aria-labelledby="partnershipTitle">
@@ -83,43 +84,47 @@
 </section>
 <section class="partnership-closing partnership-section">
 <h2 data-partner="closing">Da excelência operacional à vantagem tecnológica.</h2>
-<a class="btn btn-primary retro-button" href="/contact"><span data-partner="cta">Falar connosco →</span></a>
+<a class="btn btn-primary retro-button" href="/#contact"><span data-partner="cta">Falar connosco →</span></a>
 
 </section>
 </div>
 </main>
-<footer class="footer" id="contact">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <pre class="ascii-logo" id="asciiLogo" aria-hidden="true"></pre>
-        <span class="footer-word"><span>Vouga</span><em>Agency</em></span>
-      </div>
-      <div class="footer-cols">
-        <div class="f-col footer-contact">
-          <h2 class="footer-talk"><span data-partner="footerFirst">Vamos</span><em data-partner="footerSecond">conversar</em></h2>
-          <p><a href="mailto:contacto@vouga-agency.pt">contacto@vouga-agency.pt</a></p>
-        </div>
-        <div class="f-col footer-socials">
-          <div class="f-social">
-            <a href="https://www.linkedin.com/company/vougagency/" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.1h4.56V23H.22V8.1zM8.34 8.1h4.37v2.03h.06c.61-1.15 2.1-2.37 4.32-2.37 4.62 0 5.47 3.04 5.47 7v8.24h-4.55v-7.3c0-1.74-.03-3.98-2.42-3.98-2.43 0-2.8 1.9-2.8 3.86V23H8.34V8.1z"/></svg>
-            </a>
-            <a href="https://x.com/VougaAgency" aria-label="X"><span aria-hidden="true">X</span></a>
-            <a href="https://www.instagram.com/vouga.agency/" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
+<footer class="hwf-root" data-halftone-footer>
+    <canvas aria-hidden="true"></canvas>
+    <span class="hwf-word-fallback">VOUGA</span>
+    <div class="hwf-links">
+    <div class="hwf-top">
+      <div class="hwf-brand"><strong>Vouga Agency</strong><span>© 2026 · Engineered in Porto.</span></div>
+      <nav class="hwf-col" aria-labelledby="hwfExplore">
+        <h3 id="hwfExplore" data-hwf-copy="explore">Explorar</h3>
+        <ul>
+          <li><a href="/#use-cases" data-hwf-copy="work">Trabalho</a></li>
+          <li><a href="/#our-approach" data-hwf-copy="approach">Abordagem</a></li>
+          <li><a href="/#about" data-hwf-copy="about">Sobre</a></li>
+        </ul>
+      </nav>
+      <nav class="hwf-col" aria-labelledby="hwfFollow">
+        <h3 id="hwfFollow" data-hwf-copy="follow">Siga-nos</h3>
+        <ul>
+          <li><a href="https://www.linkedin.com/company/vougagency/">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/vouga.agency/">Instagram</a></li>
+          <li><a href="https://x.com/VougaAgency">X</a></li>
+        </ul>
+      </nav>
+      <nav class="hwf-col hwf-contact" aria-labelledby="hwfContact">
+        <h3 id="hwfContact" data-hwf-copy="contact">Contacto</h3>
+        <ul>
+          <li><a href="mailto:contacto@vouga-agency.pt">contacto@vouga-agency.pt</a></li>
+          <li><a href="/#contact" data-hwf-copy="book">Marcar uma conversa</a></li>
+        </ul>
+      </nav>
     </div>
-    <p class="footer-motto">understand, before building.</p>
-    <div class="footer-bottom">
-      <span>Copyright © 2026 Vouga Agency</span>
-      <span class="site-signature">Engineered in Porto.</span>
-      <span><a href="/privacy.html" data-partner="privacy">Privacidade</a> · <a href="/terms.html" data-partner="terms">Termos</a></span>
+    <div class="hwf-rule">
+      <div class="hwf-legal"><a href="/privacy.html" data-hwf-copy="privacy">Privacidade</a><a href="/terms.html" data-hwf-copy="terms">Termos</a></div>
+      <a class="hwf-up" href="#top" data-hwf-copy="top">Voltar ao topo ↑</a>
     </div>
-  </div>
+    </div>
 </footer>
+<script src="/assets/js/halftone-footer.js?v=20261022-10" defer></script>
 </body>
 </html>

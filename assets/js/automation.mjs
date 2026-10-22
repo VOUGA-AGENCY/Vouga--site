@@ -1,5 +1,5 @@
 import { numberValue, validateAnalysis, formatWhole, annualOccurrences } from './automation-math.mjs';
-import './footer-ascii.mjs';
+
 import './automation-ascii.mjs';
 
 const $ = id => document.getElementById(id);
