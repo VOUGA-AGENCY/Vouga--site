@@ -612,6 +612,33 @@
       next: 'Next step', apply: 'Apply this system'
     }
   };
+  // Short labels and optional bar values for the "Market evidence" cards,
+  // in the same order as each case's `evidence` list.
+  // Comparison stats ("X% vs. Y%") take two labels; bars use the numbers themselves.
+  var SIZE_LABELS = {pt: ['Pequenas', 'Grandes'], en: ['Small', 'Large']};
+  var EVIDENCE_META = {
+    "centro-operacoes-industriais": [
+      {pt: 'empresas UE', en: 'EU enterprises', bar: 53}, SIZE_LABELS, SIZE_LABELS
+    ],
+    "sistema-comercial-orcamentacao": [
+      {pt: 'produtividade comercial', en: 'sales productivity', bar: [3, 5]}, SIZE_LABELS
+    ],
+    "sistema-conhecimento-tecnico": [
+      {pt: 'mais rapidez', en: 'faster', bar: 29},
+      {pt: 'utilizadores', en: 'users', bar: 75},
+      {pt: 'fabricantes', en: 'manufacturers', bar: 40}
+    ],
+    "motor-normalizacao-dados": [
+      {pt: 'COOs', en: 'COOs', bar: 43},
+      {pt: 'organizações', en: 'organizations', bar: 25},
+      {pt: 'organizações', en: 'organizations', bar: 7}
+    ],
+    "inteligencia-operacional": [
+      {pt: 'capacidade back-office', en: 'back-office capacity', bar: 15},
+      {pt: 'throughput', en: 'throughput', bar: 10},
+      {pt: 'custos', en: 'costs', bar: 5}
+    ]
+  };
   var WORK_CASES = {
     "centro-operacoes-industriais": {
       index: "01", image: "assets/img/11.webp",
@@ -923,6 +950,14 @@
       : 'Fragmented sources (' + sources.join(', ') + ') connected through ' + systemFlow.core + ' to ' + outputs.join(', ') + '.');
     queueWorkSchematicReveal(root);
   }
+  // Thin track with a filled segment from `from`% to `to`% (0–100 scale).
+  function makeRangeBar(className, from, to){
+    var bar = document.createElement('span');
+    bar.className = className;
+    bar.style.setProperty('--from', Math.max(0, Math.min(from, 100)) + '%');
+    bar.style.setProperty('--w', Math.max(0, Math.min(to, 100) - Math.max(0, from)) + '%');
+    return bar;
+  }
   function renderWorkCase(slug){
     var item = WORK_CASES[slug];
     if (!item || !workDetailPage) return false;
@@ -953,22 +988,55 @@
     var evidenceGrid = document.getElementById('workEvidenceGrid');
     if (evidenceGrid) {
       evidenceGrid.textContent = '';
-      copy.evidence.forEach(function(evidence){
+      copy.evidence.forEach(function(evidence, evidenceIndex){
         var link = document.createElement('a');
         link.className = 'work-evidence-card';
         link.href = evidence.url;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         link.setAttribute('aria-label', evidence.stat + ': ' + evidence.copy + ' (' + evidence.source + ')');
-        var stat = document.createElement('strong');
-        stat.textContent = evidence.stat;
+        var meta = ((EVIDENCE_META[slug] || [])[evidenceIndex]) || {};
+        var labelsFor = meta[currentLang] || meta.pt;
+        var parts = evidence.stat.split(/\s*vs\.?\s*/i);
+        var isCompare = parts.length === 2;
+        var figure = document.createElement('div');
+        figure.className = 'work-evidence-figure';
+        var bars = document.createElement('div');
+        bars.className = 'work-evidence-bars';
+        bars.setAttribute('aria-hidden', 'true');
+        var values = isCompare ? parts : [evidence.stat];
+        values.forEach(function(value, i){
+          var tone = i === 0 ? 'is-gap' : 'is-ref';
+          if (i > 0) {
+            var vs = document.createElement('span');
+            vs.className = 'work-evidence-vs';
+            vs.textContent = 'vs.';
+            figure.appendChild(vs);
+          }
+          var wrap = document.createElement('span');
+          wrap.className = 'work-evidence-value ' + tone;
+          var num = document.createElement('strong');
+          num.textContent = value;
+          wrap.appendChild(num);
+          var label = isCompare ? (labelsFor && labelsFor[i]) : labelsFor;
+          if (label) {
+            var small = document.createElement('small');
+            small.textContent = label;
+            wrap.appendChild(small);
+          }
+          figure.appendChild(wrap);
+          var range = isCompare ? [0, parseFloat(value)] : meta.bar;
+          if (typeof range === 'number') range = [0, range];
+          if (range && range[1] > 0) bars.appendChild(makeRangeBar('work-evidence-bar ' + tone, range[0], range[1]));
+        });
+        if (isCompare) link.classList.add('is-compare');
         var desc = document.createElement('span');
         desc.className = 'work-evidence-copy';
         desc.textContent = evidence.copy;
         var source = document.createElement('span');
         source.className = 'work-evidence-source';
         source.textContent = evidence.source + ' ↗';
-        link.appendChild(stat); link.appendChild(desc); link.appendChild(source);
+        link.appendChild(figure); link.appendChild(bars); link.appendChild(desc); link.appendChild(source);
         evidenceGrid.appendChild(link);
       });
     }
@@ -983,14 +1051,39 @@
     var outcomesGrid = document.getElementById('workOutcomesGrid');
     if (outcomesGrid) {
       outcomesGrid.textContent = '';
-      (copy.outcomes || []).forEach(function(outcome){
+      var outcomes = copy.outcomes || [];
+      outcomes.forEach(function(outcome, i){
         var card = document.createElement('article');
         card.className = 'work-outcome-card';
+        var index = document.createElement('span');
+        index.className = 'work-outcome-index';
+        index.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(outcomes.length).padStart(2, '0');
         var stat = document.createElement('strong');
-        stat.textContent = outcome.stat;
+        stat.className = 'work-outcome-stat';
+        stat.setAttribute('aria-label', outcome.stat);
+        // "~50/80%" or "~50–80%" → "~" + "50–80" + "%", plus a bar showing the target range.
+        var match = /^(~?)\s*(\d+)\s*[\/–-]\s*(\d+)\s*%$/.exec(outcome.stat);
+        var scale = document.createElement('div');
+        scale.className = 'work-outcome-scale';
+        scale.setAttribute('aria-hidden', 'true');
+        if (match) {
+          stat.innerHTML = (match[1] ? '<span class="work-outcome-approx">~</span>' : '') +
+            match[2] + '<span class="work-outcome-sep">–</span>' + match[3] +
+            '<span class="work-outcome-pct">%</span>';
+          scale.appendChild(makeRangeBar('work-outcome-bar', Number(match[2]), Number(match[3])));
+          var ticks = document.createElement('span');
+          ticks.className = 'work-outcome-ticks';
+          ticks.innerHTML = '<span>0</span><span>100%</span>';
+          scale.appendChild(ticks);
+        } else {
+          stat.textContent = outcome.stat;
+        }
         var desc = document.createElement('span');
+        desc.className = 'work-outcome-copy';
         desc.textContent = outcome.copy;
+        card.appendChild(index);
         card.appendChild(stat);
+        card.appendChild(scale);
         card.appendChild(desc);
         outcomesGrid.appendChild(card);
       });

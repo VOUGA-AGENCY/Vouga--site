@@ -1605,15 +1605,17 @@ body.work-detail-open .footer{margin-top:0}
   display:block;
   color:var(--accent);
   font-family:var(--font-mono);
-  font-size:9px;
+  font-size:clamp(13px,1.05vw,15px);
+  font-weight:500;
   line-height:1.3;
-  letter-spacing:.15em;
+  letter-spacing:.18em;
   text-transform:uppercase;
+  -webkit-text-stroke:.3px currentColor;
 }
 .work-detail-story h2,
 .work-detail-section-head h2,
 .work-detail-cta h2{
-  margin-top:20px;
+  margin-top:clamp(16px,1.5vw,22px);
   font-family:var(--font-sans);
   font-size:clamp(34px,3.5vw,54px);
   font-weight:500;
@@ -1754,31 +1756,81 @@ body.work-detail-open .footer{margin-top:0}
   border-top:1px solid rgba(255,255,255,.16);
   border-bottom:1px solid rgba(255,255,255,.16);
 }
+/* Each card spans 4 shared rows (figure, bars, copy, source) so the copy
+   and the source line up across the row. */
 .work-evidence-card{
   min-width:0;
-  min-height:300px;
+  grid-row:span 4;
+  display:grid;
+  grid-template-rows:subgrid;
+  row-gap:0;
   padding:clamp(26px,3vw,40px);
-  display:flex;
-  flex-direction:column;
   color:inherit;
   text-decoration:none;
   border-right:1px solid rgba(255,255,255,.16);
   transition:background-color .3s ease,color .3s ease;
 }
 .work-evidence-card:last-child{border-right:0}
-.work-evidence-card strong{
-  max-width:100%;
+/* The figure is the size container (not the card: containment would turn off subgrid). */
+.work-evidence-figure{
+  display:flex;
+  align-items:flex-start;
+  gap:clamp(10px,1.2vw,18px);
+  min-width:0;
+  container-type:inline-size;
+}
+.work-evidence-value{display:flex;flex-direction:column;gap:10px;min-width:0}
+.work-evidence-value strong{
   color:var(--accent);
   font-family:var(--font-sans);
-  font-size:clamp(36px,3vw,50px);
+  font-size:clamp(30px,17cqi,50px);
   font-weight:500;
   line-height:.95;
   letter-spacing:-.055em;
-  overflow-wrap:anywhere;
+  white-space:nowrap;
 }
+.work-evidence-value.is-ref strong{color:rgba(236,232,222,.86)}
+.work-evidence-value small{
+  color:rgba(236,232,222,.62);
+  font-family:var(--font-mono);
+  font-size:11px;
+  line-height:1.35;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.work-evidence-vs{
+  padding-top:clamp(10px,5cqi,18px);
+  color:rgba(236,232,222,.36);
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.08em;
+}
+.work-evidence-bars{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:22px;
+}
+.work-evidence-bars:empty{margin-top:0}
+.work-evidence-bar{
+  position:relative;
+  display:block;
+  height:2px;
+  background:rgba(255,255,255,.15);
+}
+.work-evidence-bar::after{
+  content:'';
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:var(--from,0%);
+  width:max(3px,var(--w,0%));
+  background:var(--accent);
+}
+.work-evidence-bar.is-ref::after{background:rgba(236,232,222,.7)}
 .work-evidence-copy{
   max-width:28ch;
-  margin-top:26px;
+  margin-top:22px;
   color:rgba(236,232,222,.76);
   font-size:13px;
   line-height:1.5;
@@ -1786,7 +1838,7 @@ body.work-detail-open .footer{margin-top:0}
 }
 .work-evidence-source{
   max-width:100%;
-  margin-top:auto;
+  align-self:end;
   padding-top:32px;
   color:rgba(236,232,222,.48);
   font-family:var(--font-mono);
@@ -1836,30 +1888,72 @@ body.work-detail-open .footer{margin-top:0}
   gap:clamp(8px,1vw,16px);
   margin-top:clamp(52px,6vw,76px);
 }
+/* Cards share 4 rows (index, number, range bar, copy) so everything lines up. */
 .work-outcome-card{
+  position:relative;
   min-width:0;
-  min-height:230px;
-  padding:clamp(28px,3vw,42px);
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  gap:36px;
-  overflow:hidden;
-  background:rgba(255,255,255,.025);
+  grid-row:span 4;
+  display:grid;
+  grid-template-rows:subgrid;
+  row-gap:0;
+  padding:clamp(26px,2.6vw,38px);
+  background:linear-gradient(180deg,rgba(255,90,0,.05),rgba(255,255,255,.02) 46%);
+  border-top:1px solid rgba(255,90,0,.55);
+  transition:background-color .3s ease;
 }
-.work-outcome-card strong{
-  max-width:100%;
+.work-outcome-index{
+  color:rgba(236,232,222,.42);
+  font-family:var(--font-tech);
+  font-size:11px;
+  letter-spacing:.14em;
+}
+.work-outcome-stat{
+  margin-top:clamp(26px,3vw,40px);
   color:var(--accent);
   font-family:var(--font-sans);
-  font-size:clamp(38px,3.2vw,56px);
+  font-size:clamp(34px,3vw,52px);
   font-weight:500;
   line-height:.95;
-  letter-spacing:-.055em;
+  letter-spacing:-.05em;
   white-space:nowrap;
   font-variant-numeric:tabular-nums;
 }
-.work-outcome-card span{
+.work-outcome-approx{
+  margin-right:.06em;
+  color:rgba(236,232,222,.4);
+  font-size:.62em;
+  vertical-align:.32em;
+}
+.work-outcome-sep{margin:0 .04em;color:rgba(255,90,0,.6)}
+.work-outcome-pct{margin-left:.04em;font-size:.6em;vertical-align:.5em;letter-spacing:0}
+.work-outcome-scale{margin-top:24px}
+.work-outcome-bar{
+  position:relative;
+  display:block;
+  height:2px;
+  background:rgba(255,255,255,.15);
+}
+.work-outcome-bar::after{
+  content:'';
+  position:absolute;
+  top:-2px;
+  bottom:-2px;
+  left:var(--from,0%);
+  width:max(3px,var(--w,0%));
+  background:var(--accent);
+}
+.work-outcome-ticks{
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
+  color:rgba(236,232,222,.34);
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:.08em;
+}
+.work-outcome-copy{
   max-width:30ch;
+  margin-top:24px;
   color:rgba(236,232,222,.78);
   font-size:14px;
   line-height:1.5;
@@ -1918,40 +2012,38 @@ body.work-detail-open .footer{margin-top:0}
   .work-detail-list--build{margin-top:34px!important}
   .work-detail-list{margin-top:28px}
   .work-detail-evidence{padding:72px 0}
+  .work-detail-label{font-size:13px}
   .work-evidence-grid{
-    grid-template-columns:repeat(3,minmax(124px,1fr));
+    grid-template-columns:1fr;
     gap:8px;
     margin-top:42px;
     border:0;
-    overflow-x:auto;
-    overscroll-behavior-inline:contain;
-    scrollbar-width:none;
   }
-  .work-evidence-grid::-webkit-scrollbar{display:none}
   .work-evidence-card{
-    min-height:250px;
-    padding:18px 12px;
+    grid-row:auto;
+    display:flex;
+    flex-direction:column;
+    padding:22px 18px;
     border:0;
     background:rgba(255,255,255,.025);
   }
-  .work-evidence-card strong{font-size:clamp(22px,7vw,30px);line-height:1}
-  .work-evidence-copy{margin-top:18px;font-size:10px;line-height:1.4}
-  .work-evidence-source{padding-top:20px;font-size:7px;line-height:1.35;letter-spacing:.05em}
+  .work-evidence-value strong{font-size:clamp(34px,13cqi,44px)}
+  .work-evidence-bars{margin-top:18px}
+  .work-evidence-bars:empty{display:none}
+  .work-evidence-copy{max-width:none;margin-top:18px;font-size:13px;line-height:1.5}
+  .work-evidence-source{align-self:flex-start;margin-top:auto;padding-top:18px;font-size:9px;line-height:1.4;letter-spacing:.08em}
   .work-detail-measures{padding:72px 0}
   .work-detail-measures-grid{grid-template-columns:1fr;gap:42px}
   .work-detail-outcomes{padding:72px 0}
   .work-outcomes-grid{
-    grid-template-columns:repeat(3,minmax(124px,1fr));
+    grid-template-columns:1fr;
     gap:8px;
     margin-top:42px;
-    overflow-x:auto;
-    overscroll-behavior-inline:contain;
-    scrollbar-width:none;
   }
-  .work-outcomes-grid::-webkit-scrollbar{display:none}
-  .work-outcome-card{min-height:182px;padding:16px 10px;gap:20px}
-  .work-outcome-card strong{font-size:clamp(18px,5.2vw,22px);letter-spacing:-.045em}
-  .work-outcome-card span{font-size:9px;line-height:1.38}
+  .work-outcome-card{grid-row:auto;display:flex;flex-direction:column;padding:22px 18px}
+  .work-outcome-stat{margin-top:20px;font-size:clamp(36px,11vw,46px)}
+  .work-outcome-scale{margin-top:18px}
+  .work-outcome-copy{max-width:none;margin-top:18px;font-size:13px}
   .work-detail-cta{padding:76px 0 104px}
   .work-detail-cta-row{grid-template-columns:1fr;gap:38px}
   .work-detail-cta h2{font-size:clamp(40px,11vw,54px)}
