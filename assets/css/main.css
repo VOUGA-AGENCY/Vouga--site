@@ -484,6 +484,17 @@ html[data-theme="dark"] .hero .btn-primary{background:#f7f2e8;color:#141412}
 .why-card-source{
   margin-top:10px;font-size:clamp(10.5px,0.8vw,12px);letter-spacing:.02em;color:var(--why-dim);opacity:0.55;transition:opacity .2s ease,color .2s ease;
 }
+/* Comparison stat: SME number in white, large-company number softer, group tag under each number. */
+.why-card-stat:has(.why-stat-item){display:flex;align-items:flex-start;gap:.3em}
+.why-desktop-only .why-card-stat:has(.why-stat-item) + .why-card-copy{margin-top:12px}
+.why-stat-item{display:flex;flex-direction:column;align-items:flex-start}
+.why-stat-item--large .why-stat-num{color:color-mix(in srgb,var(--why-text) 55%,transparent)}
+.why-stat-vs{color:color-mix(in srgb,var(--why-text) 55%,transparent);font-weight:400}
+/* Zero width: the tag hangs under its number without pushing "vs." sideways. */
+.why-stat-tag{
+  width:0;overflow:visible;margin-top:6px;font-size:clamp(11px,0.8vw,12px);font-weight:500;line-height:1.2;letter-spacing:.02em;
+  color:var(--why-dim);white-space:nowrap;
+}
 .why-v2-footer{
   margin-top:clamp(32px,4vw,48px);text-align:center;padding:0 16px;
 }
@@ -525,6 +536,17 @@ html[data-theme="dark"] .hero .btn-primary{background:#f7f2e8;color:#141412}
   .why-card-stat{font-size:clamp(16px,4.4vw,22px)!important;font-weight:600!important;line-height:1.1;letter-spacing:-.02em;white-space:nowrap}
   .why-card-copy{margin-top:6px;margin-bottom:auto;font-size:clamp(9.5px,2.7vw,12px);line-height:1.3;max-width:none}
   .why-card-source{margin-top:6px;font-size:clamp(8px,2.2vw,10.5px);letter-spacing:0;opacity:0.55;white-space:nowrap}
+  /* Digital Foundations on mobile: one card per row, numbers on the left, indicator and source on the right. */
+  .why-group-cards-stack{grid-template-columns:minmax(0,1fr)}
+  .why-group-cards-stack .why-card{
+    aspect-ratio:auto;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;
+    column-gap:clamp(16px,5vw,28px);row-gap:6px;align-items:start;padding:16px clamp(12px,4vw,18px);
+  }
+  .why-group-cards-stack .why-card + .why-card{border-left:0;border-top:1px solid var(--why-line)}
+  .why-group-cards-stack .why-card-stat{grid-column:1;grid-row:1 / span 2;width:6.4em;font-size:clamp(20px,6vw,24px)!important}
+  .why-group-cards-stack .why-card-copy{grid-column:2;grid-row:1;margin:2px 0 0;font-size:13px;line-height:1.35}
+  .why-group-cards-stack .why-card-source{grid-column:2;grid-row:2;margin-top:0;font-size:11px}
+  .why-stat-tag{margin-top:5px;font-size:11px}
   .why-v2-footer{margin-top:28px;padding:0 12px}
   .why-v2-quote{font-size:clamp(14px,3.8vw,16.5px);line-height:1.4;text-align:center}
 }
